@@ -1,3 +1,5 @@
+package GUI;
+
 
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.UIManager;
@@ -46,7 +48,6 @@ public class pilihLapangan extends javax.swing.JFrame {
         jButton13 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(522, 376));
 
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.Y_AXIS));
 
