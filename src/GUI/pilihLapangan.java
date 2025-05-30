@@ -16,6 +16,7 @@ import javax.swing.UIManager;
 public class pilihLapangan extends javax.swing.JFrame {
     String idLapangan;
     public pilihLapangan(String idLapangan){
+        initComponents();
         this.idLapangan = idLapangan;
     }
     /**
