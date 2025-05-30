@@ -22,8 +22,8 @@ public class DAOPengguna {
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     return new Pengguna(
-                        rs.getString("id"),
-                        rs.getString("no_telp"),
+                        rs.getString("id_Pengguna"),
+                        rs.getString("no_hp"),
                         rs.getString("email"),
                         rs.getString("Username"),
                         rs.getString("Jenis_langganan"),
