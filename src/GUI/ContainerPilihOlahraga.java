@@ -16,6 +16,7 @@ public class ContainerPilihOlahraga extends javax.swing.JFrame {
      */
     public ContainerPilihOlahraga() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

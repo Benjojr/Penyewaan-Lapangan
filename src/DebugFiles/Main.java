@@ -3,6 +3,7 @@ package DebugFiles;
 
 import ClassDAO.*;
 import MainClass.*;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,20 +16,20 @@ public class Main {
         // System.out.println(p1.getNo_telp());
 
         DAOBookingDetail bd1 = new DAOBookingDetail();
-        Booking detail = bd1.getBookingDetail("b0001");
-        if (detail != null) {
-            System.out.println("ID Booking: " + detail.getId_booking());
-            System.out.println("Username: " + detail.getPengguna().getUserName());
-            System.out.println("Lapangan: " + detail.getLapangan().getNama_lapangan());
-            System.out.println("Lokasi: " + detail.getLapangan().getLokasi());
-            System.out.println("Harga: " + detail.getLapangan().getHarga());
-            System.out.println("Olahraga: " + detail.getLapangan().getOlahraga().getNama_olahraga());
-            System.out.println("Tanggal: " + detail.getJadwal().getTanggal());
-            System.out.println("Jam Mulai: " + detail.getJadwal().getJam_Mulai());
-            System.out.println("Jam Selesai: " + detail.getJadwal().getJam_Selesai());
+        List<Booking> detail = bd1.getBookingDetail("p0001");
+
+        if (detail != null && !detail.isEmpty()) {
+            for (Booking booking : detail) {
+                System.out.println("Booking ID: " + booking.getId_booking());
+                System.out.println("Username: " + booking.getPengguna().getUserName());
+                System.out.println("Lapangan: " + booking.getLapangan().getOlahraga().getNama_olahraga());
+                System.out.println("Tanggal: " + booking.getJadwal().getTanggal());
+                System.out.println("Jam Mulai: " + booking.getJadwal().getJam_Mulai());
+                System.out.println("Jam Selesai: " + booking.getJadwal().getJam_Selesai());
+                System.out.println("------------------------");
+            }
         } else {
             System.out.println("No booking details found for the user.");
         }
-        
     }
 }
