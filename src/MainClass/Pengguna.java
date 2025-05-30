@@ -65,8 +65,4 @@ public class Pengguna {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    
-    
-    
 }

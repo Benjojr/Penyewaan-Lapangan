@@ -4,18 +4,21 @@
  */
 package ClassDAO;
 
-import MainClass.*;
-import java.util.ArrayList;
-import java.sql.*;
 import ConnectionClass.*;
+import MainClass.*;
+import java.sql.*;
 
 public class DAOPengguna {
-    DatabaseConnection dc = new DatabaseConnection();
+    // Removed instance since getConnection is static
     
-    public Pengguna Load(String id) {
-        String sql = "SELECT * FROM users WHERE id = "+id;
-        try (Connection conn = dc.getConnection();PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, id);
+        public Pengguna Load(String id) {
+        String sql = "SELECT * FROM users WHERE id = ?";
+        try (
+            Connection conn = DatabaseConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)
+        ) {
+            stmt.setString(1, id); // Set nilai id dengan placeholder untuk menghindari SQL Injection
+
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     return new Pengguna(
@@ -23,18 +26,14 @@ public class DAOPengguna {
                         rs.getString("no_telp"),
                         rs.getString("email"),
                         rs.getString("Username"),
-                        rs.getString("Jenis_lapangan"),
+                        rs.getString("Jenis_langganan"),
                         rs.getString("password")
                     );
                 }
             }
-        } catch(Exception e) {
-            System.out.println(e.getMessage());
+        } catch (SQLException e) {
+            System.out.println("Error executing query: " + e.getMessage());
         }
         return null;
     }
-    
-    
-    
-    
 }
