@@ -16,6 +16,7 @@ public class DashboardLapangan extends javax.swing.JFrame {
      */
     public DashboardLapangan() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

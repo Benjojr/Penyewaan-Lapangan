@@ -16,6 +16,7 @@ public class Checkout extends javax.swing.JFrame {
      */
     public Checkout() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

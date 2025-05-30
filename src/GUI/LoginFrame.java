@@ -2,7 +2,12 @@ package GUI;
 
 import MainClass.*;
 import ClassDAO.*;
+
+import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
 public class LoginFrame extends javax.swing.JFrame {
     DAOPengguna daouser = new DAOPengguna();
@@ -10,6 +15,7 @@ public class LoginFrame extends javax.swing.JFrame {
     
     public LoginFrame() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     
@@ -131,29 +137,55 @@ public class LoginFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_usrTFieldActionPerformed
 
-    private void LoginbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginbtnActionPerformed
+    private void LoginbtnActionPerformed(java.awt.event.ActionEvent evt) {
         String username = usrTField.getText();
         String password = new String(pswdTField.getPassword());
-        
-        penggunaSaatIni = daouser.LoadSome(username);
-        
-        if (penggunaSaatIni!=null) {
-            if(password.equals(penggunaSaatIni.getPassword())){
-                Dashboard dsb = new Dashboard(penggunaSaatIni);
-                JOptionPane.showMessageDialog(null, "Login Berhasil.", "Information",JOptionPane.INFORMATION_MESSAGE);
-                dsb.setVisible(true);
-                this.dispose();
 
+        // Buat loading dialog
+        JDialog loading = new JDialog(this, "Loading", true);
+        JLabel loadingLabel = new JLabel("🔃 Loading...", SwingConstants.CENTER);
+        loading.setUndecorated(true);
+        loading.add(loadingLabel);
+        loading.setSize(200, 100);
+        loading.setLocationRelativeTo(this);
+
+        // Tampilkan loading di thread lain (agar tidak blok)
+        SwingUtilities.invokeLater(() -> loading.setVisible(true));
+
+        // Jalankan login di thread terpisah
+        new Thread(() -> {
+            try { Thread.sleep(1000); } catch (InterruptedException e) {}
+
+            penggunaSaatIni = daouser.LoadSome(username);
+
+            // Tutup loading dialog (harus di EDT juga)
+            SwingUtilities.invokeLater(() -> loading.dispose());
+
+            if (penggunaSaatIni != null) {
+                if (password.equals(penggunaSaatIni.getPassword())) {
+                    SwingUtilities.invokeLater(() -> {
+                        JOptionPane.showMessageDialog(null, "Login Berhasil.", "Info", JOptionPane.INFORMATION_MESSAGE);
+                        Dashboard dsb = new Dashboard(penggunaSaatIni);
+                        dsb.setVisible(true);
+                        this.dispose();
+                    });
+                } else {
+                    SwingUtilities.invokeLater(() -> {
+                        JOptionPane.showMessageDialog(null, "Password salah.", "Info", JOptionPane.INFORMATION_MESSAGE);
+                        pswdTField.setText("");
+                    });
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "Password salah.", "Information",JOptionPane.INFORMATION_MESSAGE);
-                pswdTField.setText("");
+                SwingUtilities.invokeLater(() -> {
+                    JOptionPane.showMessageDialog(null, "Username tidak ditemukan.", "Info", JOptionPane.INFORMATION_MESSAGE);
+                    usrTField.setText("");
+                    pswdTField.setText("");
+                });
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Username ditemukan.", "Information",JOptionPane.INFORMATION_MESSAGE);
-            usrTField.setText("");
-            pswdTField.setText("");
-        }
-    }//GEN-LAST:event_LoginbtnActionPerformed
+        }).start();
+    }
+
+//GEN-LAST:event_LoginbtnActionPerformed
 
     private void CreatbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreatbtnActionPerformed
         BuatAkun create = new BuatAkun();

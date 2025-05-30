@@ -16,6 +16,7 @@ public class buyLangganan extends javax.swing.JFrame {
      */
     public buyLangganan() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

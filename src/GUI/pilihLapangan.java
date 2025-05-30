@@ -20,6 +20,7 @@ public class pilihLapangan extends javax.swing.JFrame {
      */
     public pilihLapangan() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
