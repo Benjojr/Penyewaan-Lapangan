@@ -3,11 +3,23 @@ package MainClass;
 
 public class Booking {
     private String id_booking;
-    private String id_Pengguna;
+    private Pengguna pengguna;
+    private Jadwal jadwal;
+    private Lapangan lapangan;
 
-    public Booking(String id_booking, String id_Pengguna) {
+    public Booking(String id_booking, Pengguna id_Pengguna, Jadwal jadwal, Lapangan lapangan) {
         this.id_booking = id_booking;
-        this.id_Pengguna = id_Pengguna;
+        this.pengguna = id_Pengguna;
+        this.jadwal = jadwal;
+        this.lapangan = lapangan;
+    }
+
+    public Booking(){
+
+        this.pengguna = new Pengguna();
+        this.jadwal = new Jadwal();
+        this.lapangan = new Lapangan();
+
     }
 
     public String getId_booking() {
@@ -18,11 +30,29 @@ public class Booking {
         this.id_booking = id_booking;
     }
 
-    public String getId_Pengguna() {
-        return id_Pengguna;
+    public Pengguna getPengguna() {
+        return pengguna;
     }
 
-    public void setId_Pengguna(String id_Pengguna) {
-        this.id_Pengguna = id_Pengguna;
+    public void setPengguna(Pengguna id_Pengguna) {
+        this.pengguna = id_Pengguna;
     }
+
+    public Jadwal getJadwal() {
+        return jadwal;
+    }
+
+    public void setJadwal(Jadwal jadwal) {
+        this.jadwal = jadwal;
+    }
+
+    public Lapangan getLapangan() {
+        return lapangan;
+    }
+
+    public void setLapangan(Lapangan lapangan) {
+        this.lapangan = lapangan;
+    }
+
+    
 }
