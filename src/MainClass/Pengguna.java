@@ -16,7 +16,9 @@ public class Pengguna {
     this.email = email;
     this.Jenis_Langganan = Jenis_Langganan;
     this.password = password;
-}
+    }
+
+    public Pengguna(){}
     
     public String getId() {
         return id;
@@ -65,8 +67,4 @@ public class Pengguna {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    
-    
-    
 }
