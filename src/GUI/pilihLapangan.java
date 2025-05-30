@@ -14,13 +14,15 @@ import javax.swing.UIManager;
  * @author benja
  */
 public class pilihLapangan extends javax.swing.JFrame {
-
+    String idLapangan;
+    public pilihLapangan(String idLapangan){
+        this.idLapangan = idLapangan;
+    }
     /**
      * Creates new form pilihLapangan
      */
     public pilihLapangan() {
         initComponents();
-        setLocationRelativeTo(null);
     }
 
     /**
