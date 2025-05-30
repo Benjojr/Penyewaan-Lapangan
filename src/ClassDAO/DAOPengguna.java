@@ -52,6 +52,7 @@ public class DAOPengguna {
                         rs.getString("password")
                     ));
                 }
+                return penggunas;
             }
         } catch(Exception e) {
             System.out.println(e);
