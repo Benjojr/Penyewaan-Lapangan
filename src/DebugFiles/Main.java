@@ -2,14 +2,10 @@
 package DebugFiles;
 
 import ClassDAO.*;
-import MainClass.*;
-
 import GUI.*;
-import java.time.LocalDateTime;
+import MainClass.*;
 import java.time.*;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
-
 import java.util.List;
 
 
@@ -53,12 +49,17 @@ public class Main {
     LocalTime waktu = LocalTime.now();
     
     DAOBookingDetail daobook = new DAOBookingDetail();
-    Booking book1 = daobook.getBookingDetail("b0001");
+    List<Booking> bookings = daobook.getBookingDetail("b0001");
+    Booking book1 = (bookings != null && !bookings.isEmpty()) ? bookings.get(0) : null;
+    if (book1 != null) {
         System.out.println(book1.getJadwal().getIdJadwal());
-    PembayaranFrame pbf = new PembayaranFrame(book1, "Qris");
-    pbf.setVisible(true);
-    
-    Pembayaran pembayaran = new Pembayaran("12312", 20000, true, tanggal,waktu, book1);
+        PembayaranFrame pbf = new PembayaranFrame(book1, "Qris");
+        pbf.setVisible(true);
+
+        Pembayaran pembayaran = new Pembayaran("12312", 20000, true, tanggal, waktu, book1);
+    } else {
+        System.out.println("No booking found with id b0001.");
+    }
     DAOPembayaran daobyr = new DAOPembayaran();
     ArrayList<String> ids = daobyr.LoadAllId();
     
