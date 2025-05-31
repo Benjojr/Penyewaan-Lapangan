@@ -191,8 +191,8 @@ public class BuatAkun extends javax.swing.JFrame {
         String password = new String(pswdTField.getPassword());
         String confirmPass = new String(confirmPswdTField.getPassword());
         
-        if (username==null ||email==null ||no_hp==null ||password==null ||confirmPass==null) {
-            JOptionPane.showMessageDialog(null, "Username ditemukan.", "Information",JOptionPane.INFORMATION_MESSAGE);
+        if (username.equals("") ||email.equals("") ||no_hp.equals("") ||password.equals("") ||confirmPass.equals("")) {
+            JOptionPane.showMessageDialog(null, "Tolong isi semua kolom", "Information",JOptionPane.INFORMATION_MESSAGE);
             usrTField.setText("");
             pswdTField.setText("");
             emailTField.setText("");

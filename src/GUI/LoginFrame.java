@@ -149,7 +149,7 @@ public class LoginFrame extends javax.swing.JFrame {
                 pswdTField.setText("");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Username ditemukan.", "Information",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Username tidak ditemukan.", "Information",JOptionPane.INFORMATION_MESSAGE);
             usrTField.setText("");
             pswdTField.setText("");
         }

@@ -14,8 +14,8 @@ import javax.swing.JOptionPane;
 public class DAOPengguna {
     // Removed instance since getConnection is static
     
-        public Pengguna LoadSome(String id) {
-        String sql = "SELECT * FROM Pengguna WHERE id_Pengguna like '"+id+"'";
+        public Pengguna LoadSome(String username) {
+        String sql = "SELECT * FROM Pengguna WHERE Username like '"+username+"'";
         try (Connection conn = DatabaseConnection.getConnection();PreparedStatement stmt = conn.prepareStatement(sql)) {
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
@@ -76,10 +76,10 @@ public class DAOPengguna {
         }
     }
 
-    public void DeletePengguna(String id) {
-        Pengguna temp = LoadSome(id);
+    public void DeletePengguna(String username) {
+        Pengguna temp = LoadSome(username);
         if(temp!=null) {
-            String sql = "DELETE FROM Pengguna WHERE id_Pengguna like '"+id+"'";
+            String sql = "DELETE FROM Pengguna WHERE Username like '"+username+"'";
             try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)){
                 stmt.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Pengguna telah dihapus.", "Information",JOptionPane.INFORMATION_MESSAGE);

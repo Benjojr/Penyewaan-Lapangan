@@ -148,11 +148,6 @@
           </Events>
         </Component>
         <Component class="javax.swing.JPasswordField" name="pswdTField">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>
