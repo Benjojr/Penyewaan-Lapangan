@@ -53,7 +53,7 @@ public class Main {
     LocalTime waktu = LocalTime.now();
     
     DAOBookingDetail daobook = new DAOBookingDetail();
-    Booking book1 = daobook.getBookingDetail("b0001");
+    Booking book1 = daobook.getBooking("b0001");
         System.out.println(book1.getJadwal().getIdJadwal());
     PembayaranFrame pbf = new PembayaranFrame(book1, "Qris");
     pbf.setVisible(true);
