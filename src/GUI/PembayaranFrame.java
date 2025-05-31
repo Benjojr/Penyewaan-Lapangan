@@ -32,6 +32,7 @@ public class PembayaranFrame extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setFrame();
+        setLocationRelativeTo(null);
     }
     
     private void setFrame() {

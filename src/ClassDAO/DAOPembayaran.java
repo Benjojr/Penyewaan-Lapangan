@@ -5,14 +5,13 @@
 package ClassDAO;
 
 import ConnectionClass.DatabaseConnection;
+import MainClass.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import javax.swing.JOptionPane;
-import MainClass.*;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.time.*;
-import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -53,10 +52,11 @@ public class DAOPembayaran {
                     pembayarans.add( new Pembayaran(
                         rs.getString("kode_Pembayaran"),
                         Double.parseDouble(rs.getString("harga_akhir")),
-                        (rs.getString("status_Pembayaran").equals("1"))?true:false,
+                        (rs.getString("status_Pembayaran").equals("1"))? true : false,
                         LocalDate.parse(rs.getString("Tanggal")),
                         LocalTime.parse(rs.getString("waktu")),
-                        (Booking) daobook.getBookingDetail(rs.getString("id_Booking"))));
+                        daobook.getBooking(rs.getString("id_Booking"))
+                    ));
                 }
                 return pembayarans;
             }
