@@ -117,11 +117,11 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnLapVoli" alignment="1" max="32767" attributes="0"/>
-                          <Component id="btnLapFutsal" alignment="1" max="32767" attributes="0"/>
+                          <Component id="jButton2" alignment="1" max="32767" attributes="0"/>
+                          <Component id="jButton1" alignment="1" max="32767" attributes="0"/>
                           <Component id="jButton4" alignment="1" pref="432" max="32767" attributes="0"/>
-                          <Component id="btnLapBuluTangkis" alignment="1" max="32767" attributes="0"/>
-                          <Component id="btnLapBasket" alignment="0" pref="432" max="32767" attributes="0"/>
+                          <Component id="jButton3" alignment="1" max="32767" attributes="0"/>
+                          <Component id="jButton5" alignment="0" pref="432" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -131,13 +131,13 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                      <Component id="btnLapFutsal" min="-2" pref="70" max="-2" attributes="0"/>
+                      <Component id="jButton1" min="-2" pref="70" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="btnLapVoli" min="-2" pref="69" max="-2" attributes="0"/>
+                      <Component id="jButton2" min="-2" pref="69" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="btnLapBuluTangkis" min="-2" pref="70" max="-2" attributes="0"/>
+                      <Component id="jButton3" min="-2" pref="70" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="btnLapBasket" min="-2" pref="69" max="-2" attributes="0"/>
+                      <Component id="jButton5" min="-2" pref="69" max="-2" attributes="0"/>
                       <EmptySpace pref="14" max="32767" attributes="0"/>
                       <Component id="jButton4" min="-2" pref="69" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
@@ -146,38 +146,29 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="btnLapFutsal">
+            <Component class="javax.swing.JButton" name="jButton1">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="cc" red="99" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Futsal"/>
+                <Property name="text" type="java.lang.String" value="Bulu Tangkis"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLapFutsalActionPerformed"/>
-              </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btnLapVoli">
+            <Component class="javax.swing.JButton" name="jButton2">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="66" green="cc" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Voli"/>
+                <Property name="text" type="java.lang.String" value="Basket"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLapVoliActionPerformed"/>
-              </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btnLapBuluTangkis">
+            <Component class="javax.swing.JButton" name="jButton3">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="cc" green="ff" red="66" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Bulu Tangkis"/>
+                <Property name="text" type="java.lang.String" value="Tenis"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLapBuluTangkisActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButton4">
               <Properties>
@@ -187,16 +178,13 @@
                 <Property name="text" type="java.lang.String" value="Catur"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="btnLapBasket">
+            <Component class="javax.swing.JButton" name="jButton5">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="33" green="33" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Basket"/>
+                <Property name="text" type="java.lang.String" value="Sepak Bola"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLapBasketActionPerformed"/>
-              </Events>
             </Component>
           </SubComponents>
         </Container>

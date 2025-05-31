@@ -1,5 +1,3 @@
-package GUI;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -31,11 +29,11 @@ public class ContainerPilihOlahraga extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        btnLapFutsal = new javax.swing.JButton();
-        btnLapVoli = new javax.swing.JButton();
-        btnLapBuluTangkis = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        btnLapBasket = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -58,40 +56,20 @@ public class ContainerPilihOlahraga extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(246, 246, 246));
         jPanel3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102), null, new java.awt.Color(51, 51, 51)));
 
-        btnLapFutsal.setBackground(new java.awt.Color(153, 204, 0));
-        btnLapFutsal.setText("Futsal");
-        btnLapFutsal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLapFutsalActionPerformed(evt);
-            }
-        });
+        jButton1.setBackground(new java.awt.Color(153, 204, 0));
+        jButton1.setText("Bulu Tangkis");
 
-        btnLapVoli.setBackground(new java.awt.Color(255, 204, 102));
-        btnLapVoli.setText("Voli");
-        btnLapVoli.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLapVoliActionPerformed(evt);
-            }
-        });
+        jButton2.setBackground(new java.awt.Color(255, 204, 102));
+        jButton2.setText("Basket");
 
-        btnLapBuluTangkis.setBackground(new java.awt.Color(102, 255, 204));
-        btnLapBuluTangkis.setText("Bulu Tangkis");
-        btnLapBuluTangkis.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLapBuluTangkisActionPerformed(evt);
-            }
-        });
+        jButton3.setBackground(new java.awt.Color(102, 255, 204));
+        jButton3.setText("Tenis");
 
         jButton4.setBackground(new java.awt.Color(102, 102, 102));
         jButton4.setText("Catur");
 
-        btnLapBasket.setBackground(new java.awt.Color(255, 51, 51));
-        btnLapBasket.setText("Basket");
-        btnLapBasket.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLapBasketActionPerformed(evt);
-            }
-        });
+        jButton5.setBackground(new java.awt.Color(255, 51, 51));
+        jButton5.setText("Sepak Bola");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -100,24 +78,24 @@ public class ContainerPilihOlahraga extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnLapVoli, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnLapFutsal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
-                    .addComponent(btnLapBuluTangkis, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnLapBasket, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE))
+                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(btnLapFutsal, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnLapVoli, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnLapBuluTangkis, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnLapBasket, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
@@ -161,28 +139,6 @@ public class ContainerPilihOlahraga extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnLapFutsalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLapFutsalActionPerformed
-        setIDLapangan("o0001");
-    }//GEN-LAST:event_btnLapFutsalActionPerformed
-
-    private void btnLapBasketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLapBasketActionPerformed
-        setIDLapangan("o0004");
-    }//GEN-LAST:event_btnLapBasketActionPerformed
-
-    private void btnLapVoliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLapVoliActionPerformed
-        setIDLapangan("o0002");
-    }//GEN-LAST:event_btnLapVoliActionPerformed
-
-    private void btnLapBuluTangkisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLapBuluTangkisActionPerformed
-        setIDLapangan("o0003");
-    }//GEN-LAST:event_btnLapBuluTangkisActionPerformed
-
-    private void setIDLapangan(String id){
-        pilihLapangan pl = new pilihLapangan(id);
-        pl.setVisible(true);
-        this.dispose();
-    }
-    
     /**
      * @param args the command line arguments
      */
@@ -219,11 +175,11 @@ public class ContainerPilihOlahraga extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnLapBasket;
-    private javax.swing.JButton btnLapBuluTangkis;
-    private javax.swing.JButton btnLapFutsal;
-    private javax.swing.JButton btnLapVoli;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
