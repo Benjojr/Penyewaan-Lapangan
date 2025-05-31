@@ -56,8 +56,7 @@ public class DAOPembayaran {
                         (rs.getString("status_Pembayaran").equals("1"))?true:false,
                         LocalDate.parse(rs.getString("Tanggal")),
                         LocalTime.parse(rs.getString("waktu")),
-                        daobook.getBookingDetail(rs.getString("id_Booking"))
-                    ));
+                        (Booking) daobook.getBookingDetail(rs.getString("id_Booking"))));
                 }
                 return pembayarans;
             }

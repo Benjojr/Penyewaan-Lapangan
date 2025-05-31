@@ -132,7 +132,7 @@ public class LoginFrame extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>
 
     private void usrTFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usrTFieldActionPerformed
         // TODO add your handling code here:
