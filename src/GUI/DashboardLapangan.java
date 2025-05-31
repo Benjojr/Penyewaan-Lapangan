@@ -12,13 +12,11 @@ package GUI;
 
 import ClassDAO.DAOJadwal;
 import MainClass.Jadwal;
-
-import java.time.LocalTime;
+import MainClass.Lapangan;
 import java.util.ArrayList;
 
-import javax.swing.JToggleButton;
-
 public class DashboardLapangan extends javax.swing.JFrame {
+    Lapangan lapangan;
 
     /**
      * Creates new form DashboardLapangan
@@ -27,40 +25,69 @@ public class DashboardLapangan extends javax.swing.JFrame {
         initComponents();
     }
 
-    public DashboardLapangan(String idLapangan) {
+    public DashboardLapangan(Lapangan lapangan) {
         initComponents();
+        this.lapangan = lapangan;
+        setGambar();
+        String idLapangan = lapangan.getId_lapangan();
         DAOJadwal dao = new DAOJadwal();
         ArrayList<Jadwal> jadwalList = dao.getJadwalByLapangan(idLapangan);
 
+        // Mapping jam ke tombol
         Object[][] jadwalMapping = {
-                { LocalTime.of(7, 0), btnJadwalTujuh },
-                { LocalTime.of(8, 0), btnJadwalDelapan },
-                { LocalTime.of(9, 0), btnJadwalSembilan },
-                { LocalTime.of(10, 0), btnJadwalSepuluh },
-                { LocalTime.of(11, 0), btnJadwalSebelas },
-                { LocalTime.of(12, 0), btnJadwalDuabelas },
-                { LocalTime.of(13, 0), btnJadwalTigabelas },
-                { LocalTime.of(14, 0), btnJadwalEmpatbelas },
-                { LocalTime.of(15, 0), btnJadwalLimabelas },
-                { LocalTime.of(16, 0), btnJadwalEnambelas },
-                { LocalTime.of(17, 0), btnJadwalTujuhbelas },
-                { LocalTime.of(18, 0), btnJadwalDelapanbelas },
-                { LocalTime.of(19, 0), btnJadwalSembilanbelas },
-                { LocalTime.of(20, 0), btnJadwalDuapuluh },
-                { LocalTime.of(21, 0), btnJadwalDuapuluhSatu },
-                { LocalTime.of(22, 0), btnJadwalDuapuluhDua },
-                { LocalTime.of(23, 0), btnJadwalDuapuluhTiga }
+                { 7, btnJadwalTujuh },
+                { 8, btnJadwalDelapan },
+                { 9, btnJadwalSembilan },
+                { 10, btnJadwalSepuluh },
+                { 11, btnJadwalSebelas },
+                { 12, btnJadwalDuabelas },
+                { 13, btnJadwalTigabelas },
+                { 14, btnJadwalEmpatbelas },
+                { 15, btnJadwalLimabelas },
+                { 16, btnJadwalEnambelas },
+                { 17, btnJadwalTujuhbelas },
+                { 18, btnJadwalDelapanbelas },
+                { 19, btnJadwalSembilanbelas },
+                { 20, btnJadwalDuapuluh },
+                { 21, btnJadwalDuapuluhSatu },
+                { 22, btnJadwalDuapuluhDua },
+                { 23, btnJadwalDuapuluhTiga }
         };
 
         for (Jadwal jadwal : jadwalList) {
-            for (Object[] mapping : jadwalMapping) {
-                LocalTime waktu = (LocalTime) mapping[0];
-                JToggleButton tombol = (JToggleButton) mapping[1];
-
-                if (jadwal.getJam_Mulai().equals(waktu) && !jadwal.isTersedia()) {
-                    tombol.setEnabled(false);
+            if (!jadwal.isTersedia()) {
+                int start = jadwal.getJam_Mulai().getHour();
+                int end = jadwal.getJam_Selesai().getHour();
+                for (int jam = start; jam < end; jam++) {
+                    for (Object[] mapping : jadwalMapping) {
+                        if ((int) mapping[0] == jam) {
+                            ((javax.swing.JToggleButton) mapping[1]).setEnabled(false);
+                        }
+                    }
                 }
             }
+        }
+        jLabel1.setText("Lapangan " + lapangan.getNama_lapangan());
+        labelInformasiLapangan.setText("<html><left>Lapangan: " + lapangan.getNama_lapangan() + "<br>Harga: "
+                + lapangan.getHarga() + "/Jam<br>Lokasi: " + lapangan.getLokasi() + "</left></html>");
+
+        javax.swing.JToggleButton[] jadwalButtons = {
+                btnJadwalTujuh, btnJadwalDelapan, btnJadwalSembilan, btnJadwalSepuluh,
+                btnJadwalSebelas, btnJadwalDuabelas, btnJadwalTigabelas, btnJadwalEmpatbelas,
+                btnJadwalLimabelas, btnJadwalEnambelas, btnJadwalTujuhbelas, btnJadwalDelapanbelas,
+                btnJadwalSembilanbelas, btnJadwalDuapuluh, btnJadwalDuapuluhSatu, btnJadwalDuapuluhDua,
+                btnJadwalDuapuluhTiga
+        };
+        String[] jadwalLabels = {
+                "07:00-08:00", "08:00-09:00", "09:00-10:00", "10:00-11:00",
+                "11:00-12:00", "12:00-13:00", "13:00-14:00", "14:00-15:00",
+                "15:00-16:00", "16:00-17:00", "17:00-18:00", "18:00-19:00",
+                "19:00-20:00", "20:00-21:00", "21:00-22:00", "22:00-23:00", "23:00-00:00"
+        };
+
+        // Tambahkan listener ke semua tombol jadwal
+        for (javax.swing.JToggleButton btn : jadwalButtons) {
+            btn.addActionListener(e -> updateLabelJadwal(jadwalButtons, jadwalLabels));
         }
     }
 
@@ -72,18 +99,19 @@ public class DashboardLapangan extends javax.swing.JFrame {
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        labelGambar = new javax.swing.JLabel();
+        labelInformasiLapangan = new javax.swing.JLabel();
         btnJadwalTujuh = new javax.swing.JToggleButton();
         btnJadwalDelapan = new javax.swing.JToggleButton();
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         btnJadwalSembilan = new javax.swing.JToggleButton();
@@ -101,7 +129,7 @@ public class DashboardLapangan extends javax.swing.JFrame {
         btnJadwalDuapuluhSatu = new javax.swing.JToggleButton();
         btnJadwalDuapuluhDua = new javax.swing.JToggleButton();
         btnJadwalDuapuluhTiga = new javax.swing.JToggleButton();
-        jLabel5 = new javax.swing.JLabel();
+        labelJadwalYangDipilih = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -111,8 +139,8 @@ public class DashboardLapangan extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Lapangan xxxxxxxxxxxxxxxx");
 
-        jLabel3.setBackground(new java.awt.Color(153, 153, 153));
-        jLabel3.setText("Informasi Lapangan");
+        labelInformasiLapangan.setBackground(new java.awt.Color(153, 153, 153));
+        labelInformasiLapangan.setText("Informasi Lapangan");
 
         btnJadwalTujuh.setText("07:00-08:00");
         btnJadwalTujuh.addActionListener(new java.awt.event.ActionListener() {
@@ -138,10 +166,10 @@ public class DashboardLapangan extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Back");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnBackActionPerformed(evt);
             }
         });
 
@@ -264,7 +292,7 @@ public class DashboardLapangan extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setText("Jadwal dipilih: ");
+        labelJadwalYangDipilih.setText("Jadwal dipilih: ");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -278,14 +306,15 @@ public class DashboardLapangan extends javax.swing.JFrame {
                                                         javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addGap(15, 15, 15)
-                                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 381,
+                                                .addComponent(labelGambar, javax.swing.GroupLayout.PREFERRED_SIZE, 381,
                                                         javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(18, 18, 18)
                                                 .addGroup(jPanel1Layout
                                                         .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,
                                                                 false)
-                                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(labelInformasiLapangan,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 176,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addGroup(jPanel1Layout
                                                                 .createParallelGroup(
                                                                         javax.swing.GroupLayout.Alignment.TRAILING)
@@ -301,13 +330,13 @@ public class DashboardLapangan extends javax.swing.JFrame {
                                                         .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING,
                                                                 false)
                                                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                                                .addComponent(jLabel5,
+                                                                .addComponent(labelJadwalYangDipilih,
                                                                         javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                         javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                         Short.MAX_VALUE)
                                                                 .addPreferredGap(
                                                                         javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(jButton2)
+                                                                .addComponent(btnBack)
                                                                 .addPreferredGap(
                                                                         javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                                 .addComponent(jButton1))
@@ -393,20 +422,19 @@ public class DashboardLapangan extends javax.swing.JFrame {
                                 .addGap(28, 28, 28)
                                 .addGroup(jPanel1Layout
                                         .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 214,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 168,
+                                                .addComponent(labelInformasiLapangan,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 168,
                                                         javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGap(24, 24, 24)
                                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE,
                                                         javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35,
-                                        Short.MAX_VALUE)
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jButton3))
+                                        .addComponent(labelGambar, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(35, 35, 35)
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -434,8 +462,8 @@ public class DashboardLapangan extends javax.swing.JFrame {
                                 .addGap(12, 12, 12)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jButton1)
-                                        .addComponent(jButton2)
-                                        .addComponent(jLabel5))
+                                        .addComponent(btnBack)
+                                        .addComponent(labelJadwalYangDipilih))
                                 .addContainerGap()));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -452,9 +480,49 @@ public class DashboardLapangan extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+    private void setGambar() {
+        labelGambar.setIcon(
+                new javax.swing.ImageIcon(getClass().getResource("/assets/" + lapangan.getId_lapangan() + ".png"))); // NOI18N
+    }
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton2ActionPerformed
+        pilihLapangan pl = new pilihLapangan();
+        pl.setVisible(true);
+        this.dispose();
     }// GEN-LAST:event_jButton2ActionPerformed
+
+    private void updateLabelJadwal(javax.swing.JToggleButton[] buttons, String[] labels) {
+        java.util.List<Integer> selected = new java.util.ArrayList<>();
+        for (int i = 0; i < buttons.length; i++) {
+            if (buttons[i].isSelected()) {
+                selected.add(i);
+            }
+        }
+        java.util.Collections.sort(selected);
+
+        StringBuilder sb = new StringBuilder();
+        int i = 0;
+        while (i < selected.size()) {
+            int start = selected.get(i);
+            int end = start;
+            // Gabungkan yang berurutan
+            while (i + 1 < selected.size() && selected.get(i + 1) == end + 1) {
+                end = selected.get(i + 1);
+                i++;
+            }
+            if (sb.length() > 0)
+                sb.append(", ");
+            String startLabel = labels[start].substring(0, 5);
+            String endLabel = labels[end].substring(6, 11);
+            sb.append(startLabel).append("-").append(endLabel);
+            i++;
+        }
+        if (sb.length() == 0) {
+            labelJadwalYangDipilih.setText("Jadwal dipilih: ");
+        } else {
+            labelJadwalYangDipilih.setText("Jadwal dipilih: " + sb.toString());
+        }
+    }
 
     private void btnJadwalTujuhActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
@@ -580,6 +648,7 @@ public class DashboardLapangan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JToggleButton btnJadwalDelapan;
     private javax.swing.JToggleButton btnJadwalDelapanbelas;
     private javax.swing.JToggleButton btnJadwalDuabelas;
@@ -598,14 +667,13 @@ public class DashboardLapangan extends javax.swing.JFrame {
     private javax.swing.JToggleButton btnJadwalTujuh;
     private javax.swing.JToggleButton btnJadwalTujuhbelas;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel labelGambar;
+    private javax.swing.JLabel labelInformasiLapangan;
+    private javax.swing.JLabel labelJadwalYangDipilih;
     // End of variables declaration//GEN-END:variables
 }

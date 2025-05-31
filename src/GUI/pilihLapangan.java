@@ -49,8 +49,7 @@ public class pilihLapangan extends javax.swing.JFrame {
             // Tambahkan aksi saat tombol diklik
             button.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    String selectedId = lap.getId_lapangan();
-                    DashboardLapangan dbl = new DashboardLapangan(selectedId);
+                    DashboardLapangan dbl = new DashboardLapangan(lap);
                     dbl.setVisible(true);
                     pilihLapangan.this.dispose();
                 }
