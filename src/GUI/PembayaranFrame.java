@@ -30,6 +30,7 @@ public class PembayaranFrame extends javax.swing.JFrame {
         this.Bank = bank;
         this.id = generateId(daopbyr.LoadAllId());
         initComponents();
+        setLocationRelativeTo(null);
         setFrame();
         setLocationRelativeTo(null);
     }

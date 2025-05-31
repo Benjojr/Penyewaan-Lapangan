@@ -24,6 +24,7 @@ public class Lapangan {
         this.olahraga = olahraga;
         this.jadwal = jadwal;
     }
+    
 
     public Lapangan(){
         this.olahraga = new Olahraga();
