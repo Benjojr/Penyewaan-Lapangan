@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 public class DashboardLapangan extends javax.swing.JFrame {
     Lapangan lapangan;
+    pilihLapangan parent;
 
     /**
      * Creates new form DashboardLapangan
@@ -25,9 +26,10 @@ public class DashboardLapangan extends javax.swing.JFrame {
         initComponents();
     }
 
-    public DashboardLapangan(Lapangan lapangan) {
+    public DashboardLapangan(Lapangan lapangan, pilihLapangan parent) {
         initComponents();
         this.lapangan = lapangan;
+        this.parent = parent;
         setGambar();
         String idLapangan = lapangan.getId_lapangan();
         DAOJadwal dao = new DAOJadwal();
@@ -486,9 +488,8 @@ public class DashboardLapangan extends javax.swing.JFrame {
     }
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton2ActionPerformed
-        pilihLapangan pl = new pilihLapangan();
-        pl.setVisible(true);
-        this.dispose();
+        parent.setVisible(true);
+        this.setVisible(false);
     }// GEN-LAST:event_jButton2ActionPerformed
 
     private void updateLabelJadwal(javax.swing.JToggleButton[] buttons, String[] labels) {

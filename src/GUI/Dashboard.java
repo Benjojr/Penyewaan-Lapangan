@@ -146,8 +146,8 @@ public class Dashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesanLapanganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesanLapanganActionPerformed
-        new ContainerPilihOlahraga().setVisible(true);
-        this.dispose();
+        new ContainerPilihOlahraga(this).setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnPesanLapanganActionPerformed
 
     private void HistoryBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HistoryBtnActionPerformed
@@ -158,9 +158,6 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        ProfilePanel profile = new ProfilePanel(penggunaSaatIni.getId());
-        profile.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
