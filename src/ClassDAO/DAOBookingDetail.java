@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 public class DAOBookingDetail {
 
-    public Booking getBookingDetail(String id_booking) {
+    public Booking getBooking(String id_booking) {
         Booking detail = null;
 
         String sql = """
