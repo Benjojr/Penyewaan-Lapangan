@@ -60,6 +60,8 @@ public class PembayaranFrame extends javax.swing.JFrame {
             }
         }
         return String.format("byr%03d", (terbesar+1));
+
+        setLocationRelativeTo(null);
     }
 
     

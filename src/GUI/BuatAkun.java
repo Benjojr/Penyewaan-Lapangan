@@ -13,6 +13,7 @@ public class BuatAkun extends javax.swing.JFrame {
      */
     public BuatAkun() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
