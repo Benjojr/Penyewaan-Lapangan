@@ -16,6 +16,7 @@ public class Invoice extends javax.swing.JFrame {
      */
     public Invoice() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
