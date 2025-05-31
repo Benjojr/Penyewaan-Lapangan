@@ -77,7 +77,6 @@ public class DAOPengguna {
         }
     }
 
-
     public void DeletePengguna(String username) {
         Pengguna temp = LoadSome(username);
         if(temp!=null) {

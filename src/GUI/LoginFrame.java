@@ -153,7 +153,7 @@ public class LoginFrame extends javax.swing.JFrame {
         SwingUtilities.invokeLater(() -> loading.setVisible(true));
 
         // Jalankan login di thread terpisah
-        new Thread(() -> {
+       new Thread(() -> {
             try { Thread.sleep(1000); } catch (InterruptedException e) {}
 
             penggunaSaatIni = daouser.LoadSome(username);
