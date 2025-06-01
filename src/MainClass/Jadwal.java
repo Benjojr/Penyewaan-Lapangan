@@ -13,14 +13,16 @@ public class Jadwal {
     private LocalDate tanggal;
     private LocalTime jam_Mulai;
     private LocalTime jam_Selesai;
-    private boolean tersedia;
+    private String id_Booking;
+    private String id_lapangan;
 
-    public Jadwal(String idJadwal, LocalDate tanggal, LocalTime jam_Mulai, LocalTime jam_Selesai, boolean tersedia) {
+    public Jadwal(String idJadwal, LocalDate tanggal, LocalTime jam_Mulai, LocalTime jam_Selesai, String id_Booking, String id_lapangan) {
         this.idJadwal = idJadwal;
         this.tanggal = tanggal;
         this.jam_Mulai = jam_Mulai;
         this.jam_Selesai = jam_Selesai;
-        this.tersedia = tersedia;
+        this.id_Booking = id_Booking;
+        this.id_lapangan = id_lapangan;
     }
 
     public Jadwal(){}
@@ -40,9 +42,13 @@ public class Jadwal {
     public LocalTime getJam_Selesai() {
         return jam_Selesai;
     }
-
-    public boolean isTersedia() {
-        return tersedia;
+    
+    public String getIdBooking() {
+        return id_Booking;
+    }
+    
+    public String getIdLapangan() {
+        return id_lapangan;
     }
 
     public void setIdJadwal(String idJadwal) {
@@ -59,9 +65,5 @@ public class Jadwal {
 
     public void setJam_Selesai(LocalTime jam_Selesai) {
         this.jam_Selesai = jam_Selesai;
-    }
-
-    public void setStatus(boolean tersedia) {
-        this.tersedia = tersedia;
     }
 }

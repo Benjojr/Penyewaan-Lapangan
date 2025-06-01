@@ -57,7 +57,6 @@ public class DashboardLapangan extends javax.swing.JFrame {
         };
 
         for (Jadwal jadwal : jadwalList) {
-            if (!jadwal.isTersedia()) {
                 int start = jadwal.getJam_Mulai().getHour();
                 int end = jadwal.getJam_Selesai().getHour();
                 for (int jam = start; jam < end; jam++) {
@@ -67,7 +66,6 @@ public class DashboardLapangan extends javax.swing.JFrame {
                         }
                     }
                 }
-            }
         }
         jLabel1.setText("Lapangan " + lapangan.getNama_lapangan());
         labelInformasiLapangan.setText("<html><left>Lapangan: " + lapangan.getNama_lapangan() + "<br>Harga: "
@@ -594,7 +592,7 @@ public class DashboardLapangan extends javax.swing.JFrame {
     }// GEN-LAST:event_btnJadwalDuapuluhTigaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        
     }// GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jTextField1ActionPerformed
