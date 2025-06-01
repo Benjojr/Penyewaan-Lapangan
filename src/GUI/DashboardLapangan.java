@@ -20,10 +20,9 @@ public class DashboardLapangan extends javax.swing.JFrame {
 
     Lapangan lapangan;
     pilihLapangan parent;
+    private Pengguna pengguna;
     private javax.swing.JToggleButton[] jadwalButtons;
     private String[] jadwalLabels;
-    private Pengguna pengguna;
-
     public DashboardLapangan() {
         initComponents();
     }
@@ -428,6 +427,7 @@ public class DashboardLapangan extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
+                    .addComponent(btnNext)
                     .addComponent(btnBack)
                     .addComponent(labelJadwalYangDipilih))
                 .addContainerGap())
@@ -637,9 +637,9 @@ public class DashboardLapangan extends javax.swing.JFrame {
     private javax.swing.JToggleButton btnJadwalTigabelas;
     private javax.swing.JToggleButton btnJadwalTujuh;
     private javax.swing.JToggleButton btnJadwalTujuhbelas;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton btnNext;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
