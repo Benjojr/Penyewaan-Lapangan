@@ -14,6 +14,7 @@ import MainClass.Lapangan;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.Month;
+import javax.swing.JOptionPane;
 
 public class DashboardLapangan extends javax.swing.JFrame {
 
@@ -130,7 +131,6 @@ public class DashboardLapangan extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         btnNext = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         btnJadwalSembilan = new javax.swing.JToggleButton();
         btnJadwalSepuluh = new javax.swing.JToggleButton();
@@ -148,6 +148,8 @@ public class DashboardLapangan extends javax.swing.JFrame {
         btnJadwalDuapuluhDua = new javax.swing.JToggleButton();
         btnJadwalDuapuluhTiga = new javax.swing.JToggleButton();
         labelJadwalYangDipilih = new javax.swing.JLabel();
+        tanggalPesan = new com.github.lgooddatepicker.components.DatePicker();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -191,14 +193,7 @@ public class DashboardLapangan extends javax.swing.JFrame {
             }
         });
 
-        jTextField1.setText("ulas disini..");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setText("Submit");
+        jButton3.setText("Ulas");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -312,6 +307,8 @@ public class DashboardLapangan extends javax.swing.JFrame {
 
         labelJadwalYangDipilih.setText("Jadwal dipilih: ");
 
+        jLabel2.setText("Pilih Tanggal");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -324,13 +321,13 @@ public class DashboardLapangan extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addComponent(labelGambar, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelInformasiLapangan, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jButton3)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 14, Short.MAX_VALUE))
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tanggalPesan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 20, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -392,10 +389,12 @@ public class DashboardLapangan extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(labelInformasiLapangan, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(109, 109, 109)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(labelInformasiLapangan, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tanggalPesan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(68, 68, 68)
                         .addComponent(jButton3))
                     .addComponent(labelGambar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(35, 35, 35)
@@ -564,12 +563,12 @@ public class DashboardLapangan extends javax.swing.JFrame {
                 jadwalDipilih.add(jadwalLabels[i]);
             }
         }
-        // Contoh: kirim ke class selanjutnya (misal, BookingForm)
-        // BookingForm form = new BookingForm(lapangan, jadwalDipilih);
-        // form.setVisible(true);
-        // this.setVisible(false);
-        System.out.println("Jadwal yang dipilih: " + jadwalDipilih);
-    }// GEN-LAST:event_jButton1ActionPerformed
+        if(jadwalDipilih.size()==0){
+            JOptionPane.showMessageDialog(null, "Pilih jadwal dulu woy");
+        }
+        
+        System.out.println(tanggalPesan.getText());
+    }
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
@@ -644,11 +643,12 @@ public class DashboardLapangan extends javax.swing.JFrame {
     private javax.swing.JButton btnNext;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel labelGambar;
     private javax.swing.JLabel labelInformasiLapangan;
     private javax.swing.JLabel labelJadwalYangDipilih;
+    private com.github.lgooddatepicker.components.DatePicker tanggalPesan;
     // End of variables declaration//GEN-END:variables
 }
