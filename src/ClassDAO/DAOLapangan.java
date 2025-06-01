@@ -12,11 +12,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- *
- * @author benja
- */
 public class DAOLapangan {
     public List<Lapangan> getLapanganByOlahraga(String idOlahraga) {
         List<Lapangan> list = new ArrayList<>();
