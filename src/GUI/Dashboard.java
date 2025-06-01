@@ -81,7 +81,7 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Profil");
 
-        subsButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/subscription.png"))); // NOI18N
+        subsButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/subscription.png"))); // NOI18N
         subsButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 subsButton1ActionPerformed(evt);
