@@ -17,6 +17,7 @@ public class Jadwal {
     private String id_lapangan;
 
     public Jadwal(String idJadwal, LocalDate tanggal, LocalTime jam_Mulai, LocalTime jam_Selesai, String id_Booking, String id_lapangan) {
+
         this.idJadwal = idJadwal;
         this.tanggal = tanggal;
         this.jam_Mulai = jam_Mulai;

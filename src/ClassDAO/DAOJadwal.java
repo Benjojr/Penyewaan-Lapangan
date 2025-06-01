@@ -14,28 +14,31 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author benja
  */
 public class DAOJadwal {
-    public ArrayList<Jadwal> getJadwalByLapangan(String idLapangan) {
-        ArrayList<Jadwal> list = new ArrayList<>();
-        String sql = "SELECT * FROM Jadwal WHERE id_Lapangan = ?";
 
-        try (Connection conn = DatabaseConnection.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(sql)) {
+    public ArrayList<Jadwal> getJadwalByLapangan(String idLapangan, LocalDate today) {
+        ArrayList<Jadwal> list = new ArrayList<>();
+        String sql = "SELECT * FROM Jadwal WHERE id_Lapangan = ? AND tanggal = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, idLapangan);
+            stmt.setString(2, today.toString());
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     Jadwal jadwal = new Jadwal(
                             rs.getString("id_Jadwal"),
                             rs.getDate("tanggal").toLocalDate(),
                             rs.getTime("jam_mulai").toLocalTime(),
-                            rs.getTime("jam_selesai").toLocalTime(),
-                            (rs.getByte("status_book"))==0?false:true);
+                            rs.getTime("jam_selesai").toLocalTime());
                     list.add(jadwal);
+                    
                 }
             } catch (Exception e) {
                 System.out.println("Error: " + e);
