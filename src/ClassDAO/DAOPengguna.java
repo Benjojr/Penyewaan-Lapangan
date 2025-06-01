@@ -60,8 +60,6 @@ public class DAOPengguna {
         }
     return null;
 }
-
-
     public ArrayList<Pengguna> LoadAll() {
         ArrayList<Pengguna> penggunas = new ArrayList<Pengguna>();
         String sql = "SELECT * FROM Pengguna";
