@@ -160,7 +160,7 @@ public class Dashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesanLapanganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesanLapanganActionPerformed
-        new ContainerPilihOlahraga(this).setVisible(true);
+        new ContainerPilihOlahraga(this, penggunaSaatIni).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnPesanLapanganActionPerformed
 

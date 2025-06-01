@@ -12,9 +12,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 public class DAOBookingDetail {
-
-  
-
     public List<Booking> getBookingDetail(String id_Pengguna) {
         List<Booking> bookings = new ArrayList<>();
         String sql = """
@@ -81,8 +78,7 @@ public class DAOBookingDetail {
     }
 
     public Booking getBooking(String id_booking) {
-        Booking detail = null;
-
+        Booking detail = null; 
         String sql = """
             SELECT  b.id_booking,
                     p.id_Pengguna,
