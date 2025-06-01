@@ -1,5 +1,7 @@
 package GUI;
 
+import MainClass.Pengguna;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -13,9 +15,7 @@ import MainClass.*;
 public class ContainerPilihOlahraga extends javax.swing.JFrame {
     private Pengguna pengguna;
     private Dashboard parent;
-    /**
-     * Creates new form ContainerPilihOlahraga
-     */
+  
     public ContainerPilihOlahraga(Dashboard parent, Pengguna pengguna) {
         initComponents();
         this.parent = parent;

@@ -9,6 +9,7 @@ import MainClass.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.*;
 import java.time.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -19,18 +20,20 @@ import javax.swing.JOptionPane;
  */
 public class DAOPembayaran {
     DAOBookingDetail daobook = new DAOBookingDetail();
-    public void Regist(String id, Pembayaran pembayaran)  {
+    
+    public void Regist(String id, Pembayaran pembayaran, String idPengguna)  {
         String sql = "INSERT INTO Pembayaran(id_Pembayaran, kode_Pembayaran, id_Booking, Tanggal, waktu, status_Pembayaran, harga_awal, harga_akhir) VALUES (?,?,?,?,?,?,?,?)";
         String status = (pembayaran.isStatus())? "1":"0" ;
         try (Connection conn = DatabaseConnection.getConnection();PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1,id);
-            stmt.setString(2,pembayaran.getKodePembayaran());
-            stmt.setString(3,pembayaran.getPemesanan().getId_booking());
-            stmt.setString(4,pembayaran.getTanggal().toString());
-            stmt.setString(5,pembayaran.getJam().toString());
-            stmt.setString(6,status);
-            stmt.setString(7,String.valueOf(pembayaran.getHargaAwal()));
-            stmt.setString(8,String.valueOf(pembayaran.getHargaAkhir()));
+            double hargaAkhir = pembayaran.getHargaAkhir();
+            stmt.setString(1, id);
+            stmt.setString(2, pembayaran.getKodePembayaran());
+            stmt.setString(3, pembayaran.getPemesanan().getId_booking());
+            stmt.setString(4, pembayaran.getTanggal().toString());
+            stmt.setString(5, pembayaran.getJam().toString());
+            stmt.setString(6, status);
+            stmt.setString(7, String.valueOf(pembayaran.getHargaAwal()));
+            stmt.setString(8, String.valueOf(hargaAkhir));
             
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Proses Pencatatan Pembayaran Berhasil.", "Information",JOptionPane.INFORMATION_MESSAGE);
@@ -39,7 +42,7 @@ public class DAOPembayaran {
             System.out.println(e);
         }
     
-    }
+    }  
     
     public ArrayList<Pembayaran> LoadAll() {
         ArrayList<Pembayaran> pembayarans = new ArrayList<Pembayaran>();

@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 public class PembayaranFrame extends javax.swing.JFrame {
     private String id;
+    private String idPengguna;
     private Booking pesanan;
     private String Bank;
     private Langganan langganan = new Langganan("L0001","Reguler", 0, 0);
@@ -27,6 +28,7 @@ public class PembayaranFrame extends javax.swing.JFrame {
     
     public PembayaranFrame(Booking pesanan, String bank) {
         this.pesanan = pesanan;
+        this.idPengguna = pesanan.getPengguna().getId();
         this.potongan = langganan.getPotongan()*pesanan.getLapangan().getHarga();
         this.nominal = this.pesanan.getLapangan().getHarga()-potongan;
         this.Bank = bank;
@@ -44,7 +46,7 @@ public class PembayaranFrame extends javax.swing.JFrame {
         KodePembayaranLabel.setText(String.format("Kode Pembayaran : %d",KodePembayaran));
         PotonganLabel.setText(String.format("Potongan : Rp. %.2f", potongan));
         NominalLabel.setText(String.format("Nominal Pembayaran : Rp. %.2f", nominal));
-        UsrnmLabel.setText("Username : "+pesanan.getPengguna().getUserName()+" ("+pesanan.getPengguna().getJenis_Langganan()+")");
+        UsrnmLabel.setText("Username : "+pesanan.getPengguna().getUserName()+" ("+pesanan.getPengguna().getJenis_langganan()+")");
         TimeLabel.setText("Waktu : "+waktuPembayaran.getDayOfMonth()+" "+waktuPembayaran.getMonth()+" "+waktuPembayaran.getYear()+" at "+waktuPembayaran.getHour()+":"+waktuPembayaran.getMinute());
         
     }
@@ -319,8 +321,7 @@ public class PembayaranFrame extends javax.swing.JFrame {
                     "Information",
                     JOptionPane.INFORMATION_MESSAGE);
                     status = (statusPembayaran.equals("sukses"))? true:false;
-                    hasil = new Pembayaran(String.valueOf(KodePembayaran), nominal, status, tanggal, waktu, pesanan);
-                    
+                    hasil = new Pembayaran(String.valueOf(KodePembayaran), nominal, status, tanggal, waktu, pesanan);  
                     daobook.RegistBooking(pesanan);
                     for(Jadwal elem : pesanan.getJadwal()) {
                         daojadwal.RegistJadwal(elem);

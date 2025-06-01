@@ -6,15 +6,15 @@ public class Pengguna {
     private String no_telp;
     private String UserName;
     private String email;
-    private String Jenis_Langganan;
+    private String Jenis_langganan;
     private String password;
     
-    public Pengguna(String id, String no_telp,String email, String UserName, String Jenis_Langganan, String password) {
+    public Pengguna(String id, String no_telp,String email, String UserName, String Jenis_langganan, String password) {
     this.id = id;
     this.no_telp = no_telp;
     this.UserName = UserName;
     this.email = email;
-    this.Jenis_Langganan = Jenis_Langganan;
+    this.Jenis_langganan = Jenis_langganan;
     this.password = password;
     }
 
@@ -52,12 +52,12 @@ public class Pengguna {
         this.email = email;
     }
 
-    public String getJenis_Langganan() {
-        return Jenis_Langganan;
+    public String getJenis_langganan() {
+        return Jenis_langganan;
     }
 
-    public void setJenis_Langganan(String Jenis_Langganan) {
-        this.Jenis_Langganan = Jenis_Langganan;
+    public void setJenis_langganan(String Jenis_langganan) {
+        this.Jenis_langganan = Jenis_langganan;
     }
 
     public String getPassword() {
