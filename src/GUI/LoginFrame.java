@@ -20,7 +20,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
     
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -185,7 +185,7 @@ public class LoginFrame extends javax.swing.JFrame {
         }).start();
     }
 
-//GEN-LAST:event_LoginbtnActionPerformed
+                                        
 
     private void CreatbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreatbtnActionPerformed
         BuatAkun create = new BuatAkun();
