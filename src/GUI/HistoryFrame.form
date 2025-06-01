@@ -65,6 +65,10 @@
                           <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                           <Component id="jScrollPane1" min="-2" pref="571" max="-2" attributes="0"/>
                       </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="274" max="-2" attributes="0"/>
+                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace pref="41" max="32767" attributes="0"/>
               </Group>
@@ -86,8 +90,10 @@
                       <Component id="jLabel1" min="-2" pref="56" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="475" max="-2" attributes="0"/>
-                  <EmptySpace pref="21" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" pref="457" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="10" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -169,6 +175,14 @@
             </Container>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JButton" name="jButton1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="jButton1"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>
