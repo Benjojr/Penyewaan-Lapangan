@@ -11,6 +11,7 @@ package GUI;
 import ClassDAO.DAOJadwal;
 import MainClass.Jadwal;
 import MainClass.Lapangan;
+import MainClass.Pengguna;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.Month;
@@ -20,20 +21,19 @@ public class DashboardLapangan extends javax.swing.JFrame {
 
     Lapangan lapangan;
     pilihLapangan parent;
+    private Pengguna pengguna;
     private javax.swing.JToggleButton[] jadwalButtons;
     private String[] jadwalLabels;
 
-    /**
-     * Creates new form DashboardLapangan
-     */
     public DashboardLapangan() {
         initComponents();
     }
 
-    public DashboardLapangan(Lapangan lapangan, pilihLapangan parent) {
+    public DashboardLapangan(Lapangan lapangan, pilihLapangan parent, Pengguna pengguna) {
         initComponents();
         this.lapangan = lapangan;
         this.parent = parent;
+        this.pengguna = pengguna;
         setGambar();
         String idLapangan = lapangan.getId_lapangan();
         DAOJadwal dao = new DAOJadwal();
@@ -88,8 +88,19 @@ public class DashboardLapangan extends javax.swing.JFrame {
 
         }
         jLabel1.setText("Lapangan " + lapangan.getNama_lapangan());
-        labelInformasiLapangan.setText("<html><left>Lapangan: " + lapangan.getNama_lapangan() + "<br>Harga: "
-                + lapangan.getHarga() + "/Jam<br>Lokasi: " + lapangan.getLokasi() + "</left></html>");
+        labelInformasiLapangan.setText("""
+            <html>
+                <left>
+                    Lapangan: %s<br>
+                    Harga: %s/Jam<br>
+                    Lokasi: %s
+                </left>
+            </html>
+            """.formatted(
+                lapangan.getNama_lapangan(),
+                lapangan.getHarga(),
+                lapangan.getLokasi()
+            ));
 
         javax.swing.JToggleButton[] jadwalButtons = {
             btnJadwalTujuh, btnJadwalDelapan, btnJadwalSembilan, btnJadwalSepuluh,
@@ -119,6 +130,7 @@ public class DashboardLapangan extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -196,7 +208,7 @@ public class DashboardLapangan extends javax.swing.JFrame {
         jButton3.setText("Ulas");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                UlasBtnActionPerformed(evt);
             }
         });
 
@@ -443,7 +455,6 @@ public class DashboardLapangan extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
     private void setGambar() {
         labelGambar.setIcon(
                 new javax.swing.ImageIcon(getClass().getResource("/assets/" + lapangan.getId_lapangan() + ".png"))); // NOI18N
@@ -574,23 +585,16 @@ public class DashboardLapangan extends javax.swing.JFrame {
         // TODO add your handling code here:
     }// GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+    private void UlasBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton3ActionPerformed
+        Ulas ulas = new Ulas(lapangan, pengguna);
+        ulas.setVisible(true);
+        this.dispose();
     }// GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        // <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
-        // (optional) ">
-        /*
-         * If Nimbus (introduced in Java SE 6) is not available, stay with the default
-         * look and feel.
-         * For details see
-         * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -622,6 +626,8 @@ public class DashboardLapangan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton UlasBtn;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton btnBack;
     private javax.swing.JToggleButton btnJadwalDelapan;
     private javax.swing.JToggleButton btnJadwalDelapanbelas;
@@ -640,6 +646,7 @@ public class DashboardLapangan extends javax.swing.JFrame {
     private javax.swing.JToggleButton btnJadwalTigabelas;
     private javax.swing.JToggleButton btnJadwalTujuh;
     private javax.swing.JToggleButton btnJadwalTujuhbelas;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton btnNext;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;

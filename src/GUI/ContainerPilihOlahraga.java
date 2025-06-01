@@ -1,5 +1,7 @@
 package GUI;
 
+import MainClass.Pengguna;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -12,10 +14,10 @@ package GUI;
 public class ContainerPilihOlahraga extends javax.swing.JFrame {
 
     private Dashboard parent;
-    /**
-     * Creates new form ContainerPilihOlahraga
-     */
-    public ContainerPilihOlahraga(Dashboard parent) {
+    private Pengguna pengguna;
+
+    public ContainerPilihOlahraga(Dashboard parent, Pengguna pengguna) {
+        this.pengguna = pengguna;
         initComponents();
         this.parent = parent;
     }
@@ -196,7 +198,7 @@ public class ContainerPilihOlahraga extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void setIDLapangan(String id){
-        pilihLapangan pl = new pilihLapangan(id, this);
+        pilihLapangan pl = new pilihLapangan(id, this, pengguna);
         pl.setVisible(true);
         this.setVisible(false);
     }
