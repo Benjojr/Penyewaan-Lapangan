@@ -11,15 +11,15 @@ import MainClass.Pengguna;
  *
  * @author Axioo Pongo
  */
+import MainClass.*;
 public class ContainerPilihOlahraga extends javax.swing.JFrame {
-
-    private Dashboard parent;
     private Pengguna pengguna;
-
+    private Dashboard parent;
+  
     public ContainerPilihOlahraga(Dashboard parent, Pengguna pengguna) {
-        this.pengguna = pengguna;
         initComponents();
         this.parent = parent;
+        this.pengguna = pengguna;
     }
     
     public ContainerPilihOlahraga() {

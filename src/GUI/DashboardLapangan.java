@@ -17,13 +17,22 @@ import java.time.LocalDate;
 import java.time.Month;
 import javax.swing.JOptionPane;
 
-public class DashboardLapangan extends javax.swing.JFrame {
+import MainClass.*;
+import ClassDAO.*;
+import java.time.LocalTime;
 
-    Lapangan lapangan;
-    pilihLapangan parent;
+public class DashboardLapangan extends javax.swing.JFrame {
+    private DAOBookingDetail daoBook = new DAOBookingDetail();
+    private DAOJadwal daojadwal = new DAOJadwal();
+    private ArrayList<Jadwal> jadwals = new ArrayList<Jadwal>();
+    private Booking pemesanan;
     private Pengguna pengguna;
+    private Lapangan lapangan;
+    private pilihLapangan parent;
+
     private javax.swing.JToggleButton[] jadwalButtons;
     private String[] jadwalLabels;
+    private LocalDate toDate = LocalDate.now();
 
     public DashboardLapangan() {
         initComponents();
@@ -31,13 +40,14 @@ public class DashboardLapangan extends javax.swing.JFrame {
 
     public DashboardLapangan(Lapangan lapangan, pilihLapangan parent, Pengguna pengguna) {
         initComponents();
+        this.pengguna = pengguna;
         this.lapangan = lapangan;
         this.parent = parent;
         this.pengguna = pengguna;
         setGambar();
         String idLapangan = lapangan.getId_lapangan();
-        DAOJadwal dao = new DAOJadwal();
-        ArrayList<Jadwal> jadwalList = dao.getJadwalByLapangan(idLapangan, LocalDate.of(2025, Month.MAY, 31));
+        DAOJadwal daojadwal = new DAOJadwal();
+        ArrayList<Jadwal> jadwalList = daojadwal.getJadwalByLapangan(idLapangan, LocalDate.now());
 
         jadwalButtons = new javax.swing.JToggleButton[]{
             btnJadwalTujuh, btnJadwalDelapan, btnJadwalSembilan, btnJadwalSepuluh,
@@ -75,17 +85,15 @@ public class DashboardLapangan extends javax.swing.JFrame {
         };
 
         for (Jadwal jadwal : jadwalList) {
-
-            int start = jadwal.getJam_Mulai().getHour();
-            int end = jadwal.getJam_Selesai().getHour();
-            for (int jam = start; jam < end; jam++) {
-                for (Object[] mapping : jadwalMapping) {
-                    if ((int) mapping[0] == jam) {
-                        ((javax.swing.JToggleButton) mapping[1]).setEnabled(false);
+                int start = jadwal.getJam_Mulai().getHour();
+                int end = jadwal.getJam_Selesai().getHour();
+                for (int jam = start; jam < end; jam++) {
+                    for (Object[] mapping : jadwalMapping) {
+                        if ((int) mapping[0] == jam) {
+                            ((javax.swing.JToggleButton) mapping[1]).setEnabled(false);
+                        }
                     }
                 }
-            }
-
         }
         jLabel1.setText("Lapangan " + lapangan.getNama_lapangan());
         labelInformasiLapangan.setText("""
@@ -498,6 +506,22 @@ public class DashboardLapangan extends javax.swing.JFrame {
             labelJadwalYangDipilih.setText("Jadwal dipilih: " + sb.toString());
         }
     }
+    
+    private String generateID(ArrayList<String> AllId, String init) {
+        int maxId = 0;
+        for(String elem : AllId) {
+            if(getnumID(elem)>maxId){
+                maxId = getnumID(elem);
+            }
+        }
+        return String.format("%s%04d",init, (maxId+1));
+    }
+    
+    private int getnumID(String elem) {
+        String temp = elem.substring(1);
+        return Integer.parseInt(temp);
+    }
+    
 
     private void btnJadwalTujuhActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
@@ -567,6 +591,8 @@ public class DashboardLapangan extends javax.swing.JFrame {
         // TODO add your handling code here:
     }// GEN-LAST:event_btnJadwalDuapuluhTigaActionPerformed
 
+        
+
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
         java.util.List<String> jadwalDipilih = new java.util.ArrayList<>();
         for (int i = 0; i < jadwalButtons.length; i++) {
@@ -574,6 +600,27 @@ public class DashboardLapangan extends javax.swing.JFrame {
                 jadwalDipilih.add(jadwalLabels[i]);
             }
         }
+        
+        this.pemesanan = new Booking(generateID(this.daoBook.getIdAllBooking(),"b"),this.pengguna, this.lapangan);
+        for(String elem : jadwalDipilih) {
+            String jam[] = elem.split("-");
+            this.jadwals.add(new Jadwal(generateID(this.daojadwal.getIdAllJadwal(),"j"), this.toDate, LocalTime.parse(jam[0]), LocalTime.parse(jam[1]), pemesanan, lapangan));
+        }
+        System.out.println("pengguna : "+this.pengguna.getUserName());
+        System.out.println("id pemesanan : "+pemesanan.toString());
+        for(Jadwal elem : jadwals) {
+            pemesanan.setJadwal(elem);
+        }
+        
+        Checkout co = new Checkout(pemesanan);
+        co.setVisible(true);
+        
+        // Contoh: kirim ke class selanjutnya (misal, BookingForm)
+        // BookingForm form = new BookingForm(lapangan, jadwalDipilih);
+        // form.setVisible(true);
+        // this.setVisible(false);
+        System.out.println("Jadwal yang dipilih: " + jadwalDipilih);
+    }
         if(jadwalDipilih.size()==0){
             JOptionPane.showMessageDialog(null, "Pilih jadwal dulu woy");
         }
@@ -658,4 +705,6 @@ public class DashboardLapangan extends javax.swing.JFrame {
     private javax.swing.JLabel labelJadwalYangDipilih;
     private com.github.lgooddatepicker.components.DatePicker tanggalPesan;
     // End of variables declaration//GEN-END:variables
+
+    
 }
