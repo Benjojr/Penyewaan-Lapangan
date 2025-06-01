@@ -13,14 +13,12 @@ public class Jadwal {
     private LocalDate tanggal;
     private LocalTime jam_Mulai;
     private LocalTime jam_Selesai;
-    private boolean tersedia;
 
-    public Jadwal(String idJadwal, LocalDate tanggal, LocalTime jam_Mulai, LocalTime jam_Selesai, boolean tersedia) {
+    public Jadwal(String idJadwal, LocalDate tanggal, LocalTime jam_Mulai, LocalTime jam_Selesai) {
         this.idJadwal = idJadwal;
         this.tanggal = tanggal;
         this.jam_Mulai = jam_Mulai;
         this.jam_Selesai = jam_Selesai;
-        this.tersedia = tersedia;
     }
 
     public Jadwal(){}
@@ -41,10 +39,6 @@ public class Jadwal {
         return jam_Selesai;
     }
 
-    public boolean isTersedia() {
-        return tersedia;
-    }
-
     public void setIdJadwal(String idJadwal) {
         this.idJadwal = idJadwal;
     }
@@ -59,9 +53,5 @@ public class Jadwal {
 
     public void setJam_Selesai(LocalTime jam_Selesai) {
         this.jam_Selesai = jam_Selesai;
-    }
-
-    public void setStatus(boolean tersedia) {
-        this.tersedia = tersedia;
     }
 }

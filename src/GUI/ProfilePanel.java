@@ -37,7 +37,7 @@ public class ProfilePanel extends javax.swing.JFrame {
                 UsernameEdited.setText(penggunaSaatIni.getUserName());
                 EmailEdited.setText(penggunaSaatIni.getEmail());
                 NoHpEdited.setText(penggunaSaatIni.getNo_telp()); // Fixed to match Pengguna class field
-                JenisLanggananEdited.setText(penggunaSaatIni.getJenis_Langganan());
+                JenisLanggananEdited.setText(penggunaSaatIni.getJenis_langganan());
             } else {
                 // Handle case where pengguna is not found
                 UsernameEdited.setText("Not Found");
