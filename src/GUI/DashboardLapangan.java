@@ -1,14 +1,27 @@
 package GUI;
 
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+/**
+ *
+ * @author User
+ */
 import ClassDAO.DAOJadwal;
 import MainClass.Jadwal;
 import MainClass.Lapangan;
 import MainClass.Pengguna;
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.Month;
 
 public class DashboardLapangan extends javax.swing.JFrame {
+
     Lapangan lapangan;
     pilihLapangan parent;
+    private javax.swing.JToggleButton[] jadwalButtons;
+    private String[] jadwalLabels;
     private Pengguna pengguna;
 
     public DashboardLapangan() {
@@ -23,41 +36,55 @@ public class DashboardLapangan extends javax.swing.JFrame {
         setGambar();
         String idLapangan = lapangan.getId_lapangan();
         DAOJadwal dao = new DAOJadwal();
-        ArrayList<Jadwal> jadwalList = dao.getJadwalByLapangan(idLapangan);
+        ArrayList<Jadwal> jadwalList = dao.getJadwalByLapangan(idLapangan, LocalDate.of(2025, Month.MAY, 31));
+
+        jadwalButtons = new javax.swing.JToggleButton[]{
+            btnJadwalTujuh, btnJadwalDelapan, btnJadwalSembilan, btnJadwalSepuluh,
+            btnJadwalSebelas, btnJadwalDuabelas, btnJadwalTigabelas, btnJadwalEmpatbelas,
+            btnJadwalLimabelas, btnJadwalEnambelas, btnJadwalTujuhbelas, btnJadwalDelapanbelas,
+            btnJadwalSembilanbelas, btnJadwalDuapuluh, btnJadwalDuapuluhSatu, btnJadwalDuapuluhDua,
+            btnJadwalDuapuluhTiga
+        };
+        jadwalLabels = new String[]{
+            "07:00-08:00", "08:00-09:00", "09:00-10:00", "10:00-11:00",
+            "11:00-12:00", "12:00-13:00", "13:00-14:00", "14:00-15:00",
+            "15:00-16:00", "16:00-17:00", "17:00-18:00", "18:00-19:00",
+            "19:00-20:00", "20:00-21:00", "21:00-22:00", "22:00-23:00", "23:00-00:00"
+        };
 
         // Mapping jam ke tombol
         Object[][] jadwalMapping = {
-                { 7, btnJadwalTujuh },
-                { 8, btnJadwalDelapan },
-                { 9, btnJadwalSembilan },
-                { 10, btnJadwalSepuluh },
-                { 11, btnJadwalSebelas },
-                { 12, btnJadwalDuabelas },
-                { 13, btnJadwalTigabelas },
-                { 14, btnJadwalEmpatbelas },
-                { 15, btnJadwalLimabelas },
-                { 16, btnJadwalEnambelas },
-                { 17, btnJadwalTujuhbelas },
-                { 18, btnJadwalDelapanbelas },
-                { 19, btnJadwalSembilanbelas },
-                { 20, btnJadwalDuapuluh },
-                { 21, btnJadwalDuapuluhSatu },
-                { 22, btnJadwalDuapuluhDua },
-                { 23, btnJadwalDuapuluhTiga }
+            {7, btnJadwalTujuh},
+            {8, btnJadwalDelapan},
+            {9, btnJadwalSembilan},
+            {10, btnJadwalSepuluh},
+            {11, btnJadwalSebelas},
+            {12, btnJadwalDuabelas},
+            {13, btnJadwalTigabelas},
+            {14, btnJadwalEmpatbelas},
+            {15, btnJadwalLimabelas},
+            {16, btnJadwalEnambelas},
+            {17, btnJadwalTujuhbelas},
+            {18, btnJadwalDelapanbelas},
+            {19, btnJadwalSembilanbelas},
+            {20, btnJadwalDuapuluh},
+            {21, btnJadwalDuapuluhSatu},
+            {22, btnJadwalDuapuluhDua},
+            {23, btnJadwalDuapuluhTiga}
         };
 
         for (Jadwal jadwal : jadwalList) {
-            if (!jadwal.isTersedia()) {
-                int start = jadwal.getJam_Mulai().getHour();
-                int end = jadwal.getJam_Selesai().getHour();
-                for (int jam = start; jam < end; jam++) {
-                    for (Object[] mapping : jadwalMapping) {
-                        if ((int) mapping[0] == jam) {
-                            ((javax.swing.JToggleButton) mapping[1]).setEnabled(false);
-                        }
+
+            int start = jadwal.getJam_Mulai().getHour();
+            int end = jadwal.getJam_Selesai().getHour();
+            for (int jam = start; jam < end; jam++) {
+                for (Object[] mapping : jadwalMapping) {
+                    if ((int) mapping[0] == jam) {
+                        ((javax.swing.JToggleButton) mapping[1]).setEnabled(false);
                     }
                 }
             }
+
         }
         jLabel1.setText("Lapangan " + lapangan.getNama_lapangan());
         labelInformasiLapangan.setText("""
@@ -75,17 +102,17 @@ public class DashboardLapangan extends javax.swing.JFrame {
             ));
 
         javax.swing.JToggleButton[] jadwalButtons = {
-                btnJadwalTujuh, btnJadwalDelapan, btnJadwalSembilan, btnJadwalSepuluh,
-                btnJadwalSebelas, btnJadwalDuabelas, btnJadwalTigabelas, btnJadwalEmpatbelas,
-                btnJadwalLimabelas, btnJadwalEnambelas, btnJadwalTujuhbelas, btnJadwalDelapanbelas,
-                btnJadwalSembilanbelas, btnJadwalDuapuluh, btnJadwalDuapuluhSatu, btnJadwalDuapuluhDua,
-                btnJadwalDuapuluhTiga
+            btnJadwalTujuh, btnJadwalDelapan, btnJadwalSembilan, btnJadwalSepuluh,
+            btnJadwalSebelas, btnJadwalDuabelas, btnJadwalTigabelas, btnJadwalEmpatbelas,
+            btnJadwalLimabelas, btnJadwalEnambelas, btnJadwalTujuhbelas, btnJadwalDelapanbelas,
+            btnJadwalSembilanbelas, btnJadwalDuapuluh, btnJadwalDuapuluhSatu, btnJadwalDuapuluhDua,
+            btnJadwalDuapuluhTiga
         };
         String[] jadwalLabels = {
-                "07:00-08:00", "08:00-09:00", "09:00-10:00", "10:00-11:00",
-                "11:00-12:00", "12:00-13:00", "13:00-14:00", "14:00-15:00",
-                "15:00-16:00", "16:00-17:00", "17:00-18:00", "18:00-19:00",
-                "19:00-20:00", "20:00-21:00", "21:00-22:00", "22:00-23:00", "23:00-00:00"
+            "07:00-08:00", "08:00-09:00", "09:00-10:00", "10:00-11:00",
+            "11:00-12:00", "12:00-13:00", "13:00-14:00", "14:00-15:00",
+            "15:00-16:00", "16:00-17:00", "17:00-18:00", "18:00-19:00",
+            "19:00-20:00", "20:00-21:00", "21:00-22:00", "22:00-23:00", "23:00-00:00"
         };
 
         // Tambahkan listener ke semua tombol jadwal
@@ -99,10 +126,10 @@ public class DashboardLapangan extends javax.swing.JFrame {
      * WARNING: Do NOT modify this code. The content of this method is always
      * regenerated by the Form Editor.
      */
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -113,7 +140,7 @@ public class DashboardLapangan extends javax.swing.JFrame {
         btnJadwalTujuh = new javax.swing.JToggleButton();
         btnJadwalDelapan = new javax.swing.JToggleButton();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnNext = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         UlasBtn = new javax.swing.JButton();
         btnJadwalSembilan = new javax.swing.JToggleButton();
@@ -161,10 +188,10 @@ public class DashboardLapangan extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel4.setText("Jadwal");
 
-        jButton1.setText("Next");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnNext.setText("Next");
+        btnNext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnNextActionPerformed(evt);
             }
         });
 
@@ -449,8 +476,9 @@ public class DashboardLapangan extends javax.swing.JFrame {
                 end = selected.get(i + 1);
                 i++;
             }
-            if (sb.length() > 0)
+            if (sb.length() > 0) {
                 sb.append(", ");
+            }
             String startLabel = labels[start].substring(0, 5);
             String endLabel = labels[end].substring(6, 11);
             sb.append(startLabel).append("-").append(endLabel);
@@ -531,8 +559,18 @@ public class DashboardLapangan extends javax.swing.JFrame {
         // TODO add your handling code here:
     }// GEN-LAST:event_btnJadwalDuapuluhTigaActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+    private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
+        java.util.List<String> jadwalDipilih = new java.util.ArrayList<>();
+        for (int i = 0; i < jadwalButtons.length; i++) {
+            if (jadwalButtons[i].isSelected()) {
+                jadwalDipilih.add(jadwalLabels[i]);
+            }
+        }
+        // Contoh: kirim ke class selanjutnya (misal, BookingForm)
+        // BookingForm form = new BookingForm(lapangan, jadwalDipilih);
+        // form.setVisible(true);
+        // this.setVisible(false);
+        System.out.println("Jadwal yang dipilih: " + jadwalDipilih);
     }// GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jTextField1ActionPerformed
@@ -599,6 +637,8 @@ public class DashboardLapangan extends javax.swing.JFrame {
     private javax.swing.JToggleButton btnJadwalTigabelas;
     private javax.swing.JToggleButton btnJadwalTujuh;
     private javax.swing.JToggleButton btnJadwalTujuhbelas;
+    private javax.swing.JButton btnNext;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
