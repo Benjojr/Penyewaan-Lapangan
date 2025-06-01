@@ -24,13 +24,15 @@ import javax.swing.UIManager;
  *
  * @author benja
  */
+import MainClass.*;
 public class pilihLapangan extends javax.swing.JFrame {
-
+    private Pengguna pengguna;
     String idOlahRaga;
     private ContainerPilihOlahraga parent;
 
-    public pilihLapangan(String idOlahRaga, ContainerPilihOlahraga parent) {
+    public pilihLapangan(String idOlahRaga, ContainerPilihOlahraga parent, Pengguna pengguna) {
         initComponents();
+        this.pengguna = pengguna;
         this.idOlahRaga = idOlahRaga;
         this.parent = parent;
         DAOLapangan dao = new DAOLapangan();
@@ -51,7 +53,7 @@ public class pilihLapangan extends javax.swing.JFrame {
             // Tambahkan aksi saat tombol diklik
             button.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    DashboardLapangan dbl = new DashboardLapangan(lap, pilihLapangan.this);
+                    DashboardLapangan dbl = new DashboardLapangan(lap, pilihLapangan.this, pengguna);
                     dbl.setVisible(true);
                     pilihLapangan.this.setVisible(false);
                 }

@@ -21,6 +21,8 @@ import java.time.LocalDate;
  * @author benja
  */
 public class DAOJadwal {
+    DAOBookingDetail daobook = new DAOBookingDetail();
+    DAOLapangan daolapangan = new DAOLapangan ();
 
     public ArrayList<Jadwal> getJadwalByLapangan(String idLapangan, LocalDate today) {
         ArrayList<Jadwal> list = new ArrayList<>();
@@ -36,7 +38,9 @@ public class DAOJadwal {
                             rs.getString("id_Jadwal"),
                             rs.getDate("tanggal").toLocalDate(),
                             rs.getTime("jam_mulai").toLocalTime(),
-                            rs.getTime("jam_selesai").toLocalTime());
+                            rs.getTime("jam_selesai").toLocalTime(),
+                            daobook.getBooking(rs.getString("id_booking")),
+                            daolapangan.LoadSomeById(rs.getString("id_lapangan")));
                     list.add(jadwal);
                     
                 }
@@ -50,6 +54,25 @@ public class DAOJadwal {
         return list;
     }
     
+    public ArrayList<String> getIdAllJadwal() {
+        ArrayList<String> list = new ArrayList<>();
+        String sql = "SELECT * FROM Jadwal";
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    list.add(rs.getString("id_Jadwal"));
+                }
+            } catch (Exception e) {
+                System.out.println("Error: " + e);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+
+        return list;
+    }
+    
+    
     public void RegistJadwal(Jadwal jadwal)  {
         String sql = "INSERT INTO Jadwal(id_Jadwal, tanggal, jam_mulai, jam_selesai, id_booking, id_lapangan) VALUES (?,?,?,?,?,?)";
         try (Connection conn = DatabaseConnection.getConnection();PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -57,8 +80,8 @@ public class DAOJadwal {
             stmt.setString(2,jadwal.getTanggal().toString());
             stmt.setString(3,jadwal.getJam_Mulai().toString());
             stmt.setString(4,jadwal.getJam_Selesai().toString());
-            stmt.setString(5,jadwal.getIdBooking());
-            stmt.setString(6,jadwal.getIdLapangan());
+            stmt.setString(5,jadwal.getBooking().getId_booking());
+            stmt.setString(6,jadwal.getLapangan().getId_lapangan());
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Proses Pendaftaran Jadwal Berhasil.", "Information",JOptionPane.INFORMATION_MESSAGE);
             

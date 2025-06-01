@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 public class DAOBookingDetail {
 
   
@@ -64,10 +65,10 @@ public class DAOBookingDetail {
                 detail.getLapangan().setHarga(rs.getDouble("Harga"));
 
                 // Jadwal
-                detail.setJadwal(new Jadwal());
-                detail.getJadwal().setTanggal(rs.getDate("tanggal").toLocalDate());
-                detail.getJadwal().setJam_Mulai(rs.getTime("jam_mulai").toLocalTime());
-                detail.getJadwal().setJam_Selesai(rs.getTime("jam_selesai").toLocalTime());
+//                detail.setJadwal(new Jadwal());
+//                detail.getJadwal().setTanggal(rs.getDate("tanggal").toLocalDate());
+//                detail.getJadwal().setJam_Mulai(rs.getTime("jam_mulai").toLocalTime());
+//                detail.getJadwal().setJam_Selesai(rs.getTime("jam_selesai").toLocalTime());
 
                 bookings.add(detail);
             }
@@ -78,6 +79,37 @@ public class DAOBookingDetail {
         }
 
         return bookings;
+    }
+    
+    public ArrayList<String> getIdAllBooking() {
+        ArrayList<String> list = new ArrayList<>();
+        String sql = "SELECT * FROM Booking";
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    list.add(rs.getString("id_booking"));
+                }
+            } catch (Exception e) {
+                System.out.println("Error: " + e);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+
+        return list;
+    }
+    
+    public void RegistBooking(Booking book)  {
+        String sql = "INSERT INTO Booking(id_booking, id_pengguna) VALUES (?,?)";
+        try (Connection conn = DatabaseConnection.getConnection();PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1,book.getId_booking());
+            stmt.setString(2,book.getPengguna().getId());
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Proses Pendaftaran Booking Berhasil.", "Information",JOptionPane.INFORMATION_MESSAGE);
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     public Booking getBooking(String id_booking) {
@@ -129,10 +161,10 @@ public class DAOBookingDetail {
                 detail.getLapangan().setHarga(rs.getDouble("Harga"));
 
                 // Jadwal
-                detail.setJadwal(new Jadwal());
-                detail.getJadwal().setTanggal(rs.getDate("tanggal").toLocalDate());
-                detail.getJadwal().setJam_Mulai(rs.getTime("jam_mulai").toLocalTime());
-                detail.getJadwal().setJam_Selesai(rs.getTime("jam_selesai").toLocalTime());
+//                detail.setJadwal(new Jadwal());
+//                detail.getJadwal().setTanggal(rs.getDate("tanggal").toLocalDate());
+//                detail.getJadwal().setJam_Mulai(rs.getTime("jam_mulai").toLocalTime());
+//                detail.getJadwal().setJam_Selesai(rs.getTime("jam_selesai").toLocalTime());
             }
         } catch (SQLException e) {
             System.out.println("Error retrieving booking detail: " + e.getMessage());

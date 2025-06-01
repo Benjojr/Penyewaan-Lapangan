@@ -9,15 +9,17 @@ package GUI;
  *
  * @author Axioo Pongo
  */
+import MainClass.*;
 public class ContainerPilihOlahraga extends javax.swing.JFrame {
-
+    private Pengguna pengguna;
     private Dashboard parent;
     /**
      * Creates new form ContainerPilihOlahraga
      */
-    public ContainerPilihOlahraga(Dashboard parent) {
+    public ContainerPilihOlahraga(Dashboard parent, Pengguna pengguna) {
         initComponents();
         this.parent = parent;
+        this.pengguna = pengguna;
     }
     
     public ContainerPilihOlahraga() {
@@ -196,7 +198,7 @@ public class ContainerPilihOlahraga extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void setIDLapangan(String id){
-        pilihLapangan pl = new pilihLapangan(id, this);
+        pilihLapangan pl = new pilihLapangan(id, this, pengguna);
         pl.setVisible(true);
         this.setVisible(false);
     }

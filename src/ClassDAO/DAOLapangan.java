@@ -7,9 +7,11 @@ package ClassDAO;
 import ConnectionClass.DatabaseConnection;
 import MainClass.Lapangan;
 import MainClass.Olahraga;
+import MainClass.Pengguna;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,8 +39,7 @@ public class DAOLapangan {
                             rs.getString("Lokasi"),
                             rs.getDouble("Harga"),
                             rs.getString("Nama_lapangan"),
-                            olahraga,
-                            null
+                            olahraga
                     );
 
                     list.add(lapangan);
@@ -50,4 +51,53 @@ public class DAOLapangan {
 
         return list;
     }
+    
+    public Lapangan LoadSomeById(String id_Lapangan) {
+        String sql = "SELECT * FROM Lapangan WHERE id_lapangan = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setString(1, id_Lapangan); // Set parameter safely
+            
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new Lapangan(
+                        rs.getString("id_lapangan"),
+                        rs.getString("Lokasi"),
+                        rs.getDouble("Harga"),
+                        rs.getString("Nama_lapangan"),
+                        LoadOlrgById(rs.getString("id_Olahraga"))
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            // Log the exception properly instead of just printing
+            System.err.println("Error loading Pengguna by ID: " + e.getMessage());
+        }
+    return null;
+    }
+    
+    public Olahraga LoadOlrgById(String id_or) {
+        String sql = "SELECT * FROM Jenis_Olahraga WHERE id_Olahraga = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setString(1, id_or); // Set parameter safely
+            
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new Olahraga(
+                        rs.getString("id_Olahraga"),
+                        rs.getString("nama_Olahraga")
+                        
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            // Log the exception properly instead of just printing
+            System.err.println("Error loading Pengguna by ID: " + e.getMessage());
+        }
+    return null;
+    }
+    
 }

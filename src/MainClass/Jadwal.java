@@ -13,10 +13,10 @@ public class Jadwal {
     private LocalDate tanggal;
     private LocalTime jam_Mulai;
     private LocalTime jam_Selesai;
-    private String id_Booking;
-    private String id_lapangan;
+    private Booking id_Booking;
+    private Lapangan id_lapangan;
 
-    public Jadwal(String idJadwal, LocalDate tanggal, LocalTime jam_Mulai, LocalTime jam_Selesai, String id_Booking, String id_lapangan) {
+    public Jadwal(String idJadwal, LocalDate tanggal, LocalTime jam_Mulai, LocalTime jam_Selesai, Booking id_Booking, Lapangan id_lapangan) {
 
         this.idJadwal = idJadwal;
         this.tanggal = tanggal;
@@ -44,11 +44,11 @@ public class Jadwal {
         return jam_Selesai;
     }
     
-    public String getIdBooking() {
+    public Booking getBooking() {
         return id_Booking;
     }
     
-    public String getIdLapangan() {
+    public Lapangan getLapangan() {
         return id_lapangan;
     }
 

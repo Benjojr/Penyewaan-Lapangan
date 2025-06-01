@@ -45,43 +45,43 @@ public class Main {
 //         LocalDateTime w = LocalDateTime.now();
 //         System.out.println(w.getMonth());
 
-    LocalDate tanggal = LocalDate.of(2025, Month.MAY, 31);
-    LocalTime waktu = LocalTime.now();
-    
-    DAOBookingDetail daobook = new DAOBookingDetail();
-    List<Booking> bookings = daobook.getBookingDetail("b0001");
-    Booking book1 = (bookings != null && !bookings.isEmpty()) ? bookings.get(0) : null;
-    if (book1 != null) {
-        System.out.println(book1.getJadwal().getIdJadwal());
-        PembayaranFrame pbf = new PembayaranFrame(book1, "Qris");
-        pbf.setVisible(true);
-
-        Pembayaran pembayaran = new Pembayaran("12312", 20000, true, tanggal, waktu, book1);
-    } else {
-        System.out.println("No booking found with id b0001.");
-    }
-    DAOPembayaran daobyr = new DAOPembayaran();
-    ArrayList<String> ids = daobyr.LoadAllId();
-    
-    for(String elem : ids){
-        String id = elem.substring(3);
-        System.out.println(Integer.parseInt(id));
-    }
-        DAOBookingDetail bd1 = new DAOBookingDetail();
-        List<Booking> detail = bd1.getBookingDetail("p0001");
-
-        if (detail != null && !detail.isEmpty()) {
-            for (Booking booking : detail) {
-                System.out.println("Booking ID: " + booking.getId_booking());
-                System.out.println("Username: " + booking.getPengguna().getUserName());
-                System.out.println("Lapangan: " + booking.getLapangan().getOlahraga().getNama_olahraga());
-                System.out.println("Tanggal: " + booking.getJadwal().getTanggal());
-                System.out.println("Jam Mulai: " + booking.getJadwal().getJam_Mulai());
-                System.out.println("Jam Selesai: " + booking.getJadwal().getJam_Selesai());
-                System.out.println("------------------------");
-            }
-        } else {
-            System.out.println("No booking details found for the user.");
-        }
+//    LocalDate tanggal = LocalDate.of(2025, Month.MAY, 31);
+//    LocalTime waktu = LocalTime.now();
+//    
+//    DAOBookingDetail daobook = new DAOBookingDetail();
+//    List<Booking> bookings = daobook.getBookingDetail("b0001");
+//    Booking book1 = (bookings != null && !bookings.isEmpty()) ? bookings.get(0) : null;
+//    if (book1 != null) {
+//        System.out.println(book1.getJadwal().getIdJadwal());
+//        PembayaranFrame pbf = new PembayaranFrame(book1, "Qris");
+//        pbf.setVisible(true);
+//
+//        Pembayaran pembayaran = new Pembayaran("12312", 20000, true, tanggal, waktu, book1);
+//    } else {
+//        System.out.println("No booking found with id b0001.");
+//    }
+//    DAOPembayaran daobyr = new DAOPembayaran();
+//    ArrayList<String> ids = daobyr.LoadAllId();
+//    
+//    for(String elem : ids){
+//        String id = elem.substring(3);
+//        System.out.println(Integer.parseInt(id));
+//    }
+//        DAOBookingDetail bd1 = new DAOBookingDetail();
+//        List<Booking> detail = bd1.getBookingDetail("p0001");
+//
+//        if (detail != null && !detail.isEmpty()) {
+//            for (Booking booking : detail) {
+//                System.out.println("Booking ID: " + booking.getId_booking());
+//                System.out.println("Username: " + booking.getPengguna().getUserName());
+//                System.out.println("Lapangan: " + booking.getLapangan().getOlahraga().getNama_olahraga());
+//                System.out.println("Tanggal: " + booking.getJadwal().getTanggal());
+//                System.out.println("Jam Mulai: " + booking.getJadwal().getJam_Mulai());
+//                System.out.println("Jam Selesai: " + booking.getJadwal().getJam_Selesai());
+//                System.out.println("------------------------");
+//            }
+//        } else {
+//            System.out.println("No booking details found for the user.");
+//        }
     }
 }
