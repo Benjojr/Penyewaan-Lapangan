@@ -1,13 +1,6 @@
 package GUI;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-/**
- *
- * @author User
- */
+
 import ClassDAO.DAOJadwal;
 import MainClass.Jadwal;
 import MainClass.Lapangan;
@@ -19,6 +12,7 @@ import javax.swing.JOptionPane;
 
 import MainClass.*;
 import ClassDAO.*;
+import GUI.Ulas;
 import java.time.LocalTime;
 
 public class DashboardLapangan extends javax.swing.JFrame {
@@ -138,7 +132,7 @@ public class DashboardLapangan extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -620,7 +614,6 @@ public class DashboardLapangan extends javax.swing.JFrame {
         // form.setVisible(true);
         // this.setVisible(false);
         System.out.println("Jadwal yang dipilih: " + jadwalDipilih);
-    }
         if(jadwalDipilih.size()==0){
             JOptionPane.showMessageDialog(null, "Pilih jadwal dulu woy");
         }
@@ -673,8 +666,6 @@ public class DashboardLapangan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton UlasBtn;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton btnBack;
     private javax.swing.JToggleButton btnJadwalDelapan;
     private javax.swing.JToggleButton btnJadwalDelapanbelas;
@@ -693,7 +684,6 @@ public class DashboardLapangan extends javax.swing.JFrame {
     private javax.swing.JToggleButton btnJadwalTigabelas;
     private javax.swing.JToggleButton btnJadwalTujuh;
     private javax.swing.JToggleButton btnJadwalTujuhbelas;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton btnNext;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;

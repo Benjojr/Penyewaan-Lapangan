@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
 public class DAOPembayaran {
     DAOBookingDetail daobook = new DAOBookingDetail();
     
-    public void Regist(String id, Pembayaran pembayaran, String idPengguna)  {
+    public void Regist(String id, Pembayaran pembayaran)  {
         String sql = "INSERT INTO Pembayaran(id_Pembayaran, kode_Pembayaran, id_Booking, Tanggal, waktu, status_Pembayaran, harga_awal, harga_akhir) VALUES (?,?,?,?,?,?,?,?)";
         String status = (pembayaran.isStatus())? "1":"0" ;
         try (Connection conn = DatabaseConnection.getConnection();PreparedStatement stmt = conn.prepareStatement(sql)) {
