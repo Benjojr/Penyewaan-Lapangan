@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 public class DAOBookingDetail {
     public List<Booking> getBookingDetail(String id_Pengguna) {
         List<Booking> bookings = new ArrayList<>();
@@ -102,7 +101,6 @@ public class DAOBookingDetail {
             stmt.setString(1,book.getId_booking());
             stmt.setString(2,book.getPengguna().getId());
             stmt.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Proses Pendaftaran Booking Berhasil.", "Information",JOptionPane.INFORMATION_MESSAGE);
             
         } catch (Exception e) {
             System.out.println(e);

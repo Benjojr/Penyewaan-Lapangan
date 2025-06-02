@@ -12,9 +12,9 @@ public class PembayaranFrame extends javax.swing.JFrame {
     private String idPengguna;
     private Booking pesanan;
     private String Bank;
-    private Langganan langganan = new Langganan("L0001","Reguler", 0, 0);
     private double potongan; 
     private int KodePembayaran = generateKodePembayaran();
+    private double hargaAwal;
     private double nominal;
     private LocalDateTime waktuPembayaran = LocalDateTime.now();
     private LocalDate tanggal = LocalDate.of(waktuPembayaran.getYear(), waktuPembayaran.getMonth(), waktuPembayaran.getDayOfMonth());
@@ -25,12 +25,15 @@ public class PembayaranFrame extends javax.swing.JFrame {
     private DAOPembayaran daopbyr = new DAOPembayaran();
     private DAOBookingDetail daobook = new DAOBookingDetail();
     private DAOJadwal daojadwal = new DAOJadwal();
+    private DAOLangganan langganandao = new DAOLangganan();
     
-    public PembayaranFrame(Booking pesanan, String bank) {
+    public PembayaranFrame(Booking pesanan, String bank, double hargaTotal) {
         this.pesanan = pesanan;
         this.idPengguna = pesanan.getPengguna().getId();
-        this.potongan = langganan.getPotongan()*pesanan.getLapangan().getHarga();
-        this.nominal = this.pesanan.getLapangan().getHarga()-potongan;
+        this.hargaAwal = hargaTotal;
+        this.potongan = langganandao.LoadSomeById(this.pesanan.getPengguna().getJenis_langganan()).getPotongan()*hargaAwal;
+        
+        this.nominal = hargaAwal-potongan;
         this.Bank = bank;
         this.id = generateId(daopbyr.LoadAllId());
         initComponents();
@@ -46,6 +49,10 @@ public class PembayaranFrame extends javax.swing.JFrame {
         KodePembayaranLabel.setText(String.format("Kode Pembayaran : %d",KodePembayaran));
         PotonganLabel.setText(String.format("Potongan : Rp. %.2f", potongan));
         NominalLabel.setText(String.format("Nominal Pembayaran : Rp. %.2f", nominal));
+        JadwalListCOBO.removeAllItems();
+        for(Jadwal elem : this.pesanan.getJadwal()) {
+            JadwalListCOBO.addItem(elem.getJam_Mulai().toString()+"-"+elem.getJam_Selesai().toString());
+        }
         UsrnmLabel.setText("Username : "+pesanan.getPengguna().getUserName()+" ("+pesanan.getPengguna().getJenis_langganan()+")");
         TimeLabel.setText("Waktu : "+waktuPembayaran.getDayOfMonth()+" "+waktuPembayaran.getMonth()+" "+waktuPembayaran.getYear()+" at "+waktuPembayaran.getHour()+":"+waktuPembayaran.getMinute());
         
@@ -84,7 +91,7 @@ public class PembayaranFrame extends javax.swing.JFrame {
         PotonganLabel = new javax.swing.JLabel();
         HargaAwalLabel = new javax.swing.JLabel();
         JadwalLabel = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        JadwalListCOBO = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -123,12 +130,7 @@ public class PembayaranFrame extends javax.swing.JFrame {
         JadwalLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         JadwalLabel.setText("Jadwal : ");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
+        JadwalListCOBO.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -142,12 +144,11 @@ public class PembayaranFrame extends javax.swing.JFrame {
                     .addComponent(HargaAwalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(PotonganLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(NominalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                            .addComponent(JadwalLabel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addComponent(TimeLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(JadwalLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(JadwalListCOBO, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TimeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(151, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -162,8 +163,8 @@ public class PembayaranFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JadwalLabel)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(JadwalListCOBO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addComponent(HargaAwalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PotonganLabel)
@@ -315,19 +316,20 @@ public class PembayaranFrame extends javax.swing.JFrame {
                 }
                 
                 if(statusPembayaran.equals("sukses")){
+                    String tempStatus = statusPembayaran;
+                    statusPembayaran = "idle";
                     System.out.println("testing");
                     JOptionPane.showMessageDialog(null,
                     "Pemesanan Berhasil",
                     "Information",
                     JOptionPane.INFORMATION_MESSAGE);
-                    status = (statusPembayaran.equals("sukses"))? true:false;
+                    status = tempStatus.equals("sukses");
                     hasil = new Pembayaran(String.valueOf(KodePembayaran), nominal, status, tanggal, waktu, pesanan);  
                     daobook.RegistBooking(pesanan);
                     for(Jadwal elem : pesanan.getJadwal()) {
                         daojadwal.RegistJadwal(elem);
                     }
                     daopbyr.Regist(id, hasil);
-                    statusPembayaran = "idle";
                     Dashboard dshb = new Dashboard(pesanan.getPengguna());
                     dshb.setVisible(true);
                     this.dispose();
@@ -344,7 +346,7 @@ public class PembayaranFrame extends javax.swing.JFrame {
                 } else if(statusPembayaran.equals("salah")){
                     statusPembayaran = "idle";
                     JOptionPane.showMessageDialog(null,
-                    "Kode Pembaaran yang kamu masukkan, tidak dapat dikenali.",
+                    "Kode Pembayaran yang kamu masukkan, tidak dapat dikenali.",
                     "Inane warning",
                     JOptionPane.WARNING_MESSAGE);
                     tf.resetField();
@@ -355,10 +357,6 @@ public class PembayaranFrame extends javax.swing.JFrame {
         thread.start();
         
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
     
     private String cekPembayaran(String kode, String nominal) {
         int kodepembayaran = Integer.parseInt(kode);
@@ -384,6 +382,7 @@ public class PembayaranFrame extends javax.swing.JFrame {
     private javax.swing.JLabel BankLabel;
     private javax.swing.JLabel HargaAwalLabel;
     private javax.swing.JLabel JadwalLabel;
+    private javax.swing.JComboBox<String> JadwalListCOBO;
     private javax.swing.JLabel JudulPemesananLabel;
     private javax.swing.JLabel KodePembayaranLabel;
     private javax.swing.JLabel NominalLabel;
@@ -391,7 +390,6 @@ public class PembayaranFrame extends javax.swing.JFrame {
     private javax.swing.JLabel TimeLabel;
     private javax.swing.JLabel UsrnmLabel;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel6;

@@ -77,4 +77,33 @@ public class DAOUlasan {
         }
         return ulasanList;
     }
+
+    public List<Ulasan> getUlasanByLapangan(String idLapangan) {
+        List<Ulasan> ulasanList = new ArrayList<>();
+        String sql = "SELECT * FROM Ulasan WHERE id_Lapangan = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection(); 
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, idLapangan);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Ulasan ulasan = new Ulasan();
+                    ulasan.setIdUlasan(rs.getString("id_Ulasan"));
+                    ulasan.setKomen(rs.getString("komen"));
+                    int ratingValue = rs.getInt("rating");
+                    ulasan.setRating(ratingValue >= 1 && ratingValue <= 5 ? 
+                        MainClass.Rating.fromInt(ratingValue) : MainClass.Rating.ONE); // Default to ONE if invalid
+                    ulasan.setTanggal(rs.getDate("tanggal").toLocalDate());
+                    ulasan.getPengguna().setId(rs.getString("id_Pengguna"));
+                    ulasan.getLapangan().setId_lapangan(rs.getString("id_Lapangan"));
+                    ulasanList.add(ulasan);
+                }
+            } catch (Exception e) {
+                System.err.println("Error processing result set: " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("Error retrieving ulasan by lapangan: " + e.getMessage());
+        }
+        return ulasanList;
+    }
 }

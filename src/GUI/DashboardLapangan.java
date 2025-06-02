@@ -1,27 +1,27 @@
 package GUI;
 
-
-import ClassDAO.DAOJadwal;
+import MainClass.Booking;
 import MainClass.Jadwal;
 import MainClass.Lapangan;
 import MainClass.Pengguna;
+import MainClass.Ulasan;
 import java.util.ArrayList;
-import java.time.LocalDate;
-import java.time.Month;
 import javax.swing.JOptionPane;
-
-import MainClass.*;
 import ClassDAO.*;
 import GUI.Ulas;
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Month;
 
 public class DashboardLapangan extends javax.swing.JFrame {
+
     private DAOBookingDetail daoBook = new DAOBookingDetail();
     private DAOJadwal daojadwal = new DAOJadwal();
     private ArrayList<Jadwal> jadwals = new ArrayList<Jadwal>();
     private Booking pemesanan;
     private Pengguna pengguna;
     private Lapangan lapangan;
+    private Ulasan ulasan; // Removed because Ulasan cannot be resolved to a type
     private pilihLapangan parent;
 
     private javax.swing.JToggleButton[] jadwalButtons;
@@ -34,14 +34,13 @@ public class DashboardLapangan extends javax.swing.JFrame {
 
     public DashboardLapangan(Lapangan lapangan, pilihLapangan parent, Pengguna pengguna) {
         initComponents();
-        this.pengguna = pengguna;
         this.lapangan = lapangan;
         this.parent = parent;
         this.pengguna = pengguna;
         setGambar();
         String idLapangan = lapangan.getId_lapangan();
-        DAOJadwal daojadwal = new DAOJadwal();
-        ArrayList<Jadwal> jadwalList = daojadwal.getJadwalByLapangan(idLapangan, LocalDate.now());
+        DAOJadwal dao = new DAOJadwal();
+        ArrayList<Jadwal> jadwalList = dao.getJadwalByLapangan(idLapangan, LocalDate.of(2025, Month.MAY, 31));
 
         jadwalButtons = new javax.swing.JToggleButton[]{
             btnJadwalTujuh, btnJadwalDelapan, btnJadwalSembilan, btnJadwalSepuluh,
@@ -79,15 +78,17 @@ public class DashboardLapangan extends javax.swing.JFrame {
         };
 
         for (Jadwal jadwal : jadwalList) {
-                int start = jadwal.getJam_Mulai().getHour();
-                int end = jadwal.getJam_Selesai().getHour();
-                for (int jam = start; jam < end; jam++) {
-                    for (Object[] mapping : jadwalMapping) {
-                        if ((int) mapping[0] == jam) {
-                            ((javax.swing.JToggleButton) mapping[1]).setEnabled(false);
-                        }
+
+            int start = jadwal.getJam_Mulai().getHour();
+            int end = jadwal.getJam_Selesai().getHour();
+            for (int jam = start; jam < end; jam++) {
+                for (Object[] mapping : jadwalMapping) {
+                    if ((int) mapping[0] == jam) {
+                        ((javax.swing.JToggleButton) mapping[1]).setEnabled(false);
                     }
                 }
+            }
+
         }
         jLabel1.setText("Lapangan " + lapangan.getNama_lapangan());
         labelInformasiLapangan.setText("""
@@ -164,17 +165,18 @@ public class DashboardLapangan extends javax.swing.JFrame {
         labelJadwalYangDipilih = new javax.swing.JLabel();
         tanggalPesan = new com.github.lgooddatepicker.components.DatePicker();
         jLabel2 = new javax.swing.JLabel();
+        showUlasanBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Lapangan xxxxxxxxxxxxxxxx");
+        jLabel1.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
 
-        labelInformasiLapangan.setBackground(new java.awt.Color(153, 153, 153));
         labelInformasiLapangan.setText("Informasi Lapangan");
+        labelInformasiLapangan.setBackground(new java.awt.Color(153, 153, 153));
 
         btnJadwalTujuh.setText("07:00-08:00");
         btnJadwalTujuh.addActionListener(new java.awt.event.ActionListener() {
@@ -190,8 +192,8 @@ public class DashboardLapangan extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel4.setText("Jadwal");
+        jLabel4.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
 
         btnNext.setText("Next");
         btnNext.addActionListener(new java.awt.event.ActionListener() {
@@ -210,7 +212,7 @@ public class DashboardLapangan extends javax.swing.JFrame {
         jButton3.setText("Ulas");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UlasBtnActionPerformed(evt);
+                showUlasanBtnActionPerformed(evt);
             }
         });
 
@@ -323,6 +325,13 @@ public class DashboardLapangan extends javax.swing.JFrame {
 
         jLabel2.setText("Pilih Tanggal");
 
+        showUlasanBtn.setText("Lihat Ulasan");
+        showUlasanBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showUlasanBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -338,9 +347,11 @@ public class DashboardLapangan extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelInformasiLapangan, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tanggalPesan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(showUlasanBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)))
                         .addGap(0, 20, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -411,7 +422,9 @@ public class DashboardLapangan extends javax.swing.JFrame {
                         .addGap(68, 68, 68)
                         .addComponent(jButton3))
                     .addComponent(labelGambar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(35, 35, 35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(showUlasanBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -457,6 +470,11 @@ public class DashboardLapangan extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void showUlasanBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showUlasanBtnActionPerformed
+        UlasanFrame ulsFrame = new UlasanFrame(lapangan.getId_lapangan(), lapangan.getNama_lapangan());
+        ulsFrame.setVisible(true);
+    }//GEN-LAST:event_showUlasanBtnActionPerformed
     private void setGambar() {
         labelGambar.setIcon(
                 new javax.swing.ImageIcon(getClass().getResource("/assets/" + lapangan.getId_lapangan() + ".png"))); // NOI18N
@@ -500,22 +518,6 @@ public class DashboardLapangan extends javax.swing.JFrame {
             labelJadwalYangDipilih.setText("Jadwal dipilih: " + sb.toString());
         }
     }
-    
-    private String generateID(ArrayList<String> AllId, String init) {
-        int maxId = 0;
-        for(String elem : AllId) {
-            if(getnumID(elem)>maxId){
-                maxId = getnumID(elem);
-            }
-        }
-        return String.format("%s%04d",init, (maxId+1));
-    }
-    
-    private int getnumID(String elem) {
-        String temp = elem.substring(1);
-        return Integer.parseInt(temp);
-    }
-    
 
     private void btnJadwalTujuhActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
@@ -585,7 +587,20 @@ public class DashboardLapangan extends javax.swing.JFrame {
         // TODO add your handling code here:
     }// GEN-LAST:event_btnJadwalDuapuluhTigaActionPerformed
 
-        
+    private int getnumID(String elem) {
+        String temp = elem.substring(1);
+        return Integer.parseInt(temp);
+    }
+
+    private String generateID(ArrayList<String> AllId, String init) {
+        int maxId = 0;
+        for(String elem : AllId) {
+            if(getnumID(elem)>maxId){
+                maxId = getnumID(elem);
+            }
+        }
+        return String.format("%s%04d",init, (maxId+1));
+    }
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
         java.util.List<String> jadwalDipilih = new java.util.ArrayList<>();
@@ -608,18 +623,20 @@ public class DashboardLapangan extends javax.swing.JFrame {
         
         Checkout co = new Checkout(pemesanan);
         co.setVisible(true);
+        this.dispose();
         
         // Contoh: kirim ke class selanjutnya (misal, BookingForm)
         // BookingForm form = new BookingForm(lapangan, jadwalDipilih);
         // form.setVisible(true);
         // this.setVisible(false);
         System.out.println("Jadwal yang dipilih: " + jadwalDipilih);
-        if(jadwalDipilih.size()==0){
+
+        if(jadwalDipilih.isEmpty()){
             JOptionPane.showMessageDialog(null, "Pilih jadwal dulu woy");
         }
         
         System.out.println(tanggalPesan.getText());
-    }
+    }// GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
@@ -693,8 +710,7 @@ public class DashboardLapangan extends javax.swing.JFrame {
     private javax.swing.JLabel labelGambar;
     private javax.swing.JLabel labelInformasiLapangan;
     private javax.swing.JLabel labelJadwalYangDipilih;
+    private javax.swing.JButton showUlasanBtn;
     private com.github.lgooddatepicker.components.DatePicker tanggalPesan;
     // End of variables declaration//GEN-END:variables
-
-    
 }

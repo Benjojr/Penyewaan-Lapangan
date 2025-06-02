@@ -2,25 +2,14 @@
 package MainClass;
 
 public class Langganan {
-    String idLangganan;
     String jenisLangganan;
     double potongan;
     double harga;
     
-     public Langganan(String idLangganan, String jenisLangganan, double potongan, double harga) {
-        this.idLangganan = idLangganan;
+     public Langganan( String jenisLangganan, double potongan, double harga) {
         this.jenisLangganan = jenisLangganan;
         this.potongan = potongan;
         this.harga = harga;
-    }
-
-    // Getter dan Setter
-    public String getIdLangganan() {
-        return idLangganan;
-    }
-
-    public void setIdLangganan(String idLangganan) {
-        this.idLangganan = idLangganan;
     }
 
     public String getJenisLangganan() {
