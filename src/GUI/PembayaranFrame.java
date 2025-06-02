@@ -301,19 +301,20 @@ public class PembayaranFrame extends javax.swing.JFrame {
                 }
                 
                 if(statusPembayaran.equals("sukses")){
+                    String tempStatus = statusPembayaran;
+                    statusPembayaran = "idle";
                     System.out.println("testing");
                     JOptionPane.showMessageDialog(null,
                     "Pemesanan Berhasil",
                     "Information",
                     JOptionPane.INFORMATION_MESSAGE);
-                    status = (statusPembayaran.equals("sukses"))? true:false;
+                    status = tempStatus.equals("sukses");
                     hasil = new Pembayaran(String.valueOf(KodePembayaran), nominal, status, tanggal, waktu, pesanan);  
                     daobook.RegistBooking(pesanan);
                     for(Jadwal elem : pesanan.getJadwal()) {
                         daojadwal.RegistJadwal(elem);
                     }
                     daopbyr.Regist(id, hasil);
-                    statusPembayaran = "idle";
                     Dashboard dshb = new Dashboard(pesanan.getPengguna());
                     dshb.setVisible(true);
                     this.dispose();
@@ -330,7 +331,7 @@ public class PembayaranFrame extends javax.swing.JFrame {
                 } else if(statusPembayaran.equals("salah")){
                     statusPembayaran = "idle";
                     JOptionPane.showMessageDialog(null,
-                    "Kode Pembaaran yang kamu masukkan, tidak dapat dikenali.",
+                    "Kode Pembayaran yang kamu masukkan, tidak dapat dikenali.",
                     "Inane warning",
                     JOptionPane.WARNING_MESSAGE);
                     tf.resetField();
