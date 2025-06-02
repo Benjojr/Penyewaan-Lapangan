@@ -178,8 +178,8 @@ public class HistoryFrame extends javax.swing.JFrame {
 
                 // Format Duration in hours
                 Duration duration = Duration.between(
-                    booking.getJadwal().getJam_Mulai(), 
-                    booking.getJadwal().getJam_Selesai()
+                    booking.getJadwal().get(0).getJam_Mulai(), 
+                    booking.getJadwal().get(0).getJam_Selesai()
                 );
                 long toHours = duration.toHours();
 
@@ -196,7 +196,7 @@ public class HistoryFrame extends javax.swing.JFrame {
                         booking.getLapangan().getNama_lapangan(),
                         booking.getLapangan().getLokasi(),
                         booking.getLapangan().getOlahraga().getNama_olahraga(),
-                        booking.getJadwal().getTanggal().toString(),
+                        booking.getJadwal().get(0).getTanggal().toString(),
                         toHours,
                         booking.getLapangan().getHarga()
                     );

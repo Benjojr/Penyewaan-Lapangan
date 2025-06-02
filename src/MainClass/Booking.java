@@ -1,23 +1,22 @@
 
 package MainClass;
 
+import java.util.ArrayList;
+
 public class Booking {
     private String id_booking;
     private Pengguna pengguna;
-    private Jadwal jadwal;
+    private ArrayList<Jadwal> jadwal = new ArrayList<Jadwal>();
     private Lapangan lapangan;
 
-    public Booking(String id_booking, Pengguna id_Pengguna, Jadwal jadwal, Lapangan lapangan) {
+    public Booking(String id_booking, Pengguna id_Pengguna, Lapangan lapangan) {
         this.id_booking = id_booking;
         this.pengguna = id_Pengguna;
-        this.jadwal = jadwal;
         this.lapangan = lapangan;
     }
 
     public Booking(){
-
         this.pengguna = new Pengguna();
-        this.jadwal = new Jadwal();
         this.lapangan = new Lapangan();
 
     }
@@ -38,12 +37,12 @@ public class Booking {
         this.pengguna = id_Pengguna;
     }
 
-    public Jadwal getJadwal() {
+    public ArrayList<Jadwal> getJadwal() {
         return jadwal;
     }
 
     public void setJadwal(Jadwal jadwal) {
-        this.jadwal = jadwal;
+        this.jadwal.add(jadwal);
     }
 
     public Lapangan getLapangan() {

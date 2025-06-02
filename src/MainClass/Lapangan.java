@@ -16,13 +16,12 @@ public class Lapangan {
     private Olahraga olahraga;
     private Jadwal jadwal;
 
-    public Lapangan(String id_lapangan, String lokasi, double harga, String nama_lapangan, Olahraga olahraga, Jadwal jadwal) {
+    public Lapangan(String id_lapangan, String lokasi, double harga, String nama_lapangan, Olahraga olahraga) {
         this.id_lapangan = id_lapangan;
         this.lokasi = lokasi;
         this.harga = harga;
         this.nama_lapangan = nama_lapangan;
         this.olahraga = olahraga;
-        this.jadwal = jadwal;
     }
     
 

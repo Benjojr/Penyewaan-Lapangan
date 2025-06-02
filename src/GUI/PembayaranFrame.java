@@ -23,6 +23,8 @@ public class PembayaranFrame extends javax.swing.JFrame {
     private boolean status;
     private Pembayaran hasil;
     private DAOPembayaran daopbyr = new DAOPembayaran();
+    private DAOBookingDetail daobook = new DAOBookingDetail();
+    private DAOJadwal daojadwal = new DAOJadwal();
     
     public PembayaranFrame(Booking pesanan, String bank) {
         this.pesanan = pesanan;
@@ -40,7 +42,6 @@ public class PembayaranFrame extends javax.swing.JFrame {
     private void setFrame() {
         JudulPemesananLabel.setText("Pemesanan "+pesanan.getId_booking()+" : Lapangan "+pesanan.getLapangan().getNama_lapangan());
         HargaAwalLabel.setText(String.format("Harga awal : Rp. %.2f",pesanan.getLapangan().getHarga()));
-        JadwalLabel.setText("Jadwal : "+pesanan.getJadwal().getIdJadwal()+" ("+pesanan.getJadwal().getJam_Mulai()+" - "+pesanan.getJadwal().getJam_Selesai()+")");
         BankLabel.setText("Via : "+Bank);
         KodePembayaranLabel.setText(String.format("Kode Pembayaran : %d",KodePembayaran));
         PotonganLabel.setText(String.format("Potongan : Rp. %.2f", potongan));
@@ -300,18 +301,20 @@ public class PembayaranFrame extends javax.swing.JFrame {
                 }
                 
                 if(statusPembayaran.equals("sukses")){
+                    String tempStatus = statusPembayaran;
+                    statusPembayaran = "idle";
                     System.out.println("testing");
                     JOptionPane.showMessageDialog(null,
                     "Pemesanan Berhasil",
                     "Information",
                     JOptionPane.INFORMATION_MESSAGE);
-                    status = (statusPembayaran.equals("sukses"))? true:false;
-                    hasil = new Pembayaran(String.valueOf(KodePembayaran), nominal, status, tanggal, waktu, pesanan);
-                    daopbyr.Regist(id, hasil, idPengguna);
-                    
-                    // beri mekanisme pencatatan database
-                    
-                    statusPembayaran = "idle";
+                    status = tempStatus.equals("sukses");
+                    hasil = new Pembayaran(String.valueOf(KodePembayaran), nominal, status, tanggal, waktu, pesanan);  
+                    daobook.RegistBooking(pesanan);
+                    for(Jadwal elem : pesanan.getJadwal()) {
+                        daojadwal.RegistJadwal(elem);
+                    }
+                    daopbyr.Regist(id, hasil);
                     Dashboard dshb = new Dashboard(pesanan.getPengguna());
                     dshb.setVisible(true);
                     this.dispose();
@@ -328,7 +331,7 @@ public class PembayaranFrame extends javax.swing.JFrame {
                 } else if(statusPembayaran.equals("salah")){
                     statusPembayaran = "idle";
                     JOptionPane.showMessageDialog(null,
-                    "Kode Pembaaran yang kamu masukkan, tidak dapat dikenali.",
+                    "Kode Pembayaran yang kamu masukkan, tidak dapat dikenali.",
                     "Inane warning",
                     JOptionPane.WARNING_MESSAGE);
                     tf.resetField();

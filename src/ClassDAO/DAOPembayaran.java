@@ -9,10 +9,8 @@ import MainClass.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.*;
 import java.time.*;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,7 +19,7 @@ import javax.swing.JOptionPane;
 public class DAOPembayaran {
     DAOBookingDetail daobook = new DAOBookingDetail();
     
-    public void Regist(String id, Pembayaran pembayaran, String idPengguna)  {
+    public void Regist(String id, Pembayaran pembayaran)  {
         String sql = "INSERT INTO Pembayaran(id_Pembayaran, kode_Pembayaran, id_Booking, Tanggal, waktu, status_Pembayaran, harga_awal, harga_akhir) VALUES (?,?,?,?,?,?,?,?)";
         String status = (pembayaran.isStatus())? "1":"0" ;
         try (Connection conn = DatabaseConnection.getConnection();PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -36,7 +34,6 @@ public class DAOPembayaran {
             stmt.setString(8, String.valueOf(hargaAkhir));
             
             stmt.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Proses Pencatatan Pembayaran Berhasil.", "Information",JOptionPane.INFORMATION_MESSAGE);
             
         } catch (Exception e) {
             System.out.println(e);
@@ -45,7 +42,7 @@ public class DAOPembayaran {
     }  
     
     public ArrayList<Pembayaran> LoadAll() {
-        ArrayList<Pembayaran> pembayarans = new ArrayList<Pembayaran>();
+        ArrayList<Pembayaran> pembayarans = new ArrayList<>();
         String sql = "SELECT * FROM Pembayaran";
         try (Connection conn = DatabaseConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)
@@ -55,7 +52,7 @@ public class DAOPembayaran {
                     pembayarans.add( new Pembayaran(
                         rs.getString("kode_Pembayaran"),
                         Double.parseDouble(rs.getString("harga_akhir")),
-                        (rs.getString("status_Pembayaran").equals("1"))? true : false,
+                        rs.getString("status_Pembayaran").equals("1"),
                         LocalDate.parse(rs.getString("Tanggal")),
                         LocalTime.parse(rs.getString("waktu")),
                         daobook.getBooking(rs.getString("id_Booking"))
@@ -70,7 +67,7 @@ public class DAOPembayaran {
     }
     
     public ArrayList<String> LoadAllId() {
-        ArrayList<String> ids = new ArrayList<String>();
+        ArrayList<String> ids = new ArrayList<>();
         String sql = "SELECT * FROM Pembayaran";
         try (Connection conn = DatabaseConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)
