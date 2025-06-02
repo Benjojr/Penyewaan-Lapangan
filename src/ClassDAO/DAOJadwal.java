@@ -10,11 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
-
-import java.time.LocalDate;
 
 /**
  *
@@ -83,7 +79,6 @@ public class DAOJadwal {
             stmt.setString(5,jadwal.getBooking().getId_booking());
             stmt.setString(6,jadwal.getLapangan().getId_lapangan());
             stmt.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Proses Pendaftaran Jadwal Berhasil.", "Information",JOptionPane.INFORMATION_MESSAGE);
             
         } catch (Exception e) {
             System.out.println(e);
