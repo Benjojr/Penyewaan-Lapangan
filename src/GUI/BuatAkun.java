@@ -4,6 +4,9 @@ import javax.swing.JOptionPane;
 import ClassDAO.*;
 import MainClass.*;
 import java.util.ArrayList;
+import com.formdev.flatlaf.FlatLightLaf;
+import javax.swing.UIManager;
+
 
 public class BuatAkun extends javax.swing.JFrame {
     DAOPengguna daopgn = new DAOPengguna();
@@ -281,7 +284,11 @@ public class BuatAkun extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(BuatAkun.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception ex) {
+            System.err.println("Failed to initialize FlatLaf");
+        }
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

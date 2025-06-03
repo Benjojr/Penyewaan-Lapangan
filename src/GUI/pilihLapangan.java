@@ -1,6 +1,5 @@
     package GUI;
 
-    import com.formdev.flatlaf.FlatLightLaf;
 
     import ClassDAO.DAOLapangan;
     import MainClass.Lapangan;
@@ -15,9 +14,9 @@
     import javax.swing.BoxLayout;
     import javax.swing.JButton;
     import javax.swing.UIManager;
+    import com.formdev.flatlaf.FlatLightLaf;
 
     public class pilihLapangan extends javax.swing.JFrame {
-
         String idOlahRaga;
         private ContainerPilihOlahraga parent;
         private Pengguna pengguna;
@@ -56,7 +55,7 @@
                 // Tambahkan aksi saat tombol diklik
                 button.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        DashboardLapangan dbl = new DashboardLapangan(lap, pilihLapangan.this, pengguna);
+                        DashboardLapangan dbl = new DashboardLapangan(lap, pilihLapangan.this, pilihLapangan.this.pengguna);
                         dbl.setVisible(true);
                         pilihLapangan.this.setVisible(false);
                     }

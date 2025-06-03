@@ -6,6 +6,9 @@ import java.time.*;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import com.formdev.flatlaf.FlatLightLaf;
+import javax.swing.UIManager;
+
 
 public class PembayaranFrame extends javax.swing.JFrame {
     private String id;
@@ -132,6 +135,11 @@ public class PembayaranFrame extends javax.swing.JFrame {
         JadwalLabel.setText("Jadwal : ");
 
         JadwalListCOBO.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        JadwalListCOBO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JadwalListCOBOActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -331,8 +339,8 @@ public class PembayaranFrame extends javax.swing.JFrame {
                         daojadwal.RegistJadwal(elem);
                     }
                     daopbyr.Regist(id, hasil);
-                    Dashboard dshb = new Dashboard(pesanan.getPengguna());
-                    dshb.setVisible(true);
+                    Invoice invoice = new Invoice(pesanan);
+                    invoice.setVisible(true);
                     this.dispose();
                     break;
                 } else if(statusPembayaran.equals("kurang")) {
@@ -358,6 +366,10 @@ public class PembayaranFrame extends javax.swing.JFrame {
         thread.start();
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void JadwalListCOBOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JadwalListCOBOActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JadwalListCOBOActionPerformed
     
     private String cekPembayaran(String kode, String nominal) {
         int kodepembayaran = Integer.parseInt(kode);
@@ -374,6 +386,13 @@ public class PembayaranFrame extends javax.swing.JFrame {
         }
     }
     
+    public static void main(String args[]) {
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception ex) {
+            System.err.println("Failed to initialize FlatLaf");
+        }
+    }
     
     /**
      * @param args the command line arguments

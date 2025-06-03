@@ -3,14 +3,17 @@ package GUI;
 
 import MainClass.Booking;
 import MainClass.Pengguna;
+import com.formdev.flatlaf.FlatLightLaf;
+import javax.swing.UIManager;
+
 
 /**
  *
  * @author benja
  */
 public class Checkout extends javax.swing.JFrame {
-    private final Booking pemesanan;
-    private final Pengguna pengguna;
+    private Booking pemesanan;
+    private Pengguna pengguna;
     DashboardLapangan parent;
 
     
@@ -276,7 +279,11 @@ public class Checkout extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception ex) {
+            System.err.println("Failed to initialize FlatLaf");
+        }
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

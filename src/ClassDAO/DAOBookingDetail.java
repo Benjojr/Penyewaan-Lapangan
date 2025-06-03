@@ -1,6 +1,3 @@
-
-
-
 package ClassDAO;
 
 import ConnectionClass.DatabaseConnection;
@@ -24,7 +21,8 @@ public class DAOBookingDetail {
                     j.tanggal, 
                     j.jam_mulai, 
                     j.jam_selesai,
-                    jo.nama_Olahraga
+                    jo.nama_Olahraga,
+                    p.Jenis_Langganan
             FROM Booking b
             JOIN Jadwal j ON b.id_booking = j.id_booking
             JOIN Lapangan l ON j.id_lapangan = l.id_lapangan
@@ -49,6 +47,7 @@ public class DAOBookingDetail {
                 detail.setPengguna(new Pengguna());
                 detail.getPengguna().setId(id_Pengguna);
                 detail.getPengguna().setUserName(rs.getString("Username"));
+                detail.getPengguna().setJenis_langganan(rs.getString("Jenis_Langganan"));
 
                 // Olahraga
                 detail.setLapangan(new Lapangan());
