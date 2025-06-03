@@ -385,6 +385,9 @@
           </Properties>
         </Component>
         <Component class="com.github.lgooddatepicker.components.DatePicker" name="tanggalPesan">
+          <Events>
+            <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="tanggalPesanAncestorAdded"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>

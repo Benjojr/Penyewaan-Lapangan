@@ -132,6 +132,11 @@ public class PembayaranFrame extends javax.swing.JFrame {
         JadwalLabel.setText("Jadwal : ");
 
         JadwalListCOBO.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        JadwalListCOBO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JadwalListCOBOActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -358,6 +363,10 @@ public class PembayaranFrame extends javax.swing.JFrame {
         thread.start();
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void JadwalListCOBOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JadwalListCOBOActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JadwalListCOBOActionPerformed
     
     private String cekPembayaran(String kode, String nominal) {
         int kodepembayaran = Integer.parseInt(kode);

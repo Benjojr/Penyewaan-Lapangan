@@ -17,7 +17,6 @@
     import javax.swing.UIManager;
 
     public class pilihLapangan extends javax.swing.JFrame {
-
         String idOlahRaga;
         private ContainerPilihOlahraga parent;
         private Pengguna pengguna;
@@ -56,7 +55,7 @@
                 // Tambahkan aksi saat tombol diklik
                 button.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        DashboardLapangan dbl = new DashboardLapangan(lap, pilihLapangan.this, pengguna);
+                        DashboardLapangan dbl = new DashboardLapangan(lap, pilihLapangan.this, pilihLapangan.this.pengguna);
                         dbl.setVisible(true);
                         pilihLapangan.this.setVisible(false);
                     }
