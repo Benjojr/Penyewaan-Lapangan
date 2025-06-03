@@ -9,8 +9,8 @@ import MainClass.Pengguna;
  * @author benja
  */
 public class Checkout extends javax.swing.JFrame {
-    private final Booking pemesanan;
-    private final Pengguna pengguna;
+    private Booking pemesanan;
+    private Pengguna pengguna;
     DashboardLapangan parent;
 
     
