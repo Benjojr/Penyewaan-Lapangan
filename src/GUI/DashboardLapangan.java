@@ -19,14 +19,13 @@ import MainClass.Ulasan;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import javax.swing.JOptionPane;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
 import java.util.Collection;
 import java.util.Collections;
+import com.github.lgooddatepicker.components.DatePickerSettings;
 
 public class DashboardLapangan extends javax.swing.JFrame {
 
@@ -44,13 +43,17 @@ public class DashboardLapangan extends javax.swing.JFrame {
 
     public DashboardLapangan() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     public DashboardLapangan(Lapangan lapangan, pilihLapangan parent, Pengguna pengguna) {
         initComponents();
+        setLocationRelativeTo(null);
         this.lapangan = lapangan;
         this.parent = parent;
         this.pengguna = pengguna;
+        DatePickerSettings settings = tanggalPesan.getSettings();
+        settings.setVetoPolicy(date -> !date.isBefore(LocalDate.now()));
         setGambar();
         String idLapangan = lapangan.getId_lapangan();
         DAOJadwal dao = new DAOJadwal();
@@ -104,18 +107,18 @@ public class DashboardLapangan extends javax.swing.JFrame {
     }
         jLabel1.setText("Lapangan " + lapangan.getNama_lapangan());
         labelInformasiLapangan.setText("""
-            <html>
-                <left>
-                    Lapangan: %s<br>
-                    Harga: %s/Jam<br>
-                    Lokasi: %s
-                </left>
-            </html>
-            """.formatted(
+                <html>
+                    <left>
+                        Lapangan: %s<br>
+                        Harga: %s/Jam<br>
+                        Lokasi: %s
+                    </left>
+                </html>
+                """.formatted(
                 lapangan.getNama_lapangan(),
                 lapangan.getHarga(),
-                lapangan.getLokasi()
-            ));
+                lapangan.getLokasi()));
+
 
         // Tambahkan listener ke semua tombol jadwal
         for (javax.swing.JToggleButton btn : jadwalButtons) {
@@ -129,8 +132,9 @@ public class DashboardLapangan extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -331,146 +335,209 @@ public class DashboardLapangan extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(labelGambar, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelInformasiLapangan, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tanggalPesan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(showUlasanBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)))
-                        .addGap(0, 20, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(labelJadwalYangDipilih, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnBack)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnNext))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(btnJadwalTujuh)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnJadwalDelapan)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnJadwalSembilan)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnJadwalSepuluh)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnJadwalSebelas)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnJadwalDuabelas))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(btnJadwalSembilanbelas)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(btnJadwalDuapuluh)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(btnJadwalDuapuluhSatu)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(btnJadwalDuapuluhDua))
+                                                .addContainerGap()
+                                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(btnJadwalTigabelas)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(btnJadwalEmpatbelas)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(btnJadwalLimabelas)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(btnJadwalEnambelas)))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(btnJadwalTujuhbelas)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(btnJadwalDelapanbelas))
-                                        .addComponent(btnJadwalDuapuluhTiga)))))))
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(202, 202, 202)
-                .addComponent(jLabel4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+                                                .addGap(15, 15, 15)
+                                                .addComponent(labelGambar, javax.swing.GroupLayout.PREFERRED_SIZE, 381,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addGroup(jPanel1Layout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(labelInformasiLapangan,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 176,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(tanggalPesan,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGroup(jPanel1Layout
+                                                                .createParallelGroup(
+                                                                        javax.swing.GroupLayout.Alignment.TRAILING,
+                                                                        false)
+                                                                .addComponent(showUlasanBtn,
+                                                                        javax.swing.GroupLayout.Alignment.LEADING,
+                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                        Short.MAX_VALUE)
+                                                                .addComponent(jButton3,
+                                                                        javax.swing.GroupLayout.Alignment.LEADING,
+                                                                        javax.swing.GroupLayout.DEFAULT_SIZE, 170,
+                                                                        Short.MAX_VALUE)))
+                                                .addGap(0, 20, Short.MAX_VALUE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout
+                                                .createSequentialGroup()
+                                                .addGap(0, 0, Short.MAX_VALUE)
+                                                .addGroup(jPanel1Layout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+                                                                false)
+                                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addComponent(labelJadwalYangDipilih,
+                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                        Short.MAX_VALUE)
+                                                                .addPreferredGap(
+                                                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(btnBack)
+                                                                .addPreferredGap(
+                                                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(btnNext))
+                                                        .addGroup(jPanel1Layout
+                                                                .createParallelGroup(
+                                                                        javax.swing.GroupLayout.Alignment.LEADING)
+                                                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                        .addComponent(btnJadwalTujuh)
+                                                                        .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                        .addComponent(btnJadwalDelapan)
+                                                                        .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                        .addComponent(btnJadwalSembilan)
+                                                                        .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                        .addComponent(btnJadwalSepuluh)
+                                                                        .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                        .addComponent(btnJadwalSebelas)
+                                                                        .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                        .addComponent(btnJadwalDuabelas))
+                                                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                        .addGroup(jPanel1Layout.createParallelGroup(
+                                                                                javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                                .addGroup(jPanel1Layout
+                                                                                        .createSequentialGroup()
+                                                                                        .addComponent(
+                                                                                                btnJadwalSembilanbelas)
+                                                                                        .addPreferredGap(
+                                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                        .addComponent(btnJadwalDuapuluh)
+                                                                                        .addPreferredGap(
+                                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                        .addComponent(
+                                                                                                btnJadwalDuapuluhSatu)
+                                                                                        .addPreferredGap(
+                                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                        .addComponent(
+                                                                                                btnJadwalDuapuluhDua))
+                                                                                .addGroup(jPanel1Layout
+                                                                                        .createSequentialGroup()
+                                                                                        .addComponent(
+                                                                                                btnJadwalTigabelas)
+                                                                                        .addPreferredGap(
+                                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                        .addComponent(
+                                                                                                btnJadwalEmpatbelas)
+                                                                                        .addPreferredGap(
+                                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                        .addComponent(
+                                                                                                btnJadwalLimabelas)
+                                                                                        .addPreferredGap(
+                                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                        .addComponent(
+                                                                                                btnJadwalEnambelas)))
+                                                                        .addPreferredGap(
+                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                        .addGroup(jPanel1Layout.createParallelGroup(
+                                                                                javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                .addGroup(jPanel1Layout
+                                                                                        .createSequentialGroup()
+                                                                                        .addComponent(
+                                                                                                btnJadwalTujuhbelas)
+                                                                                        .addPreferredGap(
+                                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                        .addComponent(
+                                                                                                btnJadwalDelapanbelas))
+                                                                                .addComponent(
+                                                                                        btnJadwalDuapuluhTiga)))))))
+                                .addContainerGap())
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(202, 202, 202)
+                                .addComponent(jLabel4)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(7, 7, 7)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(labelInformasiLapangan, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tanggalPesan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(68, 68, 68)
-                        .addComponent(jButton3))
-                    .addComponent(labelGambar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(showUlasanBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnJadwalTujuh)
-                    .addComponent(btnJadwalDelapan)
-                    .addComponent(btnJadwalSembilan)
-                    .addComponent(btnJadwalSepuluh)
-                    .addComponent(btnJadwalSebelas)
-                    .addComponent(btnJadwalDuabelas))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnJadwalTigabelas)
-                    .addComponent(btnJadwalEmpatbelas)
-                    .addComponent(btnJadwalLimabelas)
-                    .addComponent(btnJadwalEnambelas)
-                    .addComponent(btnJadwalTujuhbelas)
-                    .addComponent(btnJadwalDelapanbelas))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnJadwalSembilanbelas)
-                    .addComponent(btnJadwalDuapuluh)
-                    .addComponent(btnJadwalDuapuluhSatu)
-                    .addComponent(btnJadwalDuapuluhDua)
-                    .addComponent(btnJadwalDuapuluhTiga))
-                .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNext)
-                    .addComponent(btnBack)
-                    .addComponent(labelJadwalYangDipilih))
-                .addContainerGap())
-        );
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(7, 7, 7)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)
+                                .addGroup(jPanel1Layout
+                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(labelInformasiLapangan,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 80,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(29, 29, 29)
+                                                .addComponent(jLabel2)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(tanggalPesan, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                        javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(68, 68, 68)
+                                                .addComponent(jButton3))
+                                        .addComponent(labelGambar, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(showUlasanBtn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(btnJadwalTujuh)
+                                        .addComponent(btnJadwalDelapan)
+                                        .addComponent(btnJadwalSembilan)
+                                        .addComponent(btnJadwalSepuluh)
+                                        .addComponent(btnJadwalSebelas)
+                                        .addComponent(btnJadwalDuabelas))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(btnJadwalTigabelas)
+                                        .addComponent(btnJadwalEmpatbelas)
+                                        .addComponent(btnJadwalLimabelas)
+                                        .addComponent(btnJadwalEnambelas)
+                                        .addComponent(btnJadwalTujuhbelas)
+                                        .addComponent(btnJadwalDelapanbelas))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(btnJadwalSembilanbelas)
+                                        .addComponent(btnJadwalDuapuluh)
+                                        .addComponent(btnJadwalDuapuluhSatu)
+                                        .addComponent(btnJadwalDuapuluhDua)
+                                        .addComponent(btnJadwalDuapuluhTiga))
+                                .addGap(12, 12, 12)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(btnNext)
+                                        .addComponent(btnBack)
+                                        .addComponent(labelJadwalYangDipilih))
+                                .addContainerGap()));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void showUlasanBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showUlasanBtnActionPerformed
+    private void showUlasanBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_showUlasanBtnActionPerformed
         UlasanFrame ulsFrame = new UlasanFrame(lapangan.getId_lapangan(), lapangan.getNama_lapangan());
         ulsFrame.setVisible(true);
-    }//GEN-LAST:event_showUlasanBtnActionPerformed
+    }// GEN-LAST:event_showUlasanBtnActionPerformed
+
     private void setGambar() {
         labelGambar.setIcon(
                 new javax.swing.ImageIcon(getClass().getResource("/assets/" + lapangan.getId_lapangan() + ".png"))); // NOI18N
@@ -637,12 +704,12 @@ public class DashboardLapangan extends javax.swing.JFrame {
 
     private String generateID(ArrayList<String> AllId, String init) {
         int maxId = 0;
-        for(String elem : AllId) {
-            if(getnumID(elem)>maxId){
+        for (String elem : AllId) {
+            if (getnumID(elem) > maxId) {
                 maxId = getnumID(elem);
             }
         }
-        return String.format("%s%04d",init, (maxId+1));
+        return String.format("%s%04d", init, (maxId + 1));
     }
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
@@ -650,7 +717,6 @@ public class DashboardLapangan extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Pilih jadwal dulu.");
             return;
         }
-
         // Generate Booking baru
         LocalDate tanggal = tanggalPesan.getDate();
         if (tanggal == null) tanggal = LocalDate.now();
@@ -672,6 +738,18 @@ public class DashboardLapangan extends javax.swing.JFrame {
         co.setVisible(true);
         this.dispose(); // Pastikan variable sudah ke-set
     }// GEN-LAST:event_jButton1ActionPerformed
+
+    private void tampilkanPesan(String judul, String pesan) {
+        JOptionPane.showOptionDialog(
+                null,
+                pesan,
+                judul,
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                new Object[] { "Oke bang" },
+                "Oke bang");
+    }
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:

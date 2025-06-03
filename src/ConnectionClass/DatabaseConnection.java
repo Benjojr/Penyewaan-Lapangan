@@ -13,7 +13,7 @@ public class DatabaseConnection {
                     + "user=user_basdat;"
                     + "password=Basisdata_Team07;"
                     + "encrypt=true;"
-                    + "trustServerCertificate=false;"
+                    + "trustServerCertificate=true;"
                     + "hostNameInCertificate=*.database.windows.net;"
                     + "loginTimeout=30;";
             try {
