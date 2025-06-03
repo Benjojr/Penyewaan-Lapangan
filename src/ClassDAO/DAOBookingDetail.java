@@ -21,7 +21,8 @@ public class DAOBookingDetail {
                     j.tanggal, 
                     j.jam_mulai, 
                     j.jam_selesai,
-                    jo.nama_Olahraga
+                    jo.nama_Olahraga,
+                    p.Jenis_Langganan
             FROM Booking b
             JOIN Jadwal j ON b.id_booking = j.id_booking
             JOIN Lapangan l ON j.id_lapangan = l.id_lapangan
@@ -46,6 +47,7 @@ public class DAOBookingDetail {
                 detail.setPengguna(new Pengguna());
                 detail.getPengguna().setId(id_Pengguna);
                 detail.getPengguna().setUserName(rs.getString("Username"));
+                detail.getPengguna().setJenis_langganan(rs.getString("Jenis_Langganan"));
 
                 // Olahraga
                 detail.setLapangan(new Lapangan());
@@ -58,11 +60,10 @@ public class DAOBookingDetail {
                 detail.getLapangan().setHarga(rs.getDouble("Harga"));
 
                 // Jadwal
-                Jadwal jadwal = new Jadwal();
-                jadwal.setTanggal(rs.getDate("tanggal").toLocalDate());
-                jadwal.setJam_Mulai(rs.getTime("jam_mulai").toLocalTime());
-                jadwal.setJam_Selesai(rs.getTime("jam_selesai").toLocalTime());
-                detail.setJadwal(jadwal);
+                detail.setJadwal(new Jadwal());
+                detail.getClassJadwal().setTanggal(rs.getDate("tanggal").toLocalDate());
+                detail.getClassJadwal().setJam_Mulai(rs.getTime("jam_mulai").toLocalTime());
+                detail.getClassJadwal().setJam_Selesai(rs.getTime("jam_selesai").toLocalTime());
 
                 bookings.add(detail);
             }
@@ -153,11 +154,10 @@ public class DAOBookingDetail {
                 detail.getLapangan().setHarga(rs.getDouble("Harga"));
 
                 // Jadwal
-                Jadwal jadwal = new Jadwal();
-                jadwal.setTanggal(rs.getDate("tanggal").toLocalDate());
-                jadwal.setJam_Mulai(rs.getTime("jam_mulai").toLocalTime());
-                jadwal.setJam_Selesai(rs.getTime("jam_selesai").toLocalTime());
-                detail.setJadwal(jadwal);
+                detail.setJadwal(new Jadwal());
+                detail.getClassJadwal().setTanggal(rs.getDate("tanggal").toLocalDate());
+                detail.getClassJadwal().setJam_Mulai(rs.getTime("jam_mulai").toLocalTime());
+                detail.getClassJadwal().setJam_Selesai(rs.getTime("jam_selesai").toLocalTime());
             }
         } catch (SQLException e) {
             System.out.println("Error retrieving booking detail: " + e.getMessage());

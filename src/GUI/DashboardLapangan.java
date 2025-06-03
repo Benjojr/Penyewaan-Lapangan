@@ -114,6 +114,7 @@ public class DashboardLapangan extends javax.swing.JFrame {
                 }
             }
         }
+        setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -554,8 +555,8 @@ public class DashboardLapangan extends javax.swing.JFrame {
             LocalTime jamSelesai = LocalTime.parse(jamSelesaiStr);
 
             // Pemesanan belum di-set di sini, cukup null/dummy
-//            Jadwal jadwal = new Jadwal(null, tanggal, jamMulai, jamSelesai, null, lapangan);
-//            jadwals.add(jadwal);
+            Jadwal jadwal = new Jadwal(null, tanggal, jamMulai, jamSelesai, null, lapangan);
+            jadwals.add(jadwal);
             if (sb.length() > 0) {
                 sb.append(", ");
             }
@@ -566,6 +567,7 @@ public class DashboardLapangan extends javax.swing.JFrame {
         labelJadwalYangDipilih.setText("Jadwal dipilih: " + sb.toString());
         return true;
     }
+
 
     private void btnJadwalTujuhActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
@@ -657,41 +659,30 @@ public class DashboardLapangan extends javax.swing.JFrame {
     }
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
-        String idJadwal = generateID(this.daojadwal.getIdAllJadwal(), "j");
-        java.util.List<String> jadwalDipilih = new java.util.ArrayList<>();
-        for (int i = 0; i < jadwalButtons.size(); i++) {
-            if (jadwalButtons.get(i).isSelected()) {
-                jadwalDipilih.add(jadwalLabels.get(i));
-            }
+        if (!prosesJadwalDipilih() || jadwals.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Pilih jadwal dulu.");
+            return;
         }
-        if (jadwalDipilih.isEmpty()) {
-            tampilkanPesan("Yang betul lah kau!", "Pilih jadwal dulu woy!");
-        } else if (tanggalPesan.toString().isEmpty()) {
-            tampilkanPesan("Yang betul lah kau!", "Pilih tanggal dulu woy!");
-        } else {
-            this.pemesanan = new Booking(generateID(this.daoBook.getIdAllBooking(), "b"), this.pengguna, this.lapangan);
-            System.out.println("ukuran jadwals " + jadwals.size());
-            for (int i = 0; i < jadwalDipilih.size(); i++) {
-                System.out.println("tambah1 jadwal");
-                String jam[] = jadwalDipilih.get(i).split("-");
-                if (i == 0) {
-                    this.jadwals.add(new Jadwal(idJadwal, tanggalPesan.getDate(), LocalTime.parse(jam[0]), LocalTime.parse(jam[1]), this.pemesanan, lapangan));
-                } else {
-                    this.jadwals.add(new Jadwal(generateIDfromLast(idJadwal, "j"), tanggalPesan.getDate(), LocalTime.parse(jam[0]), LocalTime.parse(jam[1]), this.pemesanan, lapangan));
-                }
+        // Generate Booking baru
+        LocalDate tanggal = tanggalPesan.getDate();
+        if (tanggal == null) tanggal = LocalDate.now();
+        this.pemesanan = new Booking(generateID(this.daoBook.getIdAllBooking(), "b"), this.pengguna, this.lapangan);
 
-            }
-            System.out.println("ukuran jadwals " + jadwals.size());
-            System.out.println("pengguna : " + this.pengguna.getUserName());
-            System.out.println("id pemesanan : " + pemesanan.toString());
-            for (Jadwal elem : jadwals) {
-                pemesanan.setJadwal(elem);
-            }
-
-            Checkout co = new Checkout(pemesanan, this);
-            co.setVisible(true);
-            this.setVisible(false);
+        // Buat ulang jadwals agar id_jadwal dan booking bisa diisi benar
+        ArrayList<Jadwal> jadwalsWithBooking = new ArrayList<>();
+        for (Jadwal j : jadwals) {
+            String idJadwal = generateID(this.daojadwal.getIdAllJadwal(), "j");
+            Jadwal newJadwal = new Jadwal(idJadwal, tanggal, j.getJam_Mulai(), j.getJam_Selesai(), pemesanan, lapangan);
+            jadwalsWithBooking.add(newJadwal);
+            // Jika Booking support multi-jadwal, tambahkan ke Booking
+            this.pemesanan.setJadwal(newJadwal);
         }
+        jadwals = jadwalsWithBooking; // replace jika perlu menyimpan yang baru
+
+        // Lanjut ke proses booking/checkout
+        Checkout co = new Checkout(pemesanan, this);
+        co.setVisible(true);
+        this.dispose(); // Pastikan variable sudah ke-set
     }// GEN-LAST:event_jButton1ActionPerformed
 
     private void tampilkanPesan(String judul, String pesan) {
