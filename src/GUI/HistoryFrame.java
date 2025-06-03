@@ -10,6 +10,7 @@ package GUI;
  */
 import ClassDAO.DAOBookingDetail;
 import MainClass.Booking;
+import MainClass.Jadwal;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -21,12 +22,14 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-public class HistoryFrame extends javax.swing.JFrame {
 
+public class HistoryFrame extends javax.swing.JFrame {
+    private Dashboard parent;
     /**
      * Creates new form HistoryFrame
      */
-    public HistoryFrame(String id_Pengguna) {
+    public HistoryFrame(String id_Pengguna, Dashboard parent) {
+        this.parent = parent;
         initComponents();
         loadBookingHistory(id_Pengguna);
         setLocationRelativeTo(null); // Center the frame on the screen
@@ -48,7 +51,7 @@ public class HistoryFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        backBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,10 +91,10 @@ public class HistoryFrame extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(jPanel2);
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        backBtn.setText("Kembali");
+        backBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                backBtnActionPerformed(evt);
             }
         });
 
@@ -102,18 +105,18 @@ public class HistoryFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(117, 117, 117)
+                        .addGap(33, 33, 33)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(134, 134, 134)
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(274, 274, 274)
-                        .addComponent(jButton1)))
+                        .addGap(282, 282, 282)
+                        .addComponent(backBtn)))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -131,7 +134,7 @@ public class HistoryFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(backBtn)
                 .addContainerGap(10, Short.MAX_VALUE))
         );
 
@@ -155,11 +158,10 @@ public class HistoryFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Dashboard dashboard = new Dashboard();
-        dashboard.setVisible(true);
+    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+        parent.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_backBtnActionPerformed
 
     private void loadBookingHistory(String id_Pengguna) {
         // Fetch booking history from the database using DAOBookingDetail
@@ -170,11 +172,19 @@ public class HistoryFrame extends javax.swing.JFrame {
         
         if (bookingHistory != null && !bookingHistory.isEmpty()) {
             for (Booking booking : bookingHistory) {
+                
+                if (booking == null || booking.getJadwal() == null || booking.getJadwal().isEmpty() 
+                    || booking.getLapangan() == null) {
+                    continue; // skip data yang ga valid
+                }
+                
                 JPanel bookingPanel = new JPanel();
                 bookingPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
                 bookingPanel.setBackground(new Color(255, 255, 255));
                 bookingPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 bookingPanel.setMaximumSize(new Dimension(570, 150));
+                
+                
 
                 // Format Duration in hours
                 Duration duration = Duration.between(
@@ -258,7 +268,7 @@ public class HistoryFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton backBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

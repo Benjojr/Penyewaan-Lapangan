@@ -1,6 +1,3 @@
-
-
-
 package ClassDAO;
 
 import ConnectionClass.DatabaseConnection;
@@ -61,10 +58,11 @@ public class DAOBookingDetail {
                 detail.getLapangan().setHarga(rs.getDouble("Harga"));
 
                 // Jadwal
-//                detail.setJadwal(new Jadwal());
-//                detail.getJadwal().setTanggal(rs.getDate("tanggal").toLocalDate());
-//                detail.getJadwal().setJam_Mulai(rs.getTime("jam_mulai").toLocalTime());
-//                detail.getJadwal().setJam_Selesai(rs.getTime("jam_selesai").toLocalTime());
+                Jadwal jadwal = new Jadwal();
+                jadwal.setTanggal(rs.getDate("tanggal").toLocalDate());
+                jadwal.setJam_Mulai(rs.getTime("jam_mulai").toLocalTime());
+                jadwal.setJam_Selesai(rs.getTime("jam_selesai").toLocalTime());
+                detail.setJadwal(jadwal);
 
                 bookings.add(detail);
             }
@@ -155,10 +153,11 @@ public class DAOBookingDetail {
                 detail.getLapangan().setHarga(rs.getDouble("Harga"));
 
                 // Jadwal
-//                detail.setJadwal(new Jadwal());
-//                detail.getJadwal().setTanggal(rs.getDate("tanggal").toLocalDate());
-//                detail.getJadwal().setJam_Mulai(rs.getTime("jam_mulai").toLocalTime());
-//                detail.getJadwal().setJam_Selesai(rs.getTime("jam_selesai").toLocalTime());
+                Jadwal jadwal = new Jadwal();
+                jadwal.setTanggal(rs.getDate("tanggal").toLocalDate());
+                jadwal.setJam_Mulai(rs.getTime("jam_mulai").toLocalTime());
+                jadwal.setJam_Selesai(rs.getTime("jam_selesai").toLocalTime());
+                detail.setJadwal(jadwal);
             }
         } catch (SQLException e) {
             System.out.println("Error retrieving booking detail: " + e.getMessage());
