@@ -15,28 +15,32 @@ import MainClass.Jadwal;
 import MainClass.Lapangan;
 import MainClass.Pengguna;
 import MainClass.Ulasan;
+
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.JOptionPane;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
+import java.util.Collection;
+import java.util.Collections;
 
 public class DashboardLapangan extends javax.swing.JFrame {
 
     private DAOBookingDetail daoBook = new DAOBookingDetail();
     private DAOJadwal daojadwal = new DAOJadwal();
-    private ArrayList<Jadwal> jadwals = new ArrayList<Jadwal>();
+    private ArrayList<Jadwal> jadwals = new ArrayList<>();
     private Booking pemesanan;
     private Pengguna pengguna;
     private Lapangan lapangan;
     private Ulasan ulasan; // Removed because Ulasan cannot be resolved to a type
     private pilihLapangan parent;
-
-    private javax.swing.JToggleButton[] jadwalButtons;
-    private String[] jadwalLabels;
-    private LocalDate toDate = LocalDate.now();
+    private ArrayList<javax.swing.JToggleButton> jadwalButtons;
+    private ArrayList<String> jadwalLabels;
+    private final LocalDate toDate = LocalDate.now();
 
     public DashboardLapangan() {
         initComponents();
@@ -50,56 +54,54 @@ public class DashboardLapangan extends javax.swing.JFrame {
         setGambar();
         String idLapangan = lapangan.getId_lapangan();
         DAOJadwal dao = new DAOJadwal();
-        ArrayList<Jadwal> jadwalList = dao.getJadwalByLapangan(idLapangan, LocalDate.of(2025, Month.MAY, 31));
+        ArrayList<Jadwal> jadwalList = dao.getJadwalByLapangan(idLapangan, toDate);
 
-        jadwalButtons = new javax.swing.JToggleButton[]{
+        jadwalButtons = new ArrayList<>(Arrays.asList(
             btnJadwalTujuh, btnJadwalDelapan, btnJadwalSembilan, btnJadwalSepuluh,
             btnJadwalSebelas, btnJadwalDuabelas, btnJadwalTigabelas, btnJadwalEmpatbelas,
             btnJadwalLimabelas, btnJadwalEnambelas, btnJadwalTujuhbelas, btnJadwalDelapanbelas,
             btnJadwalSembilanbelas, btnJadwalDuapuluh, btnJadwalDuapuluhSatu, btnJadwalDuapuluhDua,
             btnJadwalDuapuluhTiga
-        };
-        jadwalLabels = new String[]{
-            "07:00-08:00", "08:00-09:00", "09:00-10:00", "10:00-11:00",
+        ));
+        jadwalLabels = new ArrayList<>(Arrays.asList(
+        "07:00-08:00", "08:00-09:00", "09:00-10:00", "10:00-11:00",
             "11:00-12:00", "12:00-13:00", "13:00-14:00", "14:00-15:00",
             "15:00-16:00", "16:00-17:00", "17:00-18:00", "18:00-19:00",
             "19:00-20:00", "20:00-21:00", "21:00-22:00", "22:00-23:00", "23:00-00:00"
-        };
+        ));
 
         // Mapping jam ke tombol
-        Object[][] jadwalMapping = {
-            {7, btnJadwalTujuh},
-            {8, btnJadwalDelapan},
-            {9, btnJadwalSembilan},
-            {10, btnJadwalSepuluh},
-            {11, btnJadwalSebelas},
-            {12, btnJadwalDuabelas},
-            {13, btnJadwalTigabelas},
-            {14, btnJadwalEmpatbelas},
-            {15, btnJadwalLimabelas},
-            {16, btnJadwalEnambelas},
-            {17, btnJadwalTujuhbelas},
-            {18, btnJadwalDelapanbelas},
-            {19, btnJadwalSembilanbelas},
-            {20, btnJadwalDuapuluh},
-            {21, btnJadwalDuapuluhSatu},
-            {22, btnJadwalDuapuluhDua},
-            {23, btnJadwalDuapuluhTiga}
-        };
+        ArrayList<SimpleEntry<Integer, javax.swing.JToggleButton>> jadwalMapping = new ArrayList<>();
+        jadwalMapping.add(new SimpleEntry<>(7, btnJadwalTujuh));
+        jadwalMapping.add(new SimpleEntry<>(8, btnJadwalDelapan));
+        jadwalMapping.add(new SimpleEntry<>(9, btnJadwalSembilan));
+        jadwalMapping.add(new SimpleEntry<>(10, btnJadwalSepuluh));
+        jadwalMapping.add(new SimpleEntry<>(11, btnJadwalSebelas));
+        jadwalMapping.add(new SimpleEntry<>(12, btnJadwalDuabelas));
+        jadwalMapping.add(new SimpleEntry<>(13, btnJadwalTigabelas));
+        jadwalMapping.add(new SimpleEntry<>(14, btnJadwalEmpatbelas));
+        jadwalMapping.add(new SimpleEntry<>(15, btnJadwalLimabelas));
+        jadwalMapping.add(new SimpleEntry<>(16, btnJadwalEnambelas));
+        jadwalMapping.add(new SimpleEntry<>(17, btnJadwalTujuhbelas));
+        jadwalMapping.add(new SimpleEntry<>(18, btnJadwalDelapanbelas));
+        jadwalMapping.add(new SimpleEntry<>(19, btnJadwalSembilanbelas));
+        jadwalMapping.add(new SimpleEntry<>(20, btnJadwalDuapuluh));
+        jadwalMapping.add(new SimpleEntry<>(21, btnJadwalDuapuluhSatu));
+        jadwalMapping.add(new SimpleEntry<>(22, btnJadwalDuapuluhDua));
+        jadwalMapping.add(new SimpleEntry<>(23, btnJadwalDuapuluhTiga));
 
+        // for mapping
         for (Jadwal jadwal : jadwalList) {
-
-            int start = jadwal.getJam_Mulai().getHour();
-            int end = jadwal.getJam_Selesai().getHour();
-            for (int jam = start; jam < end; jam++) {
-                for (Object[] mapping : jadwalMapping) {
-                    if ((int) mapping[0] == jam) {
-                        ((javax.swing.JToggleButton) mapping[1]).setEnabled(false);
-                    }
+        int start = jadwal.getJam_Mulai().getHour();
+        int end = jadwal.getJam_Selesai().getHour();
+        for (int jam = start; jam < end; jam++) {
+            for (SimpleEntry<Integer, javax.swing.JToggleButton> mapping : jadwalMapping) {
+                if (mapping.getKey() == jam) {
+                    mapping.getValue().setEnabled(false);
                 }
             }
-
         }
+    }
         jLabel1.setText("Lapangan " + lapangan.getNama_lapangan());
         labelInformasiLapangan.setText("""
             <html>
@@ -115,31 +117,15 @@ public class DashboardLapangan extends javax.swing.JFrame {
                 lapangan.getLokasi()
             ));
 
-        javax.swing.JToggleButton[] jadwalButtons = {
-            btnJadwalTujuh, btnJadwalDelapan, btnJadwalSembilan, btnJadwalSepuluh,
-            btnJadwalSebelas, btnJadwalDuabelas, btnJadwalTigabelas, btnJadwalEmpatbelas,
-            btnJadwalLimabelas, btnJadwalEnambelas, btnJadwalTujuhbelas, btnJadwalDelapanbelas,
-            btnJadwalSembilanbelas, btnJadwalDuapuluh, btnJadwalDuapuluhSatu, btnJadwalDuapuluhDua,
-            btnJadwalDuapuluhTiga
-        };
-        String[] jadwalLabels = {
-            "07:00-08:00", "08:00-09:00", "09:00-10:00", "10:00-11:00",
-            "11:00-12:00", "12:00-13:00", "13:00-14:00", "14:00-15:00",
-            "15:00-16:00", "16:00-17:00", "17:00-18:00", "18:00-19:00",
-            "19:00-20:00", "20:00-21:00", "21:00-22:00", "22:00-23:00", "23:00-00:00"
-        };
-
         // Tambahkan listener ke semua tombol jadwal
         for (javax.swing.JToggleButton btn : jadwalButtons) {
             btn.addActionListener(e -> updateLabelJadwal(jadwalButtons, jadwalLabels));
         }
+        for (javax.swing.JToggleButton btn : jadwalButtons) {
+            btn.addActionListener(e -> prosesJadwalDipilih());
+        }
     }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
@@ -495,10 +481,10 @@ public class DashboardLapangan extends javax.swing.JFrame {
         this.setVisible(false);
     }// GEN-LAST:event_jButton2ActionPerformed
 
-    private void updateLabelJadwal(javax.swing.JToggleButton[] buttons, String[] labels) {
-        java.util.List<Integer> selected = new java.util.ArrayList<>();
-        for (int i = 0; i < buttons.length; i++) {
-            if (buttons[i].isSelected()) {
+    private void updateLabelJadwal(ArrayList<javax.swing.JToggleButton> buttons, ArrayList<String> labels) {
+        ArrayList<Integer> selected = new ArrayList<>();
+        for (int i = 0; i < buttons.size(); i++) {
+            if (buttons.get(i).isSelected()) {
                 selected.add(i);
             }
         }
@@ -517,8 +503,8 @@ public class DashboardLapangan extends javax.swing.JFrame {
             if (sb.length() > 0) {
                 sb.append(", ");
             }
-            String startLabel = labels[start].substring(0, 5);
-            String endLabel = labels[end].substring(6, 11);
+            String startLabel = labels.get(start).substring(0, 5);
+            String endLabel = labels.get(end).substring(6, 11);
             sb.append(startLabel).append("-").append(endLabel);
             i++;
         }
@@ -527,6 +513,53 @@ public class DashboardLapangan extends javax.swing.JFrame {
         } else {
             labelJadwalYangDipilih.setText("Jadwal dipilih: " + sb.toString());
         }
+    }
+
+    private boolean prosesJadwalDipilih() {
+        ArrayList<Integer> selectedIndices = new ArrayList<>();
+    for (int i = 0; i < jadwalButtons.size(); i++) {
+        if (jadwalButtons.get(i).isSelected()) {
+            selectedIndices.add(i);
+        }
+    }
+    if (selectedIndices.isEmpty()) {
+        labelJadwalYangDipilih.setText("Jadwal dipilih: ");
+        return false;
+    }
+    Collections.sort(selectedIndices);
+
+    LocalDate tanggal = tanggalPesan.getDate();
+    if (tanggal == null) tanggal = LocalDate.now();
+
+    // Opsional: pemesanan belum dibuat di sini, cukup jadwals saja
+    jadwals.clear();
+
+    StringBuilder sb = new StringBuilder();
+
+    int i = 0;
+    while (i < selectedIndices.size()) {
+        int start = selectedIndices.get(i);
+        int end = start;
+        while (i + 1 < selectedIndices.size() && selectedIndices.get(i + 1) == end + 1) {
+            end = selectedIndices.get(i + 1);
+            i++;
+        }
+        String jamMulaiStr = jadwalLabels.get(start).substring(0, 5);
+        String jamSelesaiStr = jadwalLabels.get(end).substring(6, 11);
+        LocalTime jamMulai = LocalTime.parse(jamMulaiStr);
+        LocalTime jamSelesai = LocalTime.parse(jamSelesaiStr);
+
+        // Pemesanan belum di-set di sini, cukup null/dummy
+        Jadwal jadwal = new Jadwal(null, tanggal, jamMulai, jamSelesai, null, lapangan);
+        jadwals.add(jadwal);
+
+        if (sb.length() > 0) sb.append(", ");
+        sb.append(jamMulaiStr).append("-").append(jamSelesaiStr);
+
+        i++;
+    }
+    labelJadwalYangDipilih.setText("Jadwal dipilih: " + sb.toString());
+    return true;
     }
 
     private void btnJadwalTujuhActionPerformed(java.awt.event.ActionEvent evt) {
@@ -613,38 +646,31 @@ public class DashboardLapangan extends javax.swing.JFrame {
     }
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
-        java.util.List<String> jadwalDipilih = new java.util.ArrayList<>();
-        for (int i = 0; i < jadwalButtons.length; i++) {
-            if (jadwalButtons[i].isSelected()) {
-                jadwalDipilih.add(jadwalLabels[i]);
-            }
+        if (!prosesJadwalDipilih() || jadwals.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Pilih jadwal dulu.");
+            return;
         }
-        
-        this.pemesanan = new Booking(generateID(this.daoBook.getIdAllBooking(),"b"),this.pengguna, this.lapangan);
-        for(String elem : jadwalDipilih) {
-            String jam[] = elem.split("-");
-            this.jadwals.add(new Jadwal(generateID(this.daojadwal.getIdAllJadwal(),"j"), this.toDate, LocalTime.parse(jam[0]), LocalTime.parse(jam[1]), pemesanan, lapangan));
+
+        // Generate Booking baru
+        LocalDate tanggal = tanggalPesan.getDate();
+        if (tanggal == null) tanggal = LocalDate.now();
+        this.pemesanan = new Booking(generateID(this.daoBook.getIdAllBooking(), "b"), this.pengguna, this.lapangan);
+
+        // Buat ulang jadwals agar id_jadwal dan booking bisa diisi benar
+        ArrayList<Jadwal> jadwalsWithBooking = new ArrayList<>();
+        for (Jadwal j : jadwals) {
+            String idJadwal = generateID(this.daojadwal.getIdAllJadwal(), "j");
+            Jadwal newJadwal = new Jadwal(idJadwal, tanggal, j.getJam_Mulai(), j.getJam_Selesai(), pemesanan, lapangan);
+            jadwalsWithBooking.add(newJadwal);
+            // Jika Booking support multi-jadwal, tambahkan ke Booking
+            this.pemesanan.setJadwal(newJadwal);
         }
-        System.out.println("pengguna : "+this.pengguna.getUserName());
-        System.out.println("id pemesanan : "+pemesanan.toString());
-        for(Jadwal elem : jadwals) {
-            pemesanan.setJadwal(elem);
-        }
-        
+        jadwals = jadwalsWithBooking; // replace jika perlu menyimpan yang baru
+
+        // Lanjut ke proses booking/checkout
         Checkout co = new Checkout(pemesanan);
         co.setVisible(true);
-        this.dispose();
-        
-        // Contoh: kirim ke class selanjutnya (misal, BookingForm)
-        // BookingForm form = new BookingForm(lapangan, jadwalDipilih);
-        // form.setVisible(true);
-        // this.setVisible(false);
-        System.out.println("Jadwal yang dipilih: " + jadwalDipilih);
-        if(jadwalDipilih.isEmpty()){
-            JOptionPane.showMessageDialog(null, "Pilih jadwal dulu woy");
-        }
-        
-        System.out.println(tanggalPesan.getText());
+        this.dispose(); // Pastikan variable sudah ke-set
     }// GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jTextField1ActionPerformed

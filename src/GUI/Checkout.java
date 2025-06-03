@@ -1,11 +1,11 @@
-package GUI;
+ package GUI;
 
 import MainClass.*;
 import ClassDAO.*;
 
 public class Checkout extends javax.swing.JFrame {
-    private Booking pemesanan;
-    private Pengguna pengguna;
+    private final Booking pemesanan;
+    private final Pengguna pengguna;
     
     public Checkout(Booking pemesanan) {
         initComponents();
