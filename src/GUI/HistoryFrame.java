@@ -11,11 +11,8 @@ package GUI;
 import ClassDAO.DAOBookingDetail;
 import ClassDAO.DAOLangganan;
 import MainClass.Booking;
-<<<<<<< HEAD
 import MainClass.Langganan;
-=======
 import MainClass.Jadwal;
->>>>>>> 7098e029020952d715f552b728038ec4efbd7583
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -27,11 +24,9 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-<<<<<<< HEAD
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.UIManager;
-=======
->>>>>>> 7098e029020952d715f552b728038ec4efbd7583
+
 
 public class HistoryFrame extends javax.swing.JFrame {
     private Dashboard parent;
@@ -182,19 +177,11 @@ public class HistoryFrame extends javax.swing.JFrame {
         jPanel2.setLayout(new BoxLayout(jPanel2, BoxLayout.Y_AXIS));
         
         if (bookingHistory != null && !bookingHistory.isEmpty()) {
-<<<<<<< HEAD
             for (Booking booking : bookingHistory) {               
                 
                 if (booking == null || booking.getJadwal() == null || booking.getJadwal().isEmpty() 
                     || booking.getLapangan() == null) {
                     continue;
-=======
-            for (Booking booking : bookingHistory) {
-                
-                if (booking == null || booking.getJadwal() == null || booking.getJadwal().isEmpty() 
-                    || booking.getLapangan() == null) {
-                    continue; // skip data yang ga valid
->>>>>>> 7098e029020952d715f552b728038ec4efbd7583
                 }
                 
                 JPanel bookingPanel = new JPanel();
