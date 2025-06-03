@@ -13,7 +13,7 @@ public class DatabaseConnection {
                     + "user=ucokguling@benten;"
                     + "password=Mucacos_26;"
                     + "encrypt=true;"
-                    + "trustServerCertificate=true;"
+                    + "trustServerCertificate=false;"
                     + "hostNameInCertificate=*.database.windows.net;"
                     + "loginTimeout=30;";
             try {

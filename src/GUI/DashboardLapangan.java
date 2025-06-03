@@ -43,73 +43,80 @@ public class DashboardLapangan extends javax.swing.JFrame {
     }
 
     public DashboardLapangan(Lapangan lapangan, pilihLapangan parent, Pengguna pengguna) {
-    initComponents();
-    setLocationRelativeTo(null);
-    tanggalPesan.setDate(LocalDate.now());
-    this.lapangan = lapangan;
-    this.parent = parent;
-    this.pengguna = pengguna;
+        initComponents();
+        setLocationRelativeTo(null);
+        tanggalPesan.setDate(LocalDate.now());
+        this.lapangan = lapangan;
+        this.parent = parent;
+        this.pengguna = pengguna;
 
-    // Set tanggal hanya hari ini dan ke depan
-    DatePickerSettings settings = tanggalPesan.getSettings();
-    settings.setVetoPolicy(date -> !date.isBefore(LocalDate.now()));
+        // Set tanggal hanya hari ini dan ke depan
+        DatePickerSettings settings = tanggalPesan.getSettings();
+        settings.setVetoPolicy(date -> !date.isBefore(LocalDate.now()));
 
-    setGambar();
+        setGambar();
 
-    jadwalButtons = new ArrayList<>(Arrays.asList(
-        btnJadwalTujuh, btnJadwalDelapan, btnJadwalSembilan, btnJadwalSepuluh,
-        btnJadwalSebelas, btnJadwalDuabelas, btnJadwalTigabelas, btnJadwalEmpatbelas,
-        btnJadwalLimabelas, btnJadwalEnambelas, btnJadwalTujuhbelas, btnJadwalDelapanbelas,
-        btnJadwalSembilanbelas, btnJadwalDuapuluh, btnJadwalDuapuluhSatu, btnJadwalDuapuluhDua,
-        btnJadwalDuapuluhTiga
-    ));
-    jadwalLabels = new ArrayList<>(Arrays.asList(
-        "07:00-08:00", "08:00-09:00", "09:00-10:00", "10:00-11:00",
-        "11:00-12:00", "12:00-13:00", "13:00-14:00", "14:00-15:00",
-        "15:00-16:00", "16:00-17:00", "17:00-18:00", "18:00-19:00",
-        "19:00-20:00", "20:00-21:00", "21:00-22:00", "22:00-23:00", "23:00-00:00"
-    ));
+        jadwalButtons = new ArrayList<>(Arrays.asList(
+                btnJadwalTujuh, btnJadwalDelapan, btnJadwalSembilan, btnJadwalSepuluh,
+                btnJadwalSebelas, btnJadwalDuabelas, btnJadwalTigabelas, btnJadwalEmpatbelas,
+                btnJadwalLimabelas, btnJadwalEnambelas, btnJadwalTujuhbelas, btnJadwalDelapanbelas,
+                btnJadwalSembilanbelas, btnJadwalDuapuluh, btnJadwalDuapuluhSatu, btnJadwalDuapuluhDua,
+                btnJadwalDuapuluhTiga
+        ));
+        jadwalLabels = new ArrayList<>(Arrays.asList(
+                "07:00-08:00", "08:00-09:00", "09:00-10:00", "10:00-11:00",
+                "11:00-12:00", "12:00-13:00", "13:00-14:00", "14:00-15:00",
+                "15:00-16:00", "16:00-17:00", "17:00-18:00", "18:00-19:00",
+                "19:00-20:00", "20:00-21:00", "21:00-22:00", "22:00-23:00", "23:00-00:00"
+        ));
 
-    // Disable tombol sesuai jadwal yang sudah terisi
-    disableBookedSlots(lapangan.getId_lapangan(), tanggalPesan.getDate());
+        // Disable tombol sesuai jadwal yang sudah terisi
+        disableBookedSlots(lapangan.getId_lapangan(), tanggalPesan.getDate());
 
-    jLabel1.setText("Lapangan " + lapangan.getNama_lapangan());
-    labelInformasiLapangan.setText(String.format(
-        "<html><left>Lapangan: %s<br>Harga: %s/Jam<br>Lokasi: %s</left></html>",
-        lapangan.getNama_lapangan(),
-        lapangan.getHarga(),
-        lapangan.getLokasi()
-    ));
+        jLabel1.setText("Lapangan " + lapangan.getNama_lapangan());
+        labelInformasiLapangan.setText(String.format(
+                "<html><left>Lapangan: %s<br>Harga: %s/Jam<br>Lokasi: %s</left></html>",
+                lapangan.getNama_lapangan(),
+                lapangan.getHarga(),
+                lapangan.getLokasi()
+        ));
 
-    // Tambahkan listener ke semua tombol jadwal (cukup satu loop)
-    for (javax.swing.JToggleButton btn : jadwalButtons) {
-        btn.addActionListener(e -> {
-            updateLabelJadwal(jadwalButtons, jadwalLabels);
-            prosesJadwalDipilih();
+        // Tambahkan listener ke semua tombol jadwal (cukup satu loop)
+        for (javax.swing.JToggleButton btn : jadwalButtons) {
+            btn.addActionListener(e -> {
+                updateLabelJadwal(jadwalButtons, jadwalLabels);
+                prosesJadwalDipilih();
+            });
+        }
+
+        tanggalPesan.addDateChangeListener(e -> {
+            // Aktifkan semua tombol dulu sebelum disable ulang
+            for (javax.swing.JToggleButton btn : jadwalButtons) {
+                btn.setEnabled(true);
+                btn.setSelected(false); // opsional: reset pilihan
+            }
+            if (tanggalPesan.getDate() != null) {
+                disableBookedSlots(lapangan.getId_lapangan(), tanggalPesan.getDate());
+            }
         });
     }
-}
 
 // Tambahkan method baru untuk disable slot yang sudah dibooking
-private void disableBookedSlots(String idLapangan, LocalDate tanggal) {
-    ArrayList<Jadwal> jadwalList = daojadwal.getJadwalByLapangan(idLapangan, tanggal);
-    for (Jadwal jadwal : jadwalList) {
-        int start = jadwal.getJam_Mulai().getHour();
-        int end = jadwal.getJam_Selesai().getHour();
-        for (int jam = start; jam < end; jam++) {
-            int idx = jam - 7;
-            if (idx >= 0 && idx < jadwalButtons.size()) {
-                jadwalButtons.get(idx).setEnabled(false);
+    private void disableBookedSlots(String idLapangan, LocalDate tanggal) {
+        ArrayList<Jadwal> jadwalList = daojadwal.getJadwalByLapangan(idLapangan, tanggal);
+        for (Jadwal jadwal : jadwalList) {
+            int start = jadwal.getJam_Mulai().getHour();
+            int end = jadwal.getJam_Selesai().getHour();
+            for (int jam = start; jam < end; jam++) {
+                int idx = jam - 7;
+                if (idx >= 0 && idx < jadwalButtons.size()) {
+                    jadwalButtons.get(idx).setEnabled(false);
+                }
             }
         }
     }
-}
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">
-    // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -549,7 +556,6 @@ private void disableBookedSlots(String idLapangan, LocalDate tanggal) {
             // Pemesanan belum di-set di sini, cukup null/dummy
 //            Jadwal jadwal = new Jadwal(null, tanggal, jamMulai, jamSelesai, null, lapangan);
 //            jadwals.add(jadwal);
-
             if (sb.length() > 0) {
                 sb.append(", ");
             }
@@ -643,15 +649,15 @@ private void disableBookedSlots(String idLapangan, LocalDate tanggal) {
         }
         return String.format("%s%04d", init, (maxId + 1));
     }
-    
+
     private String generateIDfromLast(String id, String init) {
         int maxId = 0;
         maxId = getnumID(id);
-        return String.format("%s%04d",init, (maxId+1));
+        return String.format("%s%04d", init, (maxId + 1));
     }
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
-        String idJadwal = generateID(this.daojadwal.getIdAllJadwal(),"j");
+        String idJadwal = generateID(this.daojadwal.getIdAllJadwal(), "j");
         java.util.List<String> jadwalDipilih = new java.util.ArrayList<>();
         for (int i = 0; i < jadwalButtons.size(); i++) {
             if (jadwalButtons.get(i).isSelected()) {
@@ -664,18 +670,18 @@ private void disableBookedSlots(String idLapangan, LocalDate tanggal) {
             tampilkanPesan("Yang betul lah kau!", "Pilih tanggal dulu woy!");
         } else {
             this.pemesanan = new Booking(generateID(this.daoBook.getIdAllBooking(), "b"), this.pengguna, this.lapangan);
-            System.out.println("ukuran jadwals "+jadwals.size());
-            for (int i=0 ;i<jadwalDipilih.size(); i++) {
+            System.out.println("ukuran jadwals " + jadwals.size());
+            for (int i = 0; i < jadwalDipilih.size(); i++) {
                 System.out.println("tambah1 jadwal");
                 String jam[] = jadwalDipilih.get(i).split("-");
-                if (i==0) {
+                if (i == 0) {
                     this.jadwals.add(new Jadwal(idJadwal, tanggalPesan.getDate(), LocalTime.parse(jam[0]), LocalTime.parse(jam[1]), this.pemesanan, lapangan));
                 } else {
-                    this.jadwals.add(new Jadwal(generateIDfromLast(idJadwal,"j"), tanggalPesan.getDate(), LocalTime.parse(jam[0]), LocalTime.parse(jam[1]), this.pemesanan, lapangan));
+                    this.jadwals.add(new Jadwal(generateIDfromLast(idJadwal, "j"), tanggalPesan.getDate(), LocalTime.parse(jam[0]), LocalTime.parse(jam[1]), this.pemesanan, lapangan));
                 }
-                
+
             }
-            System.out.println("ukuran jadwals "+jadwals.size());
+            System.out.println("ukuran jadwals " + jadwals.size());
             System.out.println("pengguna : " + this.pengguna.getUserName());
             System.out.println("id pemesanan : " + pemesanan.toString());
             for (Jadwal elem : jadwals) {
@@ -699,10 +705,6 @@ private void disableBookedSlots(String idLapangan, LocalDate tanggal) {
                 new Object[]{"Oke bang"},
                 "Oke bang");
     }
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_jTextField1ActionPerformed
 
     private void UlasBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_UlasBtnActionPerformed
         Ulas ulas = new Ulas(lapangan, pengguna);
