@@ -192,7 +192,7 @@ public class Dashboard extends javax.swing.JFrame {
     private void HistoryBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HistoryBtnActionPerformed
         HistoryFrame history = new HistoryFrame(penggunaSaatIni.getId(), this);
         history.setVisible(true);
-        this.dispose();
+        this.setVisible(false);
     }//GEN-LAST:event_HistoryBtnActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
