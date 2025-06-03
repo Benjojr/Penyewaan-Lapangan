@@ -127,6 +127,7 @@ public class DashboardLapangan extends javax.swing.JFrame {
         for (javax.swing.JToggleButton btn : jadwalButtons) {
             btn.addActionListener(e -> prosesJadwalDipilih());
         }
+        setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -629,6 +630,7 @@ public class DashboardLapangan extends javax.swing.JFrame {
     return true;
     }
 
+
     private void btnJadwalTujuhActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }// GEN-LAST:event_btnJadwalTujuhActionPerformed
@@ -734,7 +736,7 @@ public class DashboardLapangan extends javax.swing.JFrame {
         jadwals = jadwalsWithBooking; // replace jika perlu menyimpan yang baru
 
         // Lanjut ke proses booking/checkout
-        Checkout co = new Checkout(pemesanan);
+        Checkout co = new Checkout(pemesanan, this);
         co.setVisible(true);
         this.dispose(); // Pastikan variable sudah ke-set
     }// GEN-LAST:event_jButton1ActionPerformed
