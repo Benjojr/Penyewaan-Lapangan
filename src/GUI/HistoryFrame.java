@@ -9,8 +9,9 @@ package GUI;
  * @author LENOVO
  */
 import ClassDAO.DAOBookingDetail;
+import ClassDAO.DAOLangganan;
 import MainClass.Booking;
-import MainClass.Jadwal;
+import MainClass.Langganan;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -166,6 +167,7 @@ public class HistoryFrame extends javax.swing.JFrame {
     private void loadBookingHistory(String id_Pengguna) {
         // Fetch booking history from the database using DAOBookingDetail
         List<Booking> bookingHistory = new DAOBookingDetail().getBookingDetail(id_Pengguna);
+        DAOLangganan daoLangganan = new DAOLangganan();
 
         jPanel2.removeAll();
         jPanel2.setLayout(new BoxLayout(jPanel2, BoxLayout.Y_AXIS)); // Set layout for jPanel2
@@ -194,6 +196,12 @@ public class HistoryFrame extends javax.swing.JFrame {
                     );
                     long toHours = duration.toHours();
 
+                    Langganan jenisLangganan = daoLangganan.LoadSomeById(booking.getPengguna().getJenis_langganan());
+
+                    double hargaAwal = booking.getLapangan().getHarga() * toHours;
+                    double potongan = jenisLangganan.getPotongan() * hargaAwal;
+                    double hargaAkhir = hargaAwal - potongan;
+
                     String bookingDetails = String.format("""
                         <html>
                             <p>Nama Lapangan: %s</p>
@@ -209,7 +217,7 @@ public class HistoryFrame extends javax.swing.JFrame {
                         booking.getLapangan().getOlahraga().getNama_olahraga(),
                         booking.getClassJadwal().getTanggal().toString(),
                         toHours,
-                        booking.getLapangan().getHarga()
+                        hargaAkhir
                     );
 
                     JLabel detailsLabel = new JLabel(bookingDetails);

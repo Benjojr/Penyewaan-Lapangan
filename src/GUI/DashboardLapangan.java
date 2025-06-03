@@ -555,8 +555,8 @@ public class DashboardLapangan extends javax.swing.JFrame {
             LocalTime jamSelesai = LocalTime.parse(jamSelesaiStr);
 
             // Pemesanan belum di-set di sini, cukup null/dummy
-//            Jadwal jadwal = new Jadwal(null, tanggal, jamMulai, jamSelesai, null, lapangan);
-//            jadwals.add(jadwal);
+            Jadwal jadwal = new Jadwal(null, tanggal, jamMulai, jamSelesai, null, lapangan);
+            jadwals.add(jadwal);
             if (sb.length() > 0) {
                 sb.append(", ");
             }
