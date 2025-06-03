@@ -187,41 +187,44 @@ public class HistoryFrame extends javax.swing.JFrame {
                 
 
                 // Format Duration in hours
-                Duration duration = Duration.between(
-                    booking.getJadwal().get(0).getJam_Mulai(), 
-                    booking.getJadwal().get(0).getJam_Selesai()
-                );
-                long toHours = duration.toHours();
+                if (booking.getJadwal() != null && !booking.getJadwal().isEmpty()) {
+                    Duration duration = Duration.between(
+                        booking.getClassJadwal().getJam_Mulai(), 
+                        booking.getClassJadwal().getJam_Selesai()
+                    );
+                    long toHours = duration.toHours();
 
-                String bookingDetails = """
-                    <html>
-                        <p>Nama Lapangan: %s</p>
-                        <p>Location: %s</p>
-                        <p>Olahraga: %s</p>
-                        <p>Tanggal: %s</p>
-                        <p>Durasi: %d jam</p>
-                        <p>Harga: %s</p>
-                    </html>
-                    """.formatted(
+                    String bookingDetails = String.format("""
+                        <html>
+                            <p>Nama Lapangan: %s</p>
+                            <p>Location: %s</p>
+                            <p>Olahraga: %s</p>
+                            <p>Tanggal: %s</p>
+                            <p>Durasi: %d jam</p>
+                            <p>Harga: %s</p>
+                        </html>
+                        """,
                         booking.getLapangan().getNama_lapangan(),
                         booking.getLapangan().getLokasi(),
                         booking.getLapangan().getOlahraga().getNama_olahraga(),
-                        booking.getJadwal().get(0).getTanggal().toString(),
+                        booking.getClassJadwal().getTanggal().toString(),
                         toHours,
                         booking.getLapangan().getHarga()
                     );
 
-                JLabel detailsLabel = new JLabel(bookingDetails);
-                detailsLabel.setFont(new Font("Poppins", Font.PLAIN, 14));
-                // detailsLabel.setForeground(Color.BLACK);
-
-                // Tambahkan label ke panel
-                bookingPanel.add(detailsLabel);
-
-                // Tambahkan panel ke jPanel2
-                jPanel2.add(bookingPanel);
-
-                jPanel2.add(Box.createVerticalStrut(10));
+                    JLabel detailsLabel = new JLabel(bookingDetails);
+                    detailsLabel.setFont(new Font("Poppins", Font.PLAIN, 14));
+                    bookingPanel.add(detailsLabel);
+                    jPanel2.add(bookingPanel);
+                    jPanel2.add(Box.createVerticalStrut(10));
+                } else {
+                    // Optional: tampilkan panel bahwa jadwal kosong
+                    JLabel warning = new JLabel("Booking ini tidak memiliki jadwal.");
+                    warning.setFont(new Font("Poppins", Font.ITALIC, 12));
+                    bookingPanel.add(warning);
+                    jPanel2.add(bookingPanel);
+                    jPanel2.add(Box.createVerticalStrut(10));
+                }
             }
         } else {
             // Display a message if no bookings are found

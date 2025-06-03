@@ -41,10 +41,11 @@ public class PembayaranFrame extends javax.swing.JFrame {
         setFrame();
         setLocationRelativeTo(null);
     }
+    // pemesanan.getLapangan().getHarga()*this.pemesanan.getJadwal().size()
     
     private void setFrame() {
         JudulPemesananLabel.setText("Pemesanan "+pesanan.getId_booking()+" : Lapangan "+pesanan.getLapangan().getNama_lapangan());
-        HargaAwalLabel.setText(String.format("Harga awal : Rp. %.2f",pesanan.getLapangan().getHarga()));
+        HargaAwalLabel.setText(String.format("Harga awal : Rp. %.2f",pesanan.getLapangan().getHarga()*pesanan.getJadwal().size()));
         BankLabel.setText("Via : "+Bank);
         KodePembayaranLabel.setText(String.format("Kode Pembayaran : %d",KodePembayaran));
         PotonganLabel.setText(String.format("Potongan : Rp. %.2f", potongan));

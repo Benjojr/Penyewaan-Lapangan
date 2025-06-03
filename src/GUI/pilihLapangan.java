@@ -27,6 +27,7 @@
             initComponents();
             this.idOlahRaga = idOlahRaga;
             this.parent = parent;
+            setLocationRelativeTo(null);
             DAOLapangan dao = new DAOLapangan();
             List<Lapangan> lapanganList = dao.getLapanganByOlahraga(idOlahRaga);
 
