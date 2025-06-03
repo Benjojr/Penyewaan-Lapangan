@@ -7,6 +7,9 @@ import MainClass.Pengguna;
 import java.awt.Color;
 import java.util.List;
 import javax.swing.JOptionPane;
+import com.formdev.flatlaf.FlatLightLaf;
+import javax.swing.UIManager;
+
 public class Ulas extends javax.swing.JFrame {
     private final Lapangan lapanganSaatIni;
     private final Pengguna penggunaSaatIni;  
@@ -138,7 +141,11 @@ public class Ulas extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Ulas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception ex) {
+            System.err.println("Failed to initialize FlatLaf");
+        }
         /* Create and display the form */
         // java.awt.EventQueue.invokeLater(new Runnable() {
         //     public void run() {

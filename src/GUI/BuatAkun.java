@@ -4,6 +4,9 @@ import javax.swing.JOptionPane;
 import ClassDAO.*;
 import MainClass.*;
 import java.util.ArrayList;
+import com.formdev.flatlaf.FlatLightLaf;
+import javax.swing.UIManager;
+
 
 public class BuatAkun extends javax.swing.JFrame {
     DAOPengguna daopgn = new DAOPengguna();
@@ -50,10 +53,10 @@ public class BuatAkun extends javax.swing.JFrame {
         jLabel2.setText("Username");
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("email");
+        jLabel3.setText("Email");
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("nomor telepon");
+        jLabel4.setText("No. Telp");
 
         usrTField.setMinimumSize(new java.awt.Dimension(64, 20));
 
@@ -122,7 +125,6 @@ public class BuatAkun extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(phoneTField, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(182, 182, 182)))
                         .addContainerGap())
@@ -281,7 +283,11 @@ public class BuatAkun extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(BuatAkun.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception ex) {
+            System.err.println("Failed to initialize FlatLaf");
+        }
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

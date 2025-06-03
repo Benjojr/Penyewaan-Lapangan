@@ -8,6 +8,9 @@ import ClassDAO.DAOPengguna;
 import MainClass.Pengguna;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import com.formdev.flatlaf.FlatLightLaf;
+import javax.swing.UIManager;
+
 
 /**
  *
@@ -185,10 +188,15 @@ public class ProfilePanel extends javax.swing.JFrame {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             Logger.getLogger(ProfilePanel.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception ex) {
+            System.err.println("Failed to initialize FlatLaf");
+        }
         /* Create and display the form */
         
     }
+    
 
     // Variables declaration - do not modify
     private javax.swing.JLabel EmailEdited;

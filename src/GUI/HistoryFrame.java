@@ -12,6 +12,7 @@ import ClassDAO.DAOBookingDetail;
 import ClassDAO.DAOLangganan;
 import MainClass.Booking;
 import MainClass.Langganan;
+import MainClass.Jadwal;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -23,6 +24,9 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import com.formdev.flatlaf.FlatLightLaf;
+import javax.swing.UIManager;
+
 
 public class HistoryFrame extends javax.swing.JFrame {
     private Dashboard parent;
@@ -165,19 +169,19 @@ public class HistoryFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void loadBookingHistory(String id_Pengguna) {
-        // Fetch booking history from the database using DAOBookingDetail
+
         List<Booking> bookingHistory = new DAOBookingDetail().getBookingDetail(id_Pengguna);
         DAOLangganan daoLangganan = new DAOLangganan();
 
         jPanel2.removeAll();
-        jPanel2.setLayout(new BoxLayout(jPanel2, BoxLayout.Y_AXIS)); // Set layout for jPanel2
+        jPanel2.setLayout(new BoxLayout(jPanel2, BoxLayout.Y_AXIS));
         
         if (bookingHistory != null && !bookingHistory.isEmpty()) {
-            for (Booking booking : bookingHistory) {
+            for (Booking booking : bookingHistory) {               
                 
                 if (booking == null || booking.getJadwal() == null || booking.getJadwal().isEmpty() 
                     || booking.getLapangan() == null) {
-                    continue; // skip data yang ga valid
+                    continue;
                 }
                 
                 JPanel bookingPanel = new JPanel();
@@ -188,7 +192,9 @@ public class HistoryFrame extends javax.swing.JFrame {
                 
                 
 
-                // Format Duration in hours
+                
+
+                
                 if (booking.getJadwal() != null && !booking.getJadwal().isEmpty()) {
                     Duration duration = Duration.between(
                         booking.getClassJadwal().getJam_Mulai(), 
@@ -226,7 +232,7 @@ public class HistoryFrame extends javax.swing.JFrame {
                     jPanel2.add(bookingPanel);
                     jPanel2.add(Box.createVerticalStrut(10));
                 } else {
-                    // Optional: tampilkan panel bahwa jadwal kosong
+                    
                     JLabel warning = new JLabel("Booking ini tidak memiliki jadwal.");
                     warning.setFont(new Font("Poppins", Font.ITALIC, 12));
                     bookingPanel.add(warning);
@@ -235,13 +241,13 @@ public class HistoryFrame extends javax.swing.JFrame {
                 }
             }
         } else {
-            // Display a message if no bookings are found
+            
             JLabel noBookingsLabel = new JLabel("No booking details found for the user.");
             noBookingsLabel.setFont(new Font("Poppins", Font.PLAIN, 14));
             jPanel2.add(noBookingsLabel);
         }
 
-        // // Refresh the panel
+        
         // jPanel2.setBorder(BorderFactory.createLineBorder(Color.BLACK)); // Debug border
         jPanel2.revalidate();
         jPanel2.repaint();
@@ -273,7 +279,11 @@ public class HistoryFrame extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(HistoryFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception ex) {
+            System.err.println("Failed to initialize FlatLaf");
+        }
         /* Create and display the form */
         
     }

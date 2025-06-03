@@ -6,6 +6,9 @@ import java.time.*;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import com.formdev.flatlaf.FlatLightLaf;
+import javax.swing.UIManager;
+
 
 public class PembayaranFrame extends javax.swing.JFrame {
     private String id;
@@ -336,8 +339,8 @@ public class PembayaranFrame extends javax.swing.JFrame {
                         daojadwal.RegistJadwal(elem);
                     }
                     daopbyr.Regist(id, hasil);
-                    Dashboard dshb = new Dashboard(pesanan.getPengguna());
-                    dshb.setVisible(true);
+                    Invoice invoice = new Invoice(pesanan);
+                    invoice.setVisible(true);
                     this.dispose();
                     break;
                 } else if(statusPembayaran.equals("kurang")) {
@@ -383,6 +386,13 @@ public class PembayaranFrame extends javax.swing.JFrame {
         }
     }
     
+    public static void main(String args[]) {
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception ex) {
+            System.err.println("Failed to initialize FlatLaf");
+        }
+    }
     
     /**
      * @param args the command line arguments

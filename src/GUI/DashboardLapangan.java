@@ -22,6 +22,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Collections;
 import com.github.lgooddatepicker.components.DatePickerSettings;
+import com.formdev.flatlaf.FlatLightLaf;
+import javax.swing.UIManager;
+
 
 public class DashboardLapangan extends javax.swing.JFrame {
 
@@ -728,7 +731,11 @@ public class DashboardLapangan extends javax.swing.JFrame {
                     null, ex);
         }
         // </editor-fold>
-
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception ex) {
+            System.err.println("Failed to initialize FlatLaf");
+        }
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
