@@ -59,7 +59,9 @@ public class DAOPengguna {
             System.err.println("Error loading Pengguna by ID: " + e.getMessage());
         }
     return null;
-}
+    }
+    
+    
     public ArrayList<Pengguna> LoadAll() {
         ArrayList<Pengguna> penggunas = new ArrayList<Pengguna>();
         String sql = "SELECT * FROM Pengguna";

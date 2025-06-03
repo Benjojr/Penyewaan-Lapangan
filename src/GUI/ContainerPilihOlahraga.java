@@ -20,10 +20,12 @@ public class ContainerPilihOlahraga extends javax.swing.JFrame {
         initComponents();
         this.parent = parent;
         this.pengguna = pengguna;
+        setLocationRelativeTo(null);
     }
     
     public ContainerPilihOlahraga() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

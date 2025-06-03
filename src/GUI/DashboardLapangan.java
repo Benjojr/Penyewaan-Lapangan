@@ -39,10 +39,12 @@ public class DashboardLapangan extends javax.swing.JFrame {
 
     public DashboardLapangan() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     public DashboardLapangan(Lapangan lapangan, pilihLapangan parent, Pengguna pengguna) {
         initComponents();
+        setLocationRelativeTo(null);
         this.lapangan = lapangan;
         this.parent = parent;
         this.pengguna = pengguna;
