@@ -618,8 +618,8 @@ public class DashboardLapangan extends javax.swing.JFrame {
             LocalTime jamSelesai = LocalTime.parse(jamSelesaiStr);
 
             // Pemesanan belum di-set di sini, cukup null/dummy
-            Jadwal jadwal = new Jadwal(null, tanggal, jamMulai, jamSelesai, null, lapangan);
-            jadwals.add(jadwal);
+//            Jadwal jadwal = new Jadwal(null, tanggal, jamMulai, jamSelesai, null, lapangan);
+//            jadwals.add(jadwal);
 
             if (sb.length() > 0) {
                 sb.append(", ");
@@ -714,8 +714,15 @@ public class DashboardLapangan extends javax.swing.JFrame {
         }
         return String.format("%s%04d", init, (maxId + 1));
     }
+    
+    private String generateIDfromLast(String id, String init) {
+        int maxId = 0;
+        maxId = getnumID(id);
+        return String.format("%s%04d",init, (maxId+1));
+    }
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
+        String idJadwal = generateID(this.daojadwal.getIdAllJadwal(),"j");
         java.util.List<String> jadwalDipilih = new java.util.ArrayList<>();
         for (int i = 0; i < jadwalButtons.size(); i++) {
             if (jadwalButtons.get(i).isSelected()) {
@@ -728,11 +735,18 @@ public class DashboardLapangan extends javax.swing.JFrame {
             tampilkanPesan("Yang betul lah kau!", "Pilih tanggal dulu woy!");
         } else {
             this.pemesanan = new Booking(generateID(this.daoBook.getIdAllBooking(), "b"), this.pengguna, this.lapangan);
-            for (String elem : jadwalDipilih) {
-                String jam[] = elem.split("-");
-                this.jadwals.add(new Jadwal(generateID(this.daojadwal.getIdAllJadwal(), "j"), tanggalPesan.getDate(),
-                        LocalTime.parse(jam[0]), LocalTime.parse(jam[1]), pemesanan, lapangan));
+            System.out.println("ukuran jadwals "+jadwals.size());
+            for (int i=0 ;i<jadwalDipilih.size(); i++) {
+                System.out.println("tambah1 jadwal");
+                String jam[] = jadwalDipilih.get(i).split("-");
+                if (i==0) {
+                    this.jadwals.add(new Jadwal(idJadwal, tanggalPesan.getDate(), LocalTime.parse(jam[0]), LocalTime.parse(jam[1]), this.pemesanan, lapangan));
+                } else {
+                    this.jadwals.add(new Jadwal(generateIDfromLast(idJadwal,"j"), tanggalPesan.getDate(), LocalTime.parse(jam[0]), LocalTime.parse(jam[1]), this.pemesanan, lapangan));
+                }
+                
             }
+            System.out.println("ukuran jadwals "+jadwals.size());
             System.out.println("pengguna : " + this.pengguna.getUserName());
             System.out.println("id pemesanan : " + pemesanan.toString());
             for (Jadwal elem : jadwals) {
