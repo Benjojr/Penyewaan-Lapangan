@@ -15,8 +15,10 @@ public class DAOPengguna {
     // Removed instance since getConnection is static
     
         public Pengguna LoadSome(String username) {
-        String sql = "SELECT * FROM Pengguna WHERE Username like '"+username+"'";
-        try (Connection conn = DatabaseConnection.getConnection();PreparedStatement stmt = conn.prepareStatement(sql)) {
+        String sql = "SELECT * FROM Pengguna WHERE Username like ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setString(1, username);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     return new Pengguna(

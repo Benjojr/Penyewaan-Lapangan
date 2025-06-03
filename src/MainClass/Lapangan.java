@@ -4,6 +4,8 @@
  */
 package MainClass;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author bani
@@ -15,6 +17,7 @@ public class Lapangan {
     private String nama_lapangan;
     private Olahraga olahraga;
     private Jadwal jadwal;
+    private final ArrayList<Jadwal> jadwals = new ArrayList<>();
 
     public Lapangan(String id_lapangan, String lokasi, double harga, String nama_lapangan, Olahraga olahraga) {
         this.id_lapangan = id_lapangan;
@@ -72,6 +75,10 @@ public class Lapangan {
 
     public Jadwal getJadwal() {
         return jadwal;
+    }
+
+    public ArrayList<Jadwal> getAllJadwal() {
+        return jadwals;
     }
 
     public void setJadwal(Jadwal jadwal) {

@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package GUI;
 
 import MainClass.Booking;
@@ -12,9 +9,10 @@ import MainClass.Pengguna;
  * @author benja
  */
 public class Checkout extends javax.swing.JFrame {
-private Booking pemesanan;
-    private Pengguna pengguna;
+    private final Booking pemesanan;
+    private final Pengguna pengguna;
     DashboardLapangan parent;
+
     
     public Checkout(){
         initComponents();

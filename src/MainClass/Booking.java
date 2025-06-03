@@ -6,8 +6,9 @@ import java.util.ArrayList;
 public class Booking {
     private String id_booking;
     private Pengguna pengguna;
-    private ArrayList<Jadwal> jadwal = new ArrayList<Jadwal>();
+    private final ArrayList<Jadwal> jadwal = new ArrayList<>();
     private Lapangan lapangan;
+    private Jadwal jadwali;
 
     public Booking(String id_booking, Pengguna id_Pengguna, Lapangan lapangan) {
         this.id_booking = id_booking;
@@ -18,7 +19,7 @@ public class Booking {
     public Booking(){
         this.pengguna = new Pengguna();
         this.lapangan = new Lapangan();
-
+        this.jadwali = new Jadwal();
     }
 
     public String getId_booking() {
@@ -53,5 +54,7 @@ public class Booking {
         this.lapangan = lapangan;
     }
 
-    
+    public Jadwal getClassJadwal() {
+        return jadwali;
+    }
 }
