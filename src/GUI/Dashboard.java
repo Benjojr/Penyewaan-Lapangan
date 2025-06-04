@@ -202,7 +202,8 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void subsButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subsButton1ActionPerformed
         if (penggunaSaatIni != null) {
-        new buyLangganan(penggunaSaatIni.getId()).setVisible(true);
+        new buyLangganan(penggunaSaatIni.getId(), this).setVisible(true);
+        this.setVisible(false);
         } else {}
     }//GEN-LAST:event_subsButton1ActionPerformed
 
