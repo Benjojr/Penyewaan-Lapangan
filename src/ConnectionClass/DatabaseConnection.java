@@ -9,7 +9,7 @@ public class DatabaseConnection {
         Connection connection = null;
         if (connection == null || connection.isClosed()) {
             String url = "jdbc:sqlserver://benten.database.windows.net:1433;"
-                    + "database=Project-Basdat;"
+                    + "database=Project_Basdat_R_1;"
                     + "user=ucokguling@benten;"
                     + "password=Mucacos_26;"
                     + "encrypt=true;"
