@@ -28,17 +28,17 @@ public class DAOUlasan {
 
     public void addUlasan(String idUlasan, String komen, MainClass.Rating rating, String idPengguna, String idLapangan) {
         String sql = """
-            INSERT INTO Ulasan (id_Ulasan, komen, rating, tanggal, id_Pengguna, id_lapangan)
+            INSERT INTO Ulasan (id_ulasan, id_pengguna, id_lapangan, komentar, rating, tanggal)
             VALUES (?, ?, ?, ?, ?, ?)
                 """;
         try (Connection conn = DatabaseConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setString(1, idUlasan);
-                stmt.setString(2, komen);
-                stmt.setInt(3, rating.toInt());
-                stmt.setDate(4, java.sql.Date.valueOf(LocalDate.now()));
-                stmt.setString(5, idPengguna);
-                stmt.setString(6, idLapangan);
+                stmt.setString(2, idPengguna);
+                stmt.setString(3, idLapangan);
+                stmt.setString(4, komen);
+                stmt.setInt(5, rating.toInt());
+                stmt.setDate(6, java.sql.Date.valueOf(LocalDate.now()));
                 stmt.executeUpdate();
 
                 System.out.println("Ulasan added successfully.");
@@ -58,15 +58,15 @@ public class DAOUlasan {
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     Ulasan ulasan = new Ulasan();
-                    ulasan.setIdUlasan(rs.getString("id_Ulasan"));
-                    ulasan.setKomen(rs.getString("komen"));
+                    ulasan.setIdUlasan(rs.getString("id_ulasan"));
+                    ulasan.getPengguna().setId(rs.getString("id_pengguna"));
+                    ulasan.getLapangan().setId_lapangan(rs.getString("id_lapangan"));
+                    ulasan.setKomen(rs.getString("komentar"));
                     int ratingValue = rs.getInt("rating");
                     ulasan.setRating(ratingValue >= 1 && ratingValue <= 5 ? 
                         MainClass.Rating.fromInt(ratingValue) :
                         MainClass.Rating.ONE); // Default to ONE if invalid
                     ulasan.setTanggal(rs.getDate("tanggal").toLocalDate());
-                    ulasan.getPengguna().setId(rs.getString("id_Pengguna"));
-                    ulasan.getLapangan().setId_lapangan(rs.getString("id_Lapangan"));
                     ulasanList.add(ulasan);
                 }
             } catch (Exception e) {
@@ -80,7 +80,7 @@ public class DAOUlasan {
 
     public List<Ulasan> getUlasanByLapangan(String idLapangan) {
         List<Ulasan> ulasanList = new ArrayList<>();
-        String sql = "SELECT * FROM Ulasan WHERE id_Lapangan = ?";
+        String sql = "SELECT * FROM Ulasan WHERE id_lapangan = ?";
 
         try (Connection conn = DatabaseConnection.getConnection(); 
             PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -88,14 +88,14 @@ public class DAOUlasan {
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     Ulasan ulasan = new Ulasan();
-                    ulasan.setIdUlasan(rs.getString("id_Ulasan"));
-                    ulasan.setKomen(rs.getString("komen"));
+                    ulasan.setIdUlasan(rs.getString("id_ulasan"));
+                    ulasan.getPengguna().setId(rs.getString("id_pengguna"));
+                    ulasan.getLapangan().setId_lapangan(rs.getString("id_lapangan"));
+                    ulasan.setKomen(rs.getString("komentar"));
                     int ratingValue = rs.getInt("rating");
                     ulasan.setRating(ratingValue >= 1 && ratingValue <= 5 ? 
                         MainClass.Rating.fromInt(ratingValue) : MainClass.Rating.ONE); // Default to ONE if invalid
                     ulasan.setTanggal(rs.getDate("tanggal").toLocalDate());
-                    ulasan.getPengguna().setId(rs.getString("id_Pengguna"));
-                    ulasan.getLapangan().setId_lapangan(rs.getString("id_Lapangan"));
                     ulasanList.add(ulasan);
                 }
             } catch (Exception e) {
