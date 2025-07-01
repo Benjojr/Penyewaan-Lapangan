@@ -18,7 +18,7 @@ import java.util.List;
 public class DAOLangganan {
     public List<Langganan> getAllPaket() {
         List<Langganan> paketList = new ArrayList<>();
-        String sql = "SELECT * FROM Langganan";
+        String sql = "SELECT * FROM Subscription";
         
         try (Connection conn = DatabaseConnection.getConnection();
              Statement stmt = conn.createStatement();
@@ -26,8 +26,9 @@ public class DAOLangganan {
             
             while (rs.next()) {
                 paketList.add(new Langganan(
-                    rs.getString("jenisLangganan"),
-                    rs.getDouble("potongan"),
+                    rs.getString("id_subscription"),
+                    rs.getString("jenis"),
+                    rs.getDouble("diskon"),
                     rs.getDouble("harga")
                 ));
             }
@@ -37,13 +38,13 @@ public class DAOLangganan {
         return paketList;
     }
 
-    public boolean upgradeLangganan(String idPengguna, String jenisLangganan) {
-        String sql = "UPDATE Pengguna SET Jenis_langganan = ? WHERE id_Pengguna = ?";
+    public boolean upgradeLangganan(String idPengguna, String id_Langganan) {
+        String sql = "UPDATE Pengguna SET id_subscription = ? WHERE id_pengguna = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, jenisLangganan);
+            stmt.setString(1, id_Langganan);
             stmt.setString(2, idPengguna);
 
             return stmt.executeUpdate() > 0;
@@ -53,19 +54,20 @@ public class DAOLangganan {
         }
     }
     
-    public Langganan LoadSomeById(String Jenis_langganan) {
-        String sql = "SELECT * FROM Langganan WHERE Jenis_langganan = ?";
+    public Langganan LoadSomeById(String id_langganan) {
+        String sql = "SELECT * FROM Subscription WHERE id_subscription = ?";
         try (Connection conn = DatabaseConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
             
-            stmt.setString(1, Jenis_langganan); // Set parameter safely
+            stmt.setString(1, id_langganan); // Set parameter safely
             
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     return new Langganan(
-                        rs.getString("Jenis_langganan"),
-                        rs.getDouble("Potongan_Harga"),
-                        rs.getDouble("Harga_Langganan")
+                        rs.getString("id_subscription"),
+                        rs.getString("Jenis"),
+                        rs.getDouble("diskon"),
+                        rs.getDouble("harga")
                     );
                 }
             }
