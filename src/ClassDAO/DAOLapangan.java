@@ -69,6 +69,7 @@ public class DAOLapangan {
                             rs.getString("email"),
                             rs.getString("no_rek"),
                             rs.getString("contact_number"),
+                            rs.getString("username"),
                             alamat
                     );
 
@@ -152,6 +153,7 @@ public class DAOLapangan {
                         rs.getString("email"),
                         rs.getString("no_rek"),
                         rs.getString("contact_number"),
+                        rs.getString("username"),
                         alamat
                     );
                     Fasilitas fasilitas = new Fasilitas(
@@ -231,6 +233,7 @@ public class DAOLapangan {
                         rs.getString("email"),
                         rs.getString("no_rek"),
                         rs.getString("contact_number"),
+                        rs.getString("username"),
                         alamat
                     );
                     Fasilitas fasilitas = new Fasilitas(
