@@ -187,4 +187,43 @@ public class DAOBookingDetail {
 
         return detail;
     }
+    
+    public ArrayList<String[]> getBookingInfo(String id_lapangan, String awal, String akhir) {
+        ArrayList<String[]> listBook = new ArrayList<String[]>();
+        String sql = """
+                     SELECT Pengguna.username, Jadwal.id_jadwal, Pengguna.username, Jadwal.jam_mulai, Jadwal.tanggal as tanggal_jdwl, Lapangan.nama_lapangan, Pembayaran.tanggal as tanggal_byr, Lapangan.harga_per_jam, Pembayaran.status_pembayaran, Pembayaran.id_pembayaran
+                     FROM Booking
+                     JOIN Pengguna ON Pengguna.id_pengguna = Booking.id_pengguna
+                     JOIN Pembayaran ON Booking.id_Pembayaran = Pembayaran.id_pembayaran
+                     JOIN Jadwal ON Jadwal.id_jadwal = Booking.id_jadwal
+                     JOIN Lapangan ON Lapangan.id_lapangan = Jadwal.id_lapangan
+                     WHERE Jadwal.id_lapangan like ? AND Pembayaran.tanggal between ? AND ?
+                     """;
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, id_lapangan);
+            stmt.setString(2, awal);
+            stmt.setString(3, akhir);
+            
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String[] row = new String[8];
+                row[0] = rs.getString("username");
+                row[1] = rs.getString("id_jadwal");
+                row[2] = rs.getString("jam_mulai")+" / "+rs.getString("tanggal_jdwl");
+                row[3] = rs.getString("nama_lapangan");
+                row[4] = rs.getString("tanggal_byr");
+                row[5] = rs.getString("harga_per_jam");
+                row[6] = rs.getString("status_pembayaran");
+                row[7] = rs.getString("id_pembayaran");
+                
+                listBook.add(row);
+            }   
+            
+        } catch (SQLException e) {
+            System.out.println("Error retrieving booking : " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Unexpected error: " + e.getMessage());
+        }
+        return listBook;
+    }
 }

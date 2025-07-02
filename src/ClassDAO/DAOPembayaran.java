@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -76,5 +77,19 @@ public class DAOPembayaran {
             System.out.println(e);
         }
         return null;
+    }
+    
+    public void Lunasi(String id_pembayaran) {
+        String sql = "UPDATE Pembayaran SET status_pembayaran = 'Lunas' WHERE id_pembayaran = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, id_pembayaran);
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Pembayaran telah dilunasi.", "Information",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }
