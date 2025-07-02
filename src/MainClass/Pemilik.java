@@ -15,15 +15,17 @@ public class Pemilik {
     private String email;
     private String no_rek;
     private String contact_number;
+    private String username;
     private Alamat alamat;
 
-    public Pemilik(String id_pemilik, String password, String nama,  String email, String no_rek, String contact_number, Alamat alamat) {
+    public Pemilik(String id_pemilik, String password, String nama,  String email, String no_rek, String contact_number, String username, Alamat alamat) {
         this.id_pemilik = id_pemilik;
         this.alamat = alamat;
         this.password = password;
         this.nama = nama;
         this.email = email;
         this.no_rek = no_rek;
+        this.username = username;
         this.contact_number = contact_number;
     }
 
@@ -83,6 +85,10 @@ public class Pemilik {
 
     public void setContact_number(String contact_number) {
         this.contact_number = contact_number;
+    }
+    
+    public String getUsername() {
+        return this.username;
     }
 
 }
