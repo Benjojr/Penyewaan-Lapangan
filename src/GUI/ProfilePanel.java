@@ -36,11 +36,11 @@ public class ProfilePanel extends javax.swing.JFrame {
         try {
             penggunaSaatIni = daoPengguna.LoadSomeById(idPengguna);
             if (penggunaSaatIni != null) {
-                jLabel1.setText("Profile " + penggunaSaatIni.getUserName());
-                UsernameEdited.setText(penggunaSaatIni.getUserName());
+                jLabel1.setText("Profile " + penggunaSaatIni.getNama());
+                UsernameEdited.setText(penggunaSaatIni.getNama());
                 EmailEdited.setText(penggunaSaatIni.getEmail());
-                NoHpEdited.setText(penggunaSaatIni.getNo_telp()); // Fixed to match Pengguna class field
-                JenisLanggananEdited.setText(penggunaSaatIni.getJenis_langganan());
+                NoHpEdited.setText(penggunaSaatIni.getNo_hp()); // Fixed to match Pengguna class field
+                JenisLanggananEdited.setText(penggunaSaatIni.getSubscription().getJenisLangganan());
             } else {
                 // Handle case where pengguna is not found
                 UsernameEdited.setText("Not Found");

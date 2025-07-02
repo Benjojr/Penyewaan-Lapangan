@@ -233,7 +233,7 @@ public class buyLangganan extends javax.swing.JFrame {
                 "Success", 
                 JOptionPane.INFORMATION_MESSAGE);
             
-            pengguna.setJenis_langganan(jenisLangganan);
+            pengguna.getSubscription().setJenisLangganan(jenisLangganan);
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, 
