@@ -22,9 +22,10 @@ public class Dashboard_Pemilik extends javax.swing.JFrame {
 
     private Pemilik pemilik;
     private ArrayList<Lapangan> Lapangans = new ArrayList<Lapangan>();
-    private DAOPemilik daopemilik = new DAOPemilik();
-    private DAOLapangan daolap = new DAOLapangan();
+    private final DAOPemilik daopemilik = new DAOPemilik();
+    private final DAOLapangan daolap = new DAOLapangan();
     
+   
     public Dashboard_Pemilik(Pemilik pemilik) {
         this.pemilik = pemilik;
         initComponents();
@@ -333,13 +334,15 @@ public class Dashboard_Pemilik extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void SimpanProfilbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SimpanProfilbtnActionPerformed
-        daopemilik.Update(this.pemilik.getId_pemilik(), namatf.getText(),usrnametf.getText(), emailtf.getText(), notelptf.getText(), this.pemilik.getalamat().getId_alamat(), norektf.getText(), this.pemilik.getPassword());
+        daopemilik.Update(this.pemilik.getId_pemilik(), usrnametf.getText(), namatf.getText(), emailtf.getText(), notelptf.getText(), this.pemilik.getalamat().getId_alamat(), norektf.getText(), this.pemilik.getPassword());
         this.pemilik = daopemilik.LoadSomeById(this.pemilik.getId_pemilik());
         loadBio();
     }//GEN-LAST:event_SimpanProfilbtnActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //TambahLapangan tl = new TambahLapangan;
+       TambahLapanganForm tambahLapangan = new TambahLapanganForm(pemilik);
+       tambahLapangan.setVisible(true);
+       this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

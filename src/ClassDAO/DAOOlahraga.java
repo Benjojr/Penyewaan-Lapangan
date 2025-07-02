@@ -16,7 +16,7 @@ import java.util.List;
 public class DAOOlahraga {
     public List<Olahraga> getAllOlahraga() {
         List<Olahraga> olahragaList = new ArrayList<>();
-        String sql = "SELECT * FROM Olahraga";
+        String sql = "SELECT * FROM JenisOlahraga";
         
         try (Connection conn = DatabaseConnection.getConnection();
             Statement stmt = conn.createStatement();

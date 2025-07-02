@@ -546,7 +546,7 @@ public class TambahLapanganForm extends javax.swing.JFrame {
         List<Olahraga> listJenisOlahraga = daoOlahraga.getAllOlahraga();
 
         DropDownJenisOlahraga.removeAllItems();
-        DropDownJenisOlahraga.addItem(null);
+        DropDownJenisOlahraga.addItem(new Olahraga("0", "-- Pilih Jenis Olahraga --"));
         for (Olahraga olahraga : listJenisOlahraga) {
             DropDownJenisOlahraga.addItem(olahraga);
         }
@@ -623,7 +623,7 @@ public class TambahLapanganForm extends javax.swing.JFrame {
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
         String namaLapangan = namaLapangan_Input.getText();
         String jenisLapangan = (String) dropDownJenisLapangan.getSelectedItem();
-        Olahraga jenisOlahraga = (Olahraga) DropDownJenisOlahraga.getSelectedItem();
+        
         double hargaPerJam = Double.parseDouble(hargaPerJam_Input.getText());
         double luasLapangan = Double.parseDouble(luasLapangan_Input.getText());
         String toilet = toilet_Input.getText();
@@ -659,7 +659,7 @@ public class TambahLapanganForm extends javax.swing.JFrame {
         DAOLokasiLapangan daoLokasiLapangan = new DAOLokasiLapangan();
         LokasiLapangan lokasiLapangan = daoLokasiLapangan.insertLokasiLapangan(
             new LokasiLapangan(
-                idGenerator.getNextID("Lokasi", "L", "id_lokasi"),
+                idGenerator.getNextID("LokasiLapangan", "L", "id_lokasi"),
                 jalan, 
                 rtRw, 
                 kelurahan, 
@@ -670,18 +670,29 @@ public class TambahLapanganForm extends javax.swing.JFrame {
         );
         DAOLapangan daoLapangan = new DAOLapangan();
 
-        daoLapangan.insertLapangan(
-            new Lapangan (
-                idGenerator.getNextID("Lapangan", "LP", "id_lapangan"),
-                namaLapangan, 
-                hargaPerJam,
-                luasLapangan,
-                jenisOlahraga,
-                lokasiLapangan,
-                this.pemilik,
-                fasilitas
-            ) 
+        Object selected = DropDownJenisOlahraga.getSelectedItem();
+        Olahraga jenisOlahraga = null;
+        if (selected instanceof Olahraga o) jenisOlahraga = o;
+
+        Lapangan lapangan = new Lapangan(
+            idGenerator.getNextID("Lapangan", "LP", "id_lapangan"),
+            namaLapangan, 
+            hargaPerJam,
+            luasLapangan,
+            jenisOlahraga,
+            lokasiLapangan,
+            this.pemilik,
+            fasilitas
         );
+
+        daoLapangan.insertLapangan(
+            lapangan
+        );
+
+        Dashboard_Pemilik dashboardPemilikLapangan = new Dashboard_Pemilik();
+        dashboardPemilikLapangan.setVisible(true);
+        dashboardPemilikLapangan.setLocationRelativeTo(null);
+        this.dispose();
     }//GEN-LAST:event_submitBtnActionPerformed
 
     /**

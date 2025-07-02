@@ -34,4 +34,9 @@ public class Olahraga {
     public void setNama_olahraga(String nama_olahraga) {
         this.nama_olahraga = nama_olahraga;
     }
+
+    @Override
+    public String toString() {
+        return nama_olahraga;
+    }
 }
