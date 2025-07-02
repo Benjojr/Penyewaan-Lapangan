@@ -22,8 +22,6 @@ public class Pembayaran {
         
     }
 
-    public Pembayaran(){}
-
     public boolean isStatusPembayaran() {
         return status_pembayaran;
     }
