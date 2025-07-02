@@ -33,7 +33,7 @@ public class DAOPengguna {
                             rs.getString("no_hp"),
                             rs.getDate("tanggal_lahir").toLocalDate(),
                             new Alamat(
-                                    rs.getInt("id_alamat"),
+                                    rs.getString("id_alamat"),
                                     rs.getString("jalan"),
                                     rs.getString("rt_rw"),
                                     rs.getString("kelurahan"),
@@ -77,7 +77,7 @@ public class DAOPengguna {
                             rs.getString("no_hp"),
                             rs.getDate("tanggal_lahir").toLocalDate(),
                             new Alamat(
-                                    rs.getInt("id_alamat"),
+                                    rs.getString("id_alamat"),
                                     rs.getString("jalan"),
                                     rs.getString("rt_rw"),
                                     rs.getString("kelurahan"),
@@ -114,7 +114,7 @@ public class DAOPengguna {
                             rs.getString("no_hp"),
                             rs.getDate("tanggal_lahir").toLocalDate(),
                             new Alamat(
-                                    rs.getInt("id_alamat"),
+                                    rs.getString("id_alamat"),
                                     rs.getString("jalan"),
                                     rs.getString("rt_rw"),
                                     rs.getString("kelurahan"),
