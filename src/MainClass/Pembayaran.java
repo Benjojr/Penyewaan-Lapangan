@@ -4,56 +4,26 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Pembayaran {
-    private String kodePembayaran;
-    private double hargaAwal;
-    private double hargaAkhir;
-    private boolean status;
     private LocalDate tanggal;
     private LocalTime jam;
-    private Booking pemesanan;
+    private String metode_pembayaran;
+    private double jumlah;
+    private boolean status_pembayaran;
     
-    public Pembayaran(String kodePembayaran, double hargaAkhir, boolean status, LocalDate tanggal, LocalTime jam, Booking pemesanan) {
-        this.kodePembayaran = kodePembayaran;
-        this.hargaAkhir = hargaAkhir;
-        this.status = status;
+    public Pembayaran(LocalDate tanggal, LocalTime jam, String metode_pembayaran, double jumlah, boolean status_pembayaran) {
         this.tanggal = tanggal;
         this.jam = jam;
-        this.pemesanan = pemesanan;
-        this.hargaAwal = pemesanan.getClassJadwal().getLapangan().getHarga();
+        this.metode_pembayaran = metode_pembayaran;
+        this.jumlah = jumlah;
+        this.status_pembayaran = status_pembayaran;
     }
 
-    public Pembayaran() {}
-    
-    public String getKodePembayaran() {
-        return kodePembayaran;
+    public boolean isStatusPembayaran() {
+        return status_pembayaran;
     }
 
-    public void setKodePembayaran(String kodePembayaran) {
-        this.kodePembayaran = kodePembayaran;
-    }
-
-    public double getHargaAwal() {
-        return hargaAwal;
-    }
-
-    public void setHargaAwal(double hargaAwal) {
-        this.hargaAwal = hargaAwal;
-    }
-
-    public double getHargaAkhir() {
-        return hargaAkhir;
-    }
-
-    public void setHargaAkhir(double hargaAkhir) {
-        this.hargaAkhir = hargaAkhir;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setStatus(boolean status_pembayaran) {
+        this.status_pembayaran = status_pembayaran;
     }
 
     public LocalDate getTanggal() {
@@ -72,11 +42,19 @@ public class Pembayaran {
         this.jam = jam;
     }
 
-    public Booking getPemesanan() {
-        return pemesanan;
+    public String getMetodePembayaran() {
+        return metode_pembayaran;
     }
 
-    public void setPemesanan(Booking pemesanan) {
-        this.pemesanan = pemesanan;
+    public void setMetodePembayaran(String metode_pembayaran) {
+        this.metode_pembayaran = metode_pembayaran;
+    }
+
+    public double getJumlah() {
+        return jumlah;
+    }
+
+    public void setJumlah(double jumlah) {
+        this.jumlah = jumlah;
     }
 }

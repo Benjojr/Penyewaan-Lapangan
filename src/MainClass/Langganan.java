@@ -7,7 +7,7 @@ public class Langganan {
     double potongan;
     double harga;
     
-     public Langganan( String id_langganan, String jenisLangganan, double potongan, double harga) {
+     public Langganan(String id_langganan, String jenisLangganan, double potongan, double harga) {
         this.id_Langganan = id_langganan;
         this.jenisLangganan = jenisLangganan;
         this.potongan = potongan;

@@ -1,4 +1,3 @@
-
 package MainClass;
 
 import java.time.LocalDate;
@@ -9,15 +8,15 @@ import java.time.LocalTime;
  * @author bani
  */
 public class Jadwal {
-    private String idJadwal;
+    private String id_jadwal;
     private LocalDate tanggal;
     private LocalTime jam_Mulai;
     private LocalTime jam_Selesai;
     private Lapangan id_lapangan;
 
-    public Jadwal(String idJadwal, LocalDate tanggal, LocalTime jam_Mulai, LocalTime jam_Selesai, Lapangan id_lapangan) {
+    public Jadwal(String id_jadwal, LocalDate tanggal, LocalTime jam_Mulai, LocalTime jam_Selesai, Lapangan id_lapangan) {
 
-        this.idJadwal = idJadwal;
+        this.id_jadwal = id_jadwal;
         this.tanggal = tanggal;
         this.jam_Mulai = jam_Mulai;
         this.jam_Selesai = jam_Selesai;
@@ -27,7 +26,7 @@ public class Jadwal {
     public Jadwal(){}
 
     public String getIdJadwal() {
-        return idJadwal;
+        return id_jadwal;
     }
 
     public LocalDate getTanggal() {
@@ -51,7 +50,7 @@ public class Jadwal {
     }
 
     public void setIdJadwal(String idJadwal) {
-        this.idJadwal = idJadwal;
+        this.id_jadwal = idJadwal;
     }
 
     public void setTanggal(LocalDate tanggal) {
