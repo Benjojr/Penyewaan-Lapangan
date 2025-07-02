@@ -12,19 +12,24 @@ import java.util.ArrayList;
  */
 public class Lapangan {
     private String id_lapangan;
-    private String lokasi;
     private double harga;
+    private double luas;
+    private Fasilitas fasilitas;
+    private LokasiLapangan lokasiLapangan;
     private String nama_lapangan;
+    private Pemilik pemilik;
     private Olahraga olahraga;
     private Jadwal jadwal;
     private final ArrayList<Jadwal> jadwals = new ArrayList<>();
 
-    public Lapangan(String id_lapangan, String lokasi, double harga, String nama_lapangan, Olahraga olahraga) {
+    public Lapangan(String id_lapangan, double harga, String nama_lapangan, Olahraga olahraga, LokasiLapangan lokasiLapangan, Pemilik pemilik, Fasilitas fasilitas) {
         this.id_lapangan = id_lapangan;
-        this.lokasi = lokasi;
         this.harga = harga;
         this.nama_lapangan = nama_lapangan;
         this.olahraga = olahraga;
+        this.lokasiLapangan = lokasiLapangan;
+        this.pemilik = pemilik;
+        this.fasilitas = fasilitas;
     }
     
 
@@ -41,12 +46,12 @@ public class Lapangan {
         this.id_lapangan = id_lapangan;
     }
 
-    public String getLokasi() {
-        return lokasi;
+    public LokasiLapangan getLokasi() {
+        return lokasiLapangan;
     }
 
-    public void setLokasi(String lokasi) {
-        this.lokasi = lokasi;
+    public void setLokasi(LokasiLapangan lokasiLapangan) {
+        this.lokasiLapangan = lokasiLapangan;
     }
 
     public double getHarga() {
@@ -83,5 +88,41 @@ public class Lapangan {
 
     public void setJadwal(Jadwal jadwal) {
         this.jadwal = jadwal;
+    }
+
+    public Fasilitas getFasilitas() {
+        return fasilitas;
+    }
+
+    public void setFasilitas(Fasilitas fasilitas) {
+        this.fasilitas = fasilitas;
+    }
+
+    public Pemilik getPemilik() {
+        return pemilik;
+    }
+
+    public void setPemilik(Pemilik pemilik) {
+        this.pemilik = pemilik;
+    }
+
+    public LokasiLapangan getLokasiLapangan() {
+        return lokasiLapangan;
+    }
+
+    public void setLokasiLapangan(LokasiLapangan lokasiLapangan) {
+        this.lokasiLapangan = lokasiLapangan;
+    }
+
+    public double getLuas() {
+        return luas;
+    }
+
+    public void setLuas(double luas) {
+        this.luas = luas;
+    }
+
+    public void addJadwal(Jadwal jadwal) {
+        this.jadwals.add(jadwal);
     }
 }

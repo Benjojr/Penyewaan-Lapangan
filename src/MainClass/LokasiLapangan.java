@@ -8,8 +8,8 @@ package MainClass;
  *
  * @author Bani
  */
-public class Alamat {
-    private String id_alamat;
+public class LokasiLapangan {
+    private String id_lokasi;
     private String jalan;
     private String rt_rw;
     private String kelurahan;
@@ -17,8 +17,8 @@ public class Alamat {
     private String kota;
     private String provinsi;
 
-    public Alamat(String id_alamat, String jalan, String rt_rw, String kelurahan, String kecamatan, String kota, String provinsi) {
-        this.id_alamat = id_alamat;
+    public LokasiLapangan(String id_lokasi, String jalan, String rt_rw, String kelurahan, String kecamatan, String kota, String provinsi) {
+        this.id_lokasi = id_lokasi;
         this.jalan = jalan;
         this.rt_rw = rt_rw;
         this.kelurahan = kelurahan;
@@ -27,14 +27,14 @@ public class Alamat {
         this.provinsi = provinsi;
     }
 
-    public Alamat() {}
+    public LokasiLapangan() {}
 
-    public String getId_alamat() {
-        return id_alamat;
+    public String getId_lokasi() {
+        return id_lokasi;
     }
 
-    public void setId_alamat(String id_alamat) {
-        this.id_alamat = id_alamat;
+    public void setId_lokasi(String id_lokasi) {
+        this.id_lokasi = id_lokasi;
     }
 
     public String getJalan() {
@@ -77,7 +77,6 @@ public class Alamat {
         this.kota = kota;
     }
 
-
     public String getProvinsi() {
         return provinsi;
     }
@@ -85,5 +84,6 @@ public class Alamat {
     public void setProvinsi(String provinsi) {
         this.provinsi = provinsi;
     }
-
 }
+
+

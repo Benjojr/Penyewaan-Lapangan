@@ -13,23 +13,15 @@ public class DAOBookingDetail {
     public List<Booking> getBookingDetail(String id_Pengguna) {
         List<Booking> bookings = new ArrayList<>();
         String sql = """
-                    SELECT  b.id_booking,
-                            p.id_pengguna,
-                            p.nama AS nama_pengguna,
-                            l.nama_lapangan,
-                            ll.jalan AS lokasi_jalan,
-                            l.harga_per_jam,
-                            j.jam_mulai,
-                            j.jam_selesai,
-                            jo.nama_olahraga
-                    FROM Booking b
-                    JOIN Pengguna p ON b.id_pengguna = p.id_pengguna
-                    JOIN Jadwal j ON b.id_jadwal = j.id_jadwal
-                    JOIN Lapangan l ON j.id_lapangan = l.id_lapangan
-                    JOIN JenisOlahraga jo ON l.id_olahraga = jo.id_olahraga
-                    JOIN LokasiLapangan ll ON l.id_lokasi = ll.id_lokasi
-                    WHERE b.id_pengguna = ?
-                """;
+            SELECT  *
+            FROM Booking b
+			JOIN Jadwal j ON b.id_jadwal = j.id_jadwal
+            JOIN Lapangan l ON j.id_lapangan = l.id_lapangan
+			JOIN LokasiLapangan lp ON l.id_lokasi = lp.id_lokasi
+            JOIN JenisOlahraga jo ON l.id_Olahraga = jo.id_Olahraga
+            JOIN Pengguna p ON b.id_Pengguna = p.id_Pengguna
+            WHERE b.id_Pengguna = ?
+        """;
 
         try (Connection conn = DatabaseConnection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -41,28 +33,43 @@ public class DAOBookingDetail {
                 Booking detail = new Booking();
 
                 detail.setId_booking(rs.getString("id_booking"));
+                
+                // Pengguna
+                detail.setPengguna(new Pengguna());
+                detail.getPengguna().setId(id_Pengguna);
+                detail.getPengguna().setNama(rs.getString("nama"));
+                
+                // Buat objek jadwal
+                Jadwal jadwal = new Jadwal();
+                jadwal.setTanggal(rs.getDate("tanggal").toLocalDate());
+                jadwal.setJam_Mulai(rs.getTime("jam_mulai").toLocalTime());
+                jadwal.setJam_Selesai(rs.getTime("jam_selesai").toLocalTime());
 
-                Pengguna pengguna = new Pengguna();
-                pengguna.setId(rs.getString("id_pengguna"));
-                pengguna.setNama(rs.getString("nama_pengguna"));
-                detail.setPengguna(pengguna);
-
+                // Buat objek lapangan
                 Lapangan lapangan = new Lapangan();
                 lapangan.setNama_lapangan(rs.getString("nama_lapangan"));
                 lapangan.setHarga(rs.getDouble("harga_per_jam"));
-                lapangan.setLokasi(rs.getString("lokasi_jalan"));
 
+                // Buat objek olahraga
                 Olahraga olahraga = new Olahraga();
                 olahraga.setNama_olahraga(rs.getString("nama_olahraga"));
                 lapangan.setOlahraga(olahraga);
 
-                detail.setLapangan(lapangan);
+                // Buat objek lokasi
+                LokasiLapangan lokasi = new LokasiLapangan();
+                lokasi.setJalan(rs.getString("jalan"));
+                lokasi.setRt_rw(rs.getString("rt_rw"));
+                lokasi.setKelurahan(rs.getString("kelurahan"));
+                lokasi.setKecamatan(rs.getString("kecamatan"));
+                lokasi.setKota(rs.getString("kota"));
+                lokasi.setProvinsi(rs.getString("provinsi"));
+                lapangan.setLokasi(lokasi);
 
-                Jadwal jadwal = new Jadwal();
-                jadwal.setJam_Mulai(rs.getTime("jam_mulai").toLocalTime());
-                jadwal.setJam_Selesai(rs.getTime("jam_selesai").toLocalTime());
+                // Gabungkan ke jadwal
+                jadwal.setLapangan(lapangan);
                 detail.setJadwal(jadwal);
 
+                // Tambahkan ke daftar booking
                 bookings.add(detail);
             }
         } catch (SQLException e) {
@@ -88,7 +95,6 @@ public class DAOBookingDetail {
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
-
         return list;
     }
 
@@ -142,21 +148,36 @@ public class DAOBookingDetail {
                 detail.getPengguna().setId(rs.getString("id_Pengguna"));
                 detail.getPengguna().setNama(rs.getString("Username"));
 
-                // Olahraga
-                detail.setLapangan(new Lapangan());
-                detail.getLapangan().setOlahraga(new Olahraga());
-                detail.getLapangan().getOlahraga().setNama_olahraga(rs.getString("nama_Olahraga"));
+                // Buat objek jadwal
+                Jadwal jadwal = new Jadwal();
+                jadwal.setTanggal(rs.getDate("tanggal").toLocalDate());
+                jadwal.setJam_Mulai(rs.getTime("jam_mulai").toLocalTime());
+                jadwal.setJam_Selesai(rs.getTime("jam_selesai").toLocalTime());
 
-                // Lapangan
-                detail.getLapangan().setNama_lapangan(rs.getString("Nama_lapangan"));
-                detail.getLapangan().setLokasi(rs.getString("Lokasi"));
-                detail.getLapangan().setHarga(rs.getDouble("Harga"));
+                // Buat objek lapangan
+                Lapangan lapangan = new Lapangan();
+                lapangan.setNama_lapangan(rs.getString("nama_lapangan"));
+                lapangan.setHarga(rs.getDouble("harga_per_jam"));
 
-                // Jadwal
-                detail.setJadwal(new Jadwal());
-                detail.getClassJadwal().setTanggal(rs.getDate("tanggal").toLocalDate());
-                detail.getClassJadwal().setJam_Mulai(rs.getTime("jam_mulai").toLocalTime());
-                detail.getClassJadwal().setJam_Selesai(rs.getTime("jam_selesai").toLocalTime());
+                // Buat objek olahraga
+                Olahraga olahraga = new Olahraga();
+                olahraga.setNama_olahraga(rs.getString("nama_olahraga"));
+                lapangan.setOlahraga(olahraga);
+
+                // Buat objek lokasi
+                LokasiLapangan lokasi = new LokasiLapangan();
+                lokasi.setJalan(rs.getString("jalan"));
+                lokasi.setRt_rw(rs.getString("rt_rw"));
+                lokasi.setKelurahan(rs.getString("kelurahan"));
+                lokasi.setKecamatan(rs.getString("kecamatan"));
+                lokasi.setKota(rs.getString("kota"));
+                lokasi.setProvinsi(rs.getString("provinsi"));
+                lapangan.setLokasi(lokasi);
+
+                // Gabungkan ke jadwal
+                jadwal.setLapangan(lapangan);
+                detail.setJadwal(jadwal);
+
             }
         } catch (SQLException e) {
             System.out.println("Error retrieving booking detail: " + e.getMessage());

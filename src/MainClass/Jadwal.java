@@ -41,6 +41,10 @@ public class Jadwal {
         return jam_Selesai;
     }
     
+    public Lapangan getIdLapangan() {
+        return id_lapangan;
+    }
+    
     public Lapangan getLapangan() {
         return id_lapangan;
     }
@@ -59,5 +63,9 @@ public class Jadwal {
 
     public void setJam_Selesai(LocalTime jam_Selesai) {
         this.jam_Selesai = jam_Selesai;
+    }
+
+    public void setLapangan(Lapangan id_lapangan) {
+        this.id_lapangan = id_lapangan;
     }
 }
