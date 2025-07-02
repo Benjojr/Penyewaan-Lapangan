@@ -18,6 +18,8 @@ public class Pembayaran {
         this.status_pembayaran = status_pembayaran;
     }
 
+    public Pembayaran(){}
+
     public boolean isStatusPembayaran() {
         return status_pembayaran;
     }

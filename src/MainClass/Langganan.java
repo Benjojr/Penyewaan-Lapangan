@@ -14,6 +14,14 @@ public class Langganan {
         this.harga = harga;
     }
 
+    public String getIdLangganan() {
+        return id_Langganan;
+    }
+
+    public void setIdLangganan(String id_Langganan) {
+        this.id_Langganan = id_Langganan;
+    }
+
     public String getJenisLangganan() {
         return jenisLangganan;
     }

@@ -556,9 +556,9 @@ public class DashboardLapangan extends javax.swing.JFrame {
             String jamSelesaiStr = jadwalLabels.get(end).substring(6, 11);
             LocalTime jamMulai = LocalTime.parse(jamMulaiStr);
             LocalTime jamSelesai = LocalTime.parse(jamSelesaiStr);
-
+            String idJadwal = generateID(this.daojadwal.getIdAllJadwal(), "J");
             // Pemesanan belum di-set di sini, cukup null/dummy
-            Jadwal jadwal = new Jadwal(null, tanggal, jamMulai, jamSelesai, null, lapangan);
+            Jadwal jadwal = new Jadwal(idJadwal, tanggal, jamMulai, jamSelesai, lapangan);
             jadwals.add(jadwal);
             if (sb.length() > 0) {
                 sb.append(", ");
@@ -669,13 +669,19 @@ public class DashboardLapangan extends javax.swing.JFrame {
         // Generate Booking baru
         LocalDate tanggal = tanggalPesan.getDate();
         if (tanggal == null) tanggal = LocalDate.now();
-        this.pemesanan = new Booking(generateID(this.daoBook.getIdAllBooking(), "b"), this.pengguna, this.lapangan);
+        // Assuming you can pass null for Jadwal and Pembayaran at this stage
+        this.pemesanan = new Booking(
+            generateID(this.daoBook.getIdAllBooking(), "B"),
+            null, // Jadwal will be set later
+            this.pengguna,
+            null // Pembayaran will be set later
+        );
 
         // Buat ulang jadwals agar id_jadwal dan booking bisa diisi benar
         ArrayList<Jadwal> jadwalsWithBooking = new ArrayList<>();
         for (Jadwal j : jadwals) {
-            String idJadwal = generateID(this.daojadwal.getIdAllJadwal(), "j");
-            Jadwal newJadwal = new Jadwal(idJadwal, tanggal, j.getJam_Mulai(), j.getJam_Selesai(), pemesanan, lapangan);
+            String idJadwal = generateID(this.daojadwal.getIdAllJadwal(), "J");
+            Jadwal newJadwal = new Jadwal(idJadwal, tanggal, j.getJam_Mulai(), j.getJam_Selesai(), lapangan);
             jadwalsWithBooking.add(newJadwal);
             // Jika Booking support multi-jadwal, tambahkan ke Booking
             this.pemesanan.setJadwal(newJadwal);

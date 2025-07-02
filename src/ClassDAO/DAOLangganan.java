@@ -6,7 +6,6 @@ package ClassDAO;
 
 import ConnectionClass.DatabaseConnection;
 import MainClass.Langganan;
-import MainClass.Pengguna;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +51,38 @@ public class DAOLangganan {
             System.out.println("Error upgrade langganan: " + e.getMessage());
             return false;
         }
+    }
+
+    public Langganan getLanggananById(String idLangganan) {
+        String sql = """
+                SEELCT 
+                    S.id_subscription,
+                    S.jenis,
+                    S.diskon,
+                    S.harga
+                FROM Pengguna p
+                JOIN Subscription S ON p.id_subscription = S.id_subscription
+                WHERE p.id_pengguna = ?
+                """;
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setString(1, idLangganan); // Set parameter safely
+            
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new Langganan(
+                        rs.getString("id_subscription"),
+                        rs.getString("jenis"),
+                        rs.getDouble("diskon"),
+                        rs.getDouble("harga")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error loading Langganan by ID: " + e.getMessage());
+        }
+        return null;
     }
     
     public Langganan LoadSomeById(String id_langganan) {

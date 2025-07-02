@@ -7,9 +7,9 @@ package ClassDAO;
 import ConnectionClass.*;
 import MainClass.*;
 import java.sql.*;
-import java.util.ArrayList;
 import java.time.LocalDate;
-
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class DAOPengguna {
@@ -33,7 +33,7 @@ public class DAOPengguna {
                             rs.getString("no_hp"),
                             rs.getDate("tanggal_lahir").toLocalDate(),
                             new Alamat(
-                                    rs.getInt("id_alamat"),
+                                    rs.getString("id_alamat"),
                                     rs.getString("jalan"),
                                     rs.getString("rt_rw"),
                                     rs.getString("kelurahan"),
@@ -45,8 +45,7 @@ public class DAOPengguna {
                                     rs.getString("jenis_langganan"),
                                     rs.getDouble("potongan"),
                                     rs.getDouble("harga")),
-                            rs.getString("password"),
-                            rs.getString("username"));
+                            rs.getString("password"));
 
                 }
             }
@@ -77,7 +76,7 @@ public class DAOPengguna {
                             rs.getString("no_hp"),
                             rs.getDate("tanggal_lahir").toLocalDate(),
                             new Alamat(
-                                    rs.getInt("id_alamat"),
+                                    rs.getString("id_alamat"),
                                     rs.getString("jalan"),
                                     rs.getString("rt_rw"),
                                     rs.getString("kelurahan"),
@@ -89,8 +88,7 @@ public class DAOPengguna {
                                     rs.getString("jenis_langganan"),
                                     rs.getDouble("potongan"),
                                     rs.getDouble("harga")),
-                            rs.getString("password"),
-                            rs.getString("username"));
+                            rs.getString("password"));
                 }
             }
         } catch (SQLException e) {
@@ -100,8 +98,8 @@ public class DAOPengguna {
         return null;
     }
 
-    public ArrayList<Pengguna> LoadAll() {
-        ArrayList<Pengguna> penggunas = new ArrayList<Pengguna>();
+    public List<Pengguna> LoadAll() {
+        List<Pengguna> penggunas = new ArrayList<>();
         String sql = "SELECT * FROM Pengguna";
         try (Connection conn = DatabaseConnection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -114,7 +112,7 @@ public class DAOPengguna {
                             rs.getString("no_hp"),
                             rs.getDate("tanggal_lahir").toLocalDate(),
                             new Alamat(
-                                    rs.getInt("id_alamat"),
+                                    rs.getString("id_alamat"),
                                     rs.getString("jalan"),
                                     rs.getString("rt_rw"),
                                     rs.getString("kelurahan"),
@@ -126,31 +124,30 @@ public class DAOPengguna {
                                     rs.getString("jenis_langganan"),
                                     rs.getDouble("potongan"),
                                     rs.getDouble("harga")),
-                            rs.getString("password"),
-                            rs.getString("username")));
+                            rs.getString("password")));
                 }
                 return penggunas;
             }
         } catch (Exception e) {
             System.out.println(e);
         }
-        return null;
+        return penggunas;
     }
 
     public void Regist(String id, String nama, String email, String no_hp, LocalDate tanggal_lahir, String id_alamat,
-            String id_subscription, String username, String password) {
+            String username, String password) {
         String sql = "INSERT INTO Pengguna(id_pengguna, nama, email, no_hp, tanggal_lahir, id_alamat, id_subscription, password, username) VALUES (?,?,?,?,?,?,'SUB001',?,?)";
         try (Connection conn = DatabaseConnection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, id);
-            stmt.setString(2, nama);
-            stmt.setString(3, email);
-            stmt.setString(4, no_hp);
-            stmt.setDate(5, Date.valueOf(tanggal_lahir));
-            stmt.setString(6, id_alamat);
-            stmt.setString(7, password);
-            stmt.setString(8, username);
-            stmt.executeUpdate();
+                stmt.setString(1, id);
+                stmt.setString(2, nama);
+                stmt.setString(3, email);
+                stmt.setString(4, no_hp);
+                stmt.setDate(5, Date.valueOf(tanggal_lahir));
+                stmt.setString(6, id_alamat);
+                stmt.setString(7, username);
+                stmt.setString(8, password);
+                stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Proses Pendaftaran Berhasil.", "Information",
                     JOptionPane.INFORMATION_MESSAGE);
 

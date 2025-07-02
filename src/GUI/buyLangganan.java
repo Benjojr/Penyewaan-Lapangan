@@ -27,15 +27,15 @@ public class buyLangganan extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         this.pengguna = new DAOPengguna().LoadSomeById(idPengguna);
         this.dashboard = dashboard;
-        if (pengguna.getJenis_langganan().equals("Plus")) {
+        if (pengguna.getSubscription().getJenisLangganan().equals("Plus")) {
             jButton3.setEnabled(false);
             jButton2.setEnabled(false);
             jButton1.setEnabled(false);
             jLabel4.setText("Tingkat Langganan Anda Telah Maksimal");
-        } else if (pengguna.getJenis_langganan().equals("VIP")) {
+        } else if (pengguna.getSubscription().getJenisLangganan().equals("VIP")) {
             jButton2.setEnabled(false);
             jButton1.setEnabled(false);
-        } else if (pengguna.getJenis_langganan().equals("Member")) {
+        } else if (pengguna.getSubscription().getJenisLangganan().equals("Member")) {
             jButton1.setEnabled(false);
         } 
     }

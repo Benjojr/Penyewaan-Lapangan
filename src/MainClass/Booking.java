@@ -10,8 +10,9 @@ public class Booking {
     private Jadwal jadwali;
     private Pembayaran pembayaran;
 
-    public Booking(String id_booking, Pengguna id_Pengguna, Pembayaran pembayaran) {
+    public Booking(String id_booking, Jadwal jadwal, Pengguna id_Pengguna, Pembayaran pembayaran) {
         this.id_booking = id_booking;
+        this.jadwali = jadwal;
         this.pengguna = id_Pengguna;
         this.pembayaran = pembayaran;
     }
