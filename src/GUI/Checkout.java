@@ -28,11 +28,11 @@ public class Checkout extends javax.swing.JFrame {
         this.pengguna = pemesanan.getPengguna();
         this.parent = parent;
         // Set label sesuai data booking
-        labelNamaLapangan.setText(this.pemesanan.getLapangan().getNama_lapangan());
-        labelLokasiLapangan.setText(this.pemesanan.getLapangan().getLokasi());
-        labelJenisOlahraga.setText(this.pemesanan.getLapangan().getOlahraga().getNama_olahraga());
+        labelNamaLapangan.setText(this.pemesanan.getClassJadwal().getLapangan().getNama_lapangan());
+        labelLokasiLapangan.setText(this.pemesanan.getClassJadwal().getLapangan().getLokasi().toString());
+        labelJenisOlahraga.setText(this.pemesanan.getClassJadwal().getLapangan().getOlahraga().getNama_olahraga());
         labelTotalHarga.setText(String.format("Rp. %.2f",
-                (this.pemesanan.getLapangan().getHarga() * this.pemesanan.getJadwal().size())));
+                (this.pemesanan.getClassJadwal().getLapangan().getHarga() * this.pemesanan.getJadwal().size())));
     }
 
     /**
@@ -245,11 +245,11 @@ public class Checkout extends javax.swing.JFrame {
         PembayaranFrame pembayaran = new PembayaranFrame(
             pemesanan,
             comboMetodePembayaran.getSelectedItem().toString(),
-            this.pemesanan.getLapangan().getHarga() * this.pemesanan.getJadwal().size()
+            this.pemesanan.getClassJadwal().getLapangan().getHarga() * this.pemesanan.getJadwal().size()
         );
         pembayaran.setVisible(true);
         this.dispose();
-        System.out.println("pengguna : " + this.pengguna.getUserName());
+        System.out.println("pengguna : " + this.pengguna.getNama());
     }//GEN-LAST:event_btnCheckoutActionPerformed
 
     /**

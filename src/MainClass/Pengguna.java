@@ -11,10 +11,9 @@ public class Pengguna {
     private Alamat alamat;
     private Langganan subscription;
     private String password;
-    private String username;
 
     public Pengguna(String id, String nama, String email, String no_hp, LocalDate tanggal_lahir, Alamat alamat,
-            Langganan subscription, String password, String username) {
+            Langganan subscription, String password) {
         this.id = id;
         this.nama = nama;
         this.email = email;
@@ -23,7 +22,6 @@ public class Pengguna {
         this.password = password;
         this.alamat = alamat;
         this.subscription = subscription;
-        this.username = username;
     }
 
     public Pengguna() {
@@ -75,5 +73,21 @@ public class Pengguna {
 
     public Alamat getAlamat() {
         return alamat;
+    }
+
+    public void setSubscription(Langganan subscription) {
+        this.subscription = subscription;
+    }
+
+    public Langganan getSubscription() {
+        return subscription;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
