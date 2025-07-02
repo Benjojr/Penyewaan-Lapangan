@@ -382,7 +382,7 @@ public class BuatAkun extends javax.swing.JFrame {
         String provinsiText = provinsi.getText();
         LocalDate selectedDateOfBirth = dateOfBirth.getDate() != null ? dateOfBirth.getDate() : null;
         Alamat alamat = daoAlamat.insertAlamat(new Alamat(
-            generateIDAlamat(),
+            null,
             jalan,
             rt_rw,
             kelurahan,
@@ -401,9 +401,8 @@ public class BuatAkun extends javax.swing.JFrame {
         } else {
             if(cekUsername(username)){
                 if (password.equals(confirmPass)){
-                    // Provide the required arguments for Regist: id, nama, email, no_hp, tanggal_lahir, alamat, langganan, password, username
                     daopgn.Regist(
-                        generateID(),
+                        null,
                         username,
                         email,
                         no_hp,
@@ -425,6 +424,7 @@ public class BuatAkun extends javax.swing.JFrame {
             }
             
         }
+        System.out.println(alamat.getId_alamat());
         
                 
     }//GEN-LAST:event_regbtnActionPerformed
@@ -436,39 +436,6 @@ public class BuatAkun extends javax.swing.JFrame {
             }
         }
         return true;
-    }
-    
-    private String generateID() {
-        int maxId = 0;
-        for(Pengguna elem : penggunas) {
-            if(getnumID(elem)>maxId){
-                maxId = getnumID(elem);
-            }
-        }
-        return String.format("P%04d", (maxId+1));
-        
-    }
-
-    private String generateIDAlamat() {
-        int maxId = 0;
-        for(Alamat elem : alamats) {
-            if(getNumAlamatID(elem)>maxId){
-                maxId = getNumAlamatID(elem);
-            }
-        }
-        return String.format("A%04d", (maxId+1));
-    }
-
-    private int getNumAlamatID(Alamat alamat) {
-        String temp = alamat.getId_alamat();
-        temp = temp.substring(1);
-        return Integer.parseInt(temp);
-    }
-    
-    private int getnumID(Pengguna pengguna) {
-        String temp = pengguna.getId();
-        temp = temp.substring(1);
-        return Integer.parseInt(temp);
     }
     
     
