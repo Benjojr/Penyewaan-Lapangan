@@ -19,11 +19,12 @@ public class DAOPengguna {
                 SELECT * FROM Pengguna
                 JOIN Alamat ON Pengguna.id_alamat = Alamat.id_alamat
                 JOIN Subscription ON Pengguna.id_subscription = Subscription.id_subscription
-                WHERE nama like ?
+                WHERE username like ? OR email like ?
                 """;
         try (Connection conn = DatabaseConnection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, username);
+            stmt.setString(2, username);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     return new Pengguna(
@@ -55,6 +56,7 @@ public class DAOPengguna {
         }
         return null;
     }
+    
 
     public Pengguna LoadSomeById(String id_Pengguna) {
         String sql = """

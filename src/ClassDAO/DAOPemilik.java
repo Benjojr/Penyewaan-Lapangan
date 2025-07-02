@@ -102,6 +102,45 @@ public class DAOPemilik {
         return null;
     }
     
+    public Pemilik LoadSomeByUsername(String username) {
+        String sql = """
+                SELECT * FROM Pemilik
+                JOIN Alamat ON Pemilik.id_alamat = Alamat.id_alamat
+                WHERE username like ? OR email like ?
+                """;
+        try (Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, username);
+            stmt.setString(2, username);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new Pemilik(
+                            rs.getString("id_pemilik"),
+                            rs.getString("password"),
+                            rs.getString("nama"),
+                            rs.getString("email"),
+                            rs.getString("no_rek"),
+                            rs.getString("contact_number"),
+                            rs.getString("username"),
+                            new Alamat(
+                                    rs.getString("id_alamat"),
+                                    rs.getString("jalan"),
+                                    rs.getString("rt_rw"),
+                                    rs.getString("kelurahan"),
+                                    rs.getString("kecamatan"),
+                                    rs.getString("kota"),
+                                    rs.getString("provinsi")));
+                }
+            }
+        } catch (SQLException e) {
+            // Log the exception properly instead of just printing
+            System.err.println("Error loading Pengguna by ID: " + e.getMessage());
+        }
+        return null;
+    }
+    
     public ArrayList<Pemilik> LoadAll() {
         ArrayList<Pemilik> listPemilik = new ArrayList<Pemilik>();
         String sql = """
