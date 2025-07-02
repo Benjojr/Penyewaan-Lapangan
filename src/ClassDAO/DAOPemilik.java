@@ -11,6 +11,7 @@ import MainClass.Pemilik;
 import MainClass.Pengguna;
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,17 +19,21 @@ import javax.swing.JOptionPane;
  * @author Axioo Pongo
  */
 public class DAOPemilik {
-    public void Regist(String id, String nama, String email, String no_hp, String id_alamat, String norek, String password) {
-        String sql = "INSERT INTO Pemilik(id_pemilik, nama, email, no_hp, id_alamat, password, norek) VALUES (?,?,?,?,?,?,?)";
+    DAOAlamat daoalamat = new DAOAlamat();
+    
+    public void Regist(String id, String nama, String email, String no_hp, Alamat alamat, String norek, String password, String username) {
+        String sql = "INSERT INTO Pemilik(id_pemilik, nama, email, contact_number, id_alamat, password, no_rek, username) VALUES (?,?,?,?,?,?,?,?)";
         try (Connection conn = DatabaseConnection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, id);
             stmt.setString(2, nama);
             stmt.setString(3, email);
             stmt.setString(4, no_hp);
-            stmt.setString(5, id_alamat);
+            stmt.setString(5, daoalamat.insertAlamat(alamat).getId_alamat());
             stmt.setString(6, password);
             stmt.setString(7, norek);
+            stmt.setString(8, username);
+            
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Proses Pendaftaran Berhasil.", "Information",
                     JOptionPane.INFORMATION_MESSAGE);
@@ -38,8 +43,8 @@ public class DAOPemilik {
         }
     }
     
-    public void Update(String id, String nama, String email, String no_hp, String id_alamat, String norek, String password) {
-        String sql = "UPDATE Pemilik SET id_alamat = ?, nama = ?, email = ?, no_rek = ?, contact_number = ?, password = ? WHERE id_pemilik = ?";
+    public void Update(String id, String nama, String username, String email, String no_hp, String id_alamat, String norek, String password) {
+        String sql = "UPDATE Pemilik SET id_alamat = ?, nama = ?, email = ?, no_rek = ?, contact_number = ?, password = ?, username = ? WHERE id_pemilik = ?";
         try (Connection conn = DatabaseConnection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, id_alamat);
@@ -48,7 +53,8 @@ public class DAOPemilik {
             stmt.setString(4, norek);
             stmt.setString(5, no_hp);
             stmt.setString(6, password);
-            stmt.setString(7, id);
+            stmt.setString(7, username);
+            stmt.setString(8, id);
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Profil berhasil disimpan.", "Information",
                     JOptionPane.INFORMATION_MESSAGE);
@@ -78,6 +84,7 @@ public class DAOPemilik {
                             rs.getString("email"),
                             rs.getString("no_rek"),
                             rs.getString("contact_number"),
+                            rs.getString("username"),
                             new Alamat(
                                     rs.getString("id_alamat"),
                                     rs.getString("jalan"),
@@ -95,7 +102,41 @@ public class DAOPemilik {
         return null;
     }
     
-    
+    public ArrayList<Pemilik> LoadAll() {
+        ArrayList<Pemilik> listPemilik = new ArrayList<Pemilik>();
+        String sql = """
+                SELECT * FROM Pemilik
+                JOIN Alamat ON Pemilik.id_alamat = Alamat.id_alamat
+                """;
+        try (Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    listPemilik.add( new Pemilik(
+                            rs.getString("id_pemilik"),
+                            rs.getString("password"),
+                            rs.getString("nama"),
+                            rs.getString("email"),
+                            rs.getString("no_rek"),
+                            rs.getString("contact_number"),
+                            rs.getString("username"),
+                            new Alamat(
+                                    rs.getString("id_alamat"),
+                                    rs.getString("jalan"),
+                                    rs.getString("rt_rw"),
+                                    rs.getString("kelurahan"),
+                                    rs.getString("kecamatan"),
+                                    rs.getString("kota"),
+                                    rs.getString("provinsi"))));
+                }
+                return listPemilik;
+            }
+        } catch (SQLException e) {
+            // Log the exception properly instead of just printing
+            System.err.println("Error loading Pengguna by ID: " + e.getMessage());
+        }
+        return null;
+    }
     
     
 }
