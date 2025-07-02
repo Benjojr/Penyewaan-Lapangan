@@ -64,12 +64,12 @@ public class DAOLapangan {
 
                     Pemilik pemilik = new Pemilik(
                             rs.getString("id_pemilik"),
-                            alamat,
                             rs.getString("password"),
                             rs.getString("nama"),
                             rs.getString("email"),
                             rs.getString("no_rek"),
-                            rs.getString("contact_number")
+                            rs.getString("contact_number"),
+                            alamat
                     );
 
                     Fasilitas fasilitas = new Fasilitas(
@@ -147,12 +147,12 @@ public class DAOLapangan {
                     );
                     Pemilik pemilik = new Pemilik(
                         rs.getString("id_pemilik"),
-                        alamat,
                         rs.getString("password"),
                         rs.getString("nama"),
                         rs.getString("email"),
                         rs.getString("no_rek"),
-                        rs.getString("contact_number")
+                        rs.getString("contact_number"),
+                        alamat
                     );
                     Fasilitas fasilitas = new Fasilitas(
                         rs.getString("id_fasilitas"),
@@ -184,8 +184,90 @@ public class DAOLapangan {
     return null;
     }
     
+    public ArrayList<Lapangan> LoadSomeByPemilik(String id_pemilik) {
+        ArrayList<Lapangan> listLapangan = new ArrayList<Lapangan>();
+        String sql = """
+                SELECT 
+                    *
+                FROM Lapangan l
+                JOIN JenisOlahraga j ON l.id_olahraga = j.id_olahraga
+                JOIN LokasiLapangan lok ON l.id_lokasi = lok.id_lokasi
+                JOIN Fasilitas f ON l.id_fasilitas = f.id_fasilitas
+                JOIN Pemilik p ON l.id_pemilik = p.id_pemilik
+                JOIN Alamat a ON p.id_alamat = a.id_alamat
+                WHERE l.id_pemilik = ?
+                """;
+        try (Connection conn = DatabaseConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setString(1, id_pemilik);
+            
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    
+                    Olahraga olahraga = LoadOlrgById(rs.getString("id_olahraga"));
+                    LokasiLapangan lokasiLapangan = new LokasiLapangan(
+                        rs.getString("id_lokasi"),
+                        rs.getString("jalan"),
+                        rs.getString("rt_rw"),
+                        rs.getString("kelurahan"),
+                        rs.getString("kecamatan"),
+                        rs.getString("kota"),
+                        rs.getString("provinsi")
+                    );
+                    Alamat alamat = new Alamat(
+                        rs.getString("id_alamat"),
+                        rs.getString("jalan"),
+                        rs.getString("rt_rw"),
+                        rs.getString("kelurahan"),
+                        rs.getString("kecamatan"),
+                        rs.getString("kota"),
+                        rs.getString("provinsi")
+                    );
+                    Pemilik pemilik = new Pemilik(
+                        rs.getString("id_pemilik"),
+                        rs.getString("password"),
+                        rs.getString("nama"),
+                        rs.getString("email"),
+                        rs.getString("no_rek"),
+                        rs.getString("contact_number"),
+                        alamat
+                    );
+                    Fasilitas fasilitas = new Fasilitas(
+                        rs.getString("id_fasilitas"),
+                        rs.getString("toilet"),
+                        rs.getString("jenis"),
+                        rs.getString("area_parkir"),
+                        rs.getString("wifi"),
+                        rs.getString("perlengkapan"),
+                        rs.getString("akses_listrik"),
+                        rs.getString("pencahayaan"),
+                        rs.getString("p3k"),
+                        rs.getString("lainnya")
+                    );
+                    listLapangan.add(new Lapangan(
+                        rs.getString("id_lapangan"),
+                        rs.getDouble("harga_per_jam"),
+                        rs.getString("nama_lapangan"),
+                        olahraga,
+                        lokasiLapangan,
+                        pemilik,
+                        fasilitas
+                    ));
+                }
+                return listLapangan;
+            }
+        } catch (SQLException e) {
+            // Log the exception properly instead of just printing
+            System.err.println("Error loading Pengguna by ID: " + e.getMessage());
+        }
+    return null;
+    }
+    
+    
+    
     public Olahraga LoadOlrgById(String id_or) {
-        String sql = "SELECT * FROM Jenis_Olahraga WHERE id_olahraga = ?";
+        String sql = "SELECT * FROM JenisOlahraga WHERE id_olahraga = ?";
         try (Connection conn = DatabaseConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
             
