@@ -110,10 +110,10 @@ public class BuatAkun extends javax.swing.JFrame {
         phoneTField.setMinimumSize(new java.awt.Dimension(64, 20));
         phoneTField.setPreferredSize(new java.awt.Dimension(64, 20));
 
-        regbtn.setText("Register");
         regbtn.setBackground(new java.awt.Color(0, 153, 102));
         regbtn.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         regbtn.setForeground(new java.awt.Color(255, 255, 255));
+        regbtn.setText("Register");
         regbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 regbtnActionPerformed(evt);
@@ -134,11 +134,11 @@ public class BuatAkun extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(0, 153, 102));
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Register Page");
         jLabel1.setBackground(new java.awt.Color(102, 255, 102));
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Register Page");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -664,6 +664,7 @@ public class BuatAkun extends javax.swing.JFrame {
     private javax.swing.JTextField provinsi;
     private javax.swing.JPasswordField pswdTField;
     private javax.swing.JButton regbtn;
+    private javax.swing.JButton regbtnPemilik;
     private javax.swing.JTextField rt_rw_input;
     private javax.swing.JTextField usrTField;
     // End of variables declaration//GEN-END:variables

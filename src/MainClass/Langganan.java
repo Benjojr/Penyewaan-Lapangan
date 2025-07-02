@@ -45,4 +45,10 @@ public class Langganan {
     public void setHarga(double harga) {
         this.harga = harga;
     }
+
+
+    @Override
+    public String toString() {
+        return jenisLangganan;
+    }
 }

@@ -88,8 +88,9 @@ public class DAOLapangan {
                     // Assuming you have dummy or null values for Pemilik, Fasilitas, and LokasiLapangan for now
                     Lapangan lapangan = new Lapangan(
                             rs.getString("id_lapangan"),
-                            rs.getDouble("harga_per_jam"),
                             rs.getString("nama_lapangan"),
+                            rs.getDouble("harga_per_jam"),
+                            rs.getDouble("luas"),
                             olahraga,
                             lokasiLapangan,
                             pemilik,
@@ -168,8 +169,9 @@ public class DAOLapangan {
                     );
                     return new Lapangan(
                         rs.getString("id_lapangan"),
-                        rs.getDouble("harga_per_jam"),
                         rs.getString("nama_lapangan"),
+                        rs.getDouble("harga_per_jam"),
+                        rs.getDouble("luas"),
                         olahraga,
                         lokasiLapangan,
                         pemilik,
@@ -247,8 +249,9 @@ public class DAOLapangan {
                     );
                     listLapangan.add(new Lapangan(
                         rs.getString("id_lapangan"),
-                        rs.getDouble("harga_per_jam"),
                         rs.getString("nama_lapangan"),
+                        rs.getDouble("harga_per_jam"),
+                        rs.getDouble("luas"),
                         olahraga,
                         lokasiLapangan,
                         pemilik,
@@ -289,4 +292,23 @@ public class DAOLapangan {
     return null;
     }
     
+    public void insertLapangan(Lapangan lapangan) {
+        String sql = """
+                INSERT INTO Lapangan(id_lapangan, nama_lapangan, harga_per_jam, luas, id_fasilitas, id_lokasi, id_pemilik,  id_olahraga) 
+                VALUES (?, ?, ?, ?, ?, ?, 'P001', ?)
+                """;
+        try (Connection conn = DatabaseConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, lapangan.getId_lapangan());
+            stmt.setString(2, lapangan.getNama_lapangan());
+            stmt.setDouble(3, lapangan.getHarga());
+            stmt.setDouble(4, lapangan.getLuas());
+            stmt.setString(5, lapangan.getFasilitas().getId_fasilitas());
+            stmt.setString(6, lapangan.getLokasiLapangan().getId_lokasi());
+            stmt.setString(7, lapangan.getOlahraga().getId_olahraga());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error inserting Lapangan: " + e.getMessage());
+        }
+    }
 }

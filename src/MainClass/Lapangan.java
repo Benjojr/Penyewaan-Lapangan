@@ -22,9 +22,10 @@ public class Lapangan {
     private Jadwal jadwal;
     private final ArrayList<Jadwal> jadwals = new ArrayList<>();
 
-    public Lapangan(String id_lapangan, double harga, String nama_lapangan, Olahraga olahraga, LokasiLapangan lokasiLapangan, Pemilik pemilik, Fasilitas fasilitas) {
+    public Lapangan(String id_lapangan, String nama_lapangan, double harga, double luas, Olahraga olahraga, LokasiLapangan lokasiLapangan, Pemilik pemilik, Fasilitas fasilitas) {
         this.id_lapangan = id_lapangan;
         this.harga = harga;
+        this.luas = luas;
         this.nama_lapangan = nama_lapangan;
         this.olahraga = olahraga;
         this.lokasiLapangan = lokasiLapangan;
