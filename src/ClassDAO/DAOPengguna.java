@@ -45,6 +45,7 @@ public class DAOPengguna {
                                     rs.getString("jenis"),
                                     rs.getDouble("diskon"),
                                     rs.getDouble("harga")),
+                            rs.getString("username"),
                             rs.getString("password"));
 
                 }
@@ -88,6 +89,7 @@ public class DAOPengguna {
                                     rs.getString("jenis"),
                                     rs.getDouble("diskon"),
                                     rs.getDouble("harga")),
+                            rs.getString("username"),
                             rs.getString("password"));
                 }
             }
@@ -100,7 +102,11 @@ public class DAOPengguna {
 
     public List<Pengguna> LoadAll() {
         List<Pengguna> penggunas = new ArrayList<>();
-        String sql = "SELECT * FROM Pengguna";
+        String sql = """
+                SELECT * FROM Pengguna
+                JOIN Alamat ON Pengguna.id_alamat = Alamat.id_alamat
+                JOIN Subscription ON Pengguna.id_subscription = Subscription.id_subscription
+                """;
         try (Connection conn = DatabaseConnection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
             try (ResultSet rs = stmt.executeQuery()) {
@@ -124,6 +130,7 @@ public class DAOPengguna {
                                     rs.getString("jenis"),
                                     rs.getDouble("diskon"),
                                     rs.getDouble("harga")),
+                            rs.getString("username"),
                             rs.getString("password")));
                 }
                 return penggunas;
@@ -145,8 +152,8 @@ public class DAOPengguna {
                 stmt.setString(4, no_hp);
                 stmt.setDate(5, Date.valueOf(tanggal_lahir));
                 stmt.setString(6, id_alamat);
-                stmt.setString(7, username);
-                stmt.setString(8, password);
+                stmt.setString(7, password);
+                stmt.setString(8, username);
                 stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Proses Pendaftaran Berhasil.", "Information",
                     JOptionPane.INFORMATION_MESSAGE);

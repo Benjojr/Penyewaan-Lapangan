@@ -10,10 +10,11 @@ public class Pengguna {
     private LocalDate tanggal_lahir;
     private Alamat alamat;
     private Langganan subscription;
+    private String username;
     private String password;
 
     public Pengguna(String id, String nama, String email, String no_hp, LocalDate tanggal_lahir, Alamat alamat,
-            Langganan subscription, String password) {
+            Langganan subscription, String username, String password) {
         this.id = id;
         this.nama = nama;
         this.email = email;
@@ -21,6 +22,7 @@ public class Pengguna {
         this.tanggal_lahir = tanggal_lahir;
         this.password = password;
         this.alamat = alamat;
+        this.username = username;
         this.subscription = subscription;
     }
 
@@ -81,6 +83,14 @@ public class Pengguna {
 
     public Langganan getSubscription() {
         return subscription;
+    }
+    
+    public void setUsername(String username){
+        this.username = username;
+    }
+    
+    public String getUsername() {
+        return this.username;
     }
 
     public String getPassword() {

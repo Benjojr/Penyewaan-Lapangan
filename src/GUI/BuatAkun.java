@@ -3,7 +3,6 @@ package GUI;
 import javax.swing.JOptionPane;
 import ClassDAO.*;
 import MainClass.*;
-import java.util.ArrayList;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.util.List;
 import javax.swing.UIManager;
@@ -369,7 +368,6 @@ public class BuatAkun extends javax.swing.JFrame {
         } else {
             if(cekUsername(username)){
                 if (password.equals(confirmPass)){
-                    // Provide the required arguments for Regist: id, nama, email, no_hp, tanggal_lahir, alamat, langganan, password, username
                     daopgn.Regist(
                         idGenerator.getNextID("Pengguna", "P", "id_pengguna"),
                         username,
@@ -377,8 +375,8 @@ public class BuatAkun extends javax.swing.JFrame {
                         no_hp,
                         selectedDateOfBirth,
                         alamat.getId_alamat(),
-                        password,
-                        username // Add username as the last argument
+                        username,
+                        password
                     );
                     LoginFrame newLogin = new LoginFrame();
                     newLogin.setVisible(true);
@@ -393,6 +391,7 @@ public class BuatAkun extends javax.swing.JFrame {
             }
             
         }
+        System.out.println(alamat.getId_alamat());
         
                 
     }//GEN-LAST:event_regbtnActionPerformed
@@ -406,19 +405,6 @@ public class BuatAkun extends javax.swing.JFrame {
         return true;
     }
 
-    private String generateID() {
-        int max = 0;
-        for (Pengguna p : penggunas) {
-            String id = p.getId();
-            if (id.matches("P\\d{3}")) {
-                int num = Integer.parseInt(id.substring(1));
-                if (num > max) {
-                    max = num;
-                }
-            }
-        }
-        return String.format("P%03d", max + 1);
-    }
 
     private String generateIDAlamat() {
         int max = 0;

@@ -21,7 +21,7 @@ public class PembayaranFrame extends javax.swing.JFrame {
     private double nominal;
     private LocalDateTime waktuPembayaran = LocalDateTime.now();
     private LocalDate tanggal = LocalDate.of(waktuPembayaran.getYear(), waktuPembayaran.getMonth(), waktuPembayaran.getDayOfMonth());
-    private LocalTime waktu = LocalTime.now();
+    private LocalTime jam = LocalTime.now();
     private String statusPembayaran = "idle";
     private boolean status;
     private Pembayaran hasil;
@@ -34,7 +34,7 @@ public class PembayaranFrame extends javax.swing.JFrame {
         this.pesanan = pesanan;
         this.idPengguna = pesanan.getPengguna().getId();
         this.hargaAwal = hargaTotal;
-        this.potongan = langganandao.LoadSomeById(this.pesanan.getPengguna().getJenis_langganan()).getPotongan()*hargaAwal;
+        this.potongan = langganandao.LoadSomeById(this.pesanan.getPengguna().getSubscription().getIdLangganan()).getPotongan()*hargaAwal;
         
         this.nominal = hargaAwal-potongan;
         this.Bank = bank;
@@ -57,7 +57,7 @@ public class PembayaranFrame extends javax.swing.JFrame {
         for(Jadwal elem : this.pesanan.getJadwal()) {
             JadwalListCOBO.addItem(elem.getJam_Mulai().toString()+"-"+elem.getJam_Selesai().toString());
         }
-        UsrnmLabel.setText("Username : "+pesanan.getPengguna().getUserName()+" ("+pesanan.getPengguna().getJenis_langganan()+")");
+        UsrnmLabel.setText("Username : "+pesanan.getPengguna().getUsername()+" ("+pesanan.getPengguna().getSubscription().getJenisLangganan()+")");
         TimeLabel.setText("Waktu : "+waktuPembayaran.getDayOfMonth()+" "+waktuPembayaran.getMonth()+" "+waktuPembayaran.getYear()+" at "+waktuPembayaran.getHour()+":"+waktuPembayaran.getMinute());
         
     }
@@ -333,7 +333,7 @@ public class PembayaranFrame extends javax.swing.JFrame {
                     "Information",
                     JOptionPane.INFORMATION_MESSAGE);
                     status = tempStatus.equals("sukses");
-                    hasil = new Pembayaran(String.valueOf(KodePembayaran), nominal, status, tanggal, waktu, pesanan);  
+                    hasil = new Pembayaran(tanggal, jam, Bank, nominal, status);  
                     daobook.RegistBooking(pesanan);
                     for(Jadwal elem : pesanan.getJadwal()) {
                         daojadwal.RegistJadwal(elem);

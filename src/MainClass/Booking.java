@@ -58,4 +58,8 @@ public class Booking {
     public Jadwal getClassJadwal() {
         return jadwali;
     }
+    
+    public Lapangan getLapangan() {
+        return this.jadwali.getLapangan();
+    }
 }

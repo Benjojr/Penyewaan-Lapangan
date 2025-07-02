@@ -34,7 +34,7 @@ public class Invoice extends javax.swing.JFrame {
     private void displayInvoiceData() {
         // Set data invoice dari objek booking
         jLabel5.setText(booking.getId_booking()); // No. Invoice
-        jLabel6.setText(booking.getPengguna().getUserName()); // Nama Pelanggan
+        jLabel6.setText(booking.getPengguna().getUsername()); // Nama Pelanggan
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         jLabel7.setText(LocalDate.now().format(formatter));
 
@@ -42,7 +42,7 @@ public class Invoice extends javax.swing.JFrame {
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable2.getModel();
         model.setRowCount(0);
         DAOLangganan daoLangganan = new DAOLangganan();
-        Langganan jenisLangganan = daoLangganan.LoadSomeById(booking.getPengguna().getJenis_langganan());
+        Langganan jenisLangganan = daoLangganan.LoadSomeById(booking.getPengguna().getSubscription().getIdLangganan());
         // Tambahkan data lapangan dan jadwal
         for (Jadwal jadwal : booking.getJadwal()) {
             Duration duration = Duration.between(jadwal.getJam_Mulai(), jadwal.getJam_Selesai());

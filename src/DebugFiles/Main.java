@@ -17,7 +17,7 @@ public class Main {
             // Print each booking detail
             for (Booking detail : booking) {
                 System.out.println("Booking ID: " + detail.getId_booking());
-                System.out.println("Pengguna: " + detail.getPengguna().getUserName());
+                System.out.println("Pengguna: " + detail.getPengguna().getUsername());
                 System.out.println("Jadwal: " + detail.getJadwal().get(0).getTanggal() + " from " 
                                    + detail.getJadwal().get(0).getJam_Mulai() + " to " 
                                    + detail.getJadwal().get(0).getJam_Selesai());
