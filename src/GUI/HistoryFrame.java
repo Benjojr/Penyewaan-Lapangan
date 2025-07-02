@@ -202,7 +202,7 @@ public class HistoryFrame extends javax.swing.JFrame {
                     );
                     long toHours = duration.toHours();
 
-                    Langganan jenisLangganan = daoLangganan.LoadSomeById(booking.getPengguna().getJenis_langganan());
+                    Langganan jenisLangganan = daoLangganan.LoadSomeById(booking.getPengguna().getSubscription().getJenisLangganan());
 
                     double hargaAwal = booking.getLapangan().getHarga() * toHours;
                     double potongan = jenisLangganan.getPotongan() * hargaAwal;

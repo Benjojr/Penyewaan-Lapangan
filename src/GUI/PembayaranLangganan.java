@@ -42,7 +42,7 @@ public class PembayaranLangganan extends javax.swing.JFrame {
         JudulPemesanan.setText("Pemesanan Langganan "+tipe);
         KodePembayaranLabel.setText(String.format("Kode Pembayaran : %d",KodePembayaran));
         EmailLabel.setText("Email Pengguna : "+pengguna.getEmail());
-        UsernameLabel.setText("Username : "+pengguna.getUserName());
+        UsernameLabel.setText("Username : "+pengguna.getUsername());
         LanggananLabel.setText("Jenis Langganan : "+this.tipe);
         Tanggallabel.setText("Tanggal Pemesanan : "+this.tanggal.toString());
         hargalabel.setText("Harga : Rp. "+this.harga);

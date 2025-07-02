@@ -3,11 +3,9 @@ package GUI;
 import javax.swing.JOptionPane;
 import ClassDAO.*;
 import MainClass.*;
-import java.util.ArrayList;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.util.List;
 import javax.swing.UIManager;
-import com.github.lgooddatepicker.components.DatePicker;
 import java.time.LocalDate;
 
 
@@ -411,8 +409,8 @@ public class BuatAkun extends javax.swing.JFrame {
                         no_hp,
                         selectedDateOfBirth,
                         alamat.getId_alamat(),
-                        password,
-                        username // Add username as the last argument
+                        username,
+                        password
                     );
                     LoginFrame newLogin = new LoginFrame();
                     newLogin.setVisible(true);

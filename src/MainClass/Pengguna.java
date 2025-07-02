@@ -85,6 +85,10 @@ public class Pengguna {
         return subscription;
     }
     
+    public void setUsername(String username){
+        this.username = username;
+    }
+    
     public String getUsername() {
         return this.username;
     }

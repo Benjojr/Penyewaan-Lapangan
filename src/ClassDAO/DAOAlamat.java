@@ -18,12 +18,12 @@ import java.util.List;
  * @author Bani
  */
 public class DAOAlamat {
+
     public List<Alamat> loadAllAlamat() {
         List<Alamat> alamatList = new ArrayList<>();
 
         String sql = "SELECT * FROM Alamat";
-        try (Connection conn = DatabaseConnection.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql);) {
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql);) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Alamat alamat = new Alamat();
@@ -36,11 +36,9 @@ public class DAOAlamat {
                 alamat.setProvinsi(rs.getString("provinsi"));
                 alamatList.add(alamat);
             }
-        }
-        catch (SQLException err) {
+        } catch (SQLException err) {
             System.out.println("Error loading Alamat: " + err.getMessage());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
 
@@ -48,28 +46,27 @@ public class DAOAlamat {
     }
 
     public Alamat insertAlamat(Alamat alamat) {
-    String sql = "INSERT INTO Alamat (id_alamat, jalan, rt_rw, kelurahan, kecamatan, kota, provinsi) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    
-    try (Connection conn = DatabaseConnection.getConnection();
-         PreparedStatement stmt = conn.prepareStatement(sql)) {
-        
-        stmt.setString(1, alamat.getId_alamat());
-        stmt.setString(2, alamat.getJalan());
-        stmt.setString(3, alamat.getRt_rw());
-        stmt.setString(4, alamat.getKelurahan());
-        stmt.setString(5, alamat.getKecamatan());
-        stmt.setString(6, alamat.getKota());
-        stmt.setString(7, alamat.getProvinsi());
-        
-        stmt.executeUpdate();
-        
-        System.out.println("Alamat berhasil ditambahkan.");
-    } catch (SQLException e) {
-         System.out.println("Error loading Alamat: " + e.getMessage()); // biar error-nya kelihatan detail
-    } catch (Exception e) {
-        System.out.println("Error: " + e.getMessage());
-    }
+        String sql = "INSERT INTO Alamat (id_alamat, jalan, rt_rw, kelurahan, kecamatan, kota, provinsi) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, alamat.getId_alamat());
+            stmt.setString(2, alamat.getJalan());
+            stmt.setString(3, alamat.getRt_rw());
+            stmt.setString(4, alamat.getKelurahan());
+            stmt.setString(5, alamat.getKecamatan());
+            stmt.setString(6, alamat.getKota());
+            stmt.setString(7, alamat.getProvinsi());
+
+            stmt.executeUpdate();
+
+            System.out.println("Alamat berhasil ditambahkan.");
+        } catch (SQLException e) {
+            System.out.println("Error loading Alamat: " + e.getMessage()); // biar error-nya kelihatan detail
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
 
         return alamat;
-}
+    }
 }
