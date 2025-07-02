@@ -25,6 +25,7 @@ public class Ulas extends javax.swing.JFrame {
         DAOLapangan daoLapangan = new DAOLapangan();
         List<Lapangan> lapanganList = daoLapangan.getLapanganByOlahraga(lapanganSaatIni.getOlahraga().getId_olahraga());
         UlasLapanganEdited.setText("Ulas Lapangan " + lapanganSaatIni.getNama_lapangan());
+        jTextField1.addActionListener(e -> jButton1.doClick());
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

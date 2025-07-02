@@ -7,23 +7,31 @@ public class Booking {
     private String id_booking;
     private Pengguna pengguna;
     private final ArrayList<Jadwal> jadwal = new ArrayList<>();
-    private Lapangan lapangan;
     private Jadwal jadwali;
+    private Pembayaran pembayaran;
 
-    public Booking(String id_booking, Pengguna id_Pengguna, Lapangan lapangan) {
+    public Booking(String id_booking, Pengguna id_Pengguna, Pembayaran pembayaran) {
         this.id_booking = id_booking;
         this.pengguna = id_Pengguna;
-        this.lapangan = lapangan;
+        this.pembayaran = pembayaran;
     }
 
     public Booking(){
         this.pengguna = new Pengguna();
-        this.lapangan = new Lapangan();
+        this.pembayaran = new Pembayaran();
         this.jadwali = new Jadwal();
     }
 
     public String getId_booking() {
         return id_booking;
+    }
+
+    public Pembayaran getPembayaran() {
+        return pembayaran;
+    }
+
+    public void setPembayaran(Pembayaran pembayaran) {
+        this.pembayaran = pembayaran;
     }
 
     public void setId_booking(String id_booking) {
@@ -44,14 +52,6 @@ public class Booking {
 
     public void setJadwal(Jadwal jadwal) {
         this.jadwal.add(jadwal);
-    }
-
-    public Lapangan getLapangan() {
-        return lapangan;
-    }
-
-    public void setLapangan(Lapangan lapangan) {
-        this.lapangan = lapangan;
     }
 
     public Jadwal getClassJadwal() {

@@ -13,16 +13,14 @@ public class Jadwal {
     private LocalDate tanggal;
     private LocalTime jam_Mulai;
     private LocalTime jam_Selesai;
-    private Booking id_Booking;
     private Lapangan id_lapangan;
 
-    public Jadwal(String idJadwal, LocalDate tanggal, LocalTime jam_Mulai, LocalTime jam_Selesai, Booking id_Booking, Lapangan id_lapangan) {
+    public Jadwal(String idJadwal, LocalDate tanggal, LocalTime jam_Mulai, LocalTime jam_Selesai, Lapangan id_lapangan) {
 
         this.idJadwal = idJadwal;
         this.tanggal = tanggal;
         this.jam_Mulai = jam_Mulai;
         this.jam_Selesai = jam_Selesai;
-        this.id_Booking = id_Booking;
         this.id_lapangan = id_lapangan;
     }
 
@@ -44,8 +42,8 @@ public class Jadwal {
         return jam_Selesai;
     }
     
-    public Booking getBooking() {
-        return id_Booking;
+    public Lapangan getIdLapangan() {
+        return id_lapangan;
     }
     
     public Lapangan getLapangan() {
@@ -66,5 +64,9 @@ public class Jadwal {
 
     public void setJam_Selesai(LocalTime jam_Selesai) {
         this.jam_Selesai = jam_Selesai;
+    }
+
+    public void setLapangan(Lapangan id_lapangan) {
+        this.id_lapangan = id_lapangan;
     }
 }

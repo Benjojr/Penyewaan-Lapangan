@@ -19,9 +19,10 @@ public class Pembayaran {
         this.tanggal = tanggal;
         this.jam = jam;
         this.pemesanan = pemesanan;
-        this.hargaAwal = pemesanan.getLapangan().getHarga();
+        this.hargaAwal = pemesanan.getClassJadwal().getLapangan().getHarga();
     }
 
+    public Pembayaran() {}
     
     public String getKodePembayaran() {
         return kodePembayaran;
