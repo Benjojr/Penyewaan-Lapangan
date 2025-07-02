@@ -4,6 +4,8 @@
  */
 package MainClass;
 
+import java.util.StringJoiner;
+
 /**
  *
  * @author Bani
@@ -86,4 +88,15 @@ public class Alamat {
         this.provinsi = provinsi;
     }
 
+    public String toStrings() {
+        StringJoiner temp = new StringJoiner(", ");
+        temp.add(rt_rw);
+        temp.add(jalan);
+        temp.add(kelurahan);
+        temp.add(kecamatan);
+        temp.add(kota);
+        temp.add(provinsi);
+        return temp.toString();
+        
+    }
 }
