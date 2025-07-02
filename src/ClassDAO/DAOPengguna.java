@@ -41,9 +41,9 @@ public class DAOPengguna {
                                     rs.getString("kota"),
                                     rs.getString("provinsi")),
                             new Langganan(
-                                    rs.getString("id_langganan"),
-                                    rs.getString("jenis_langganan"),
-                                    rs.getDouble("potongan"),
+                                    rs.getString("id_subscription"),
+                                    rs.getString("jenis"),
+                                    rs.getDouble("diskon"),
                                     rs.getDouble("harga")),
                             rs.getString("password"));
 
@@ -84,9 +84,9 @@ public class DAOPengguna {
                                     rs.getString("kota"),
                                     rs.getString("provinsi")),
                             new Langganan(
-                                    rs.getString("id_langganan"),
-                                    rs.getString("jenis_langganan"),
-                                    rs.getDouble("potongan"),
+                                    rs.getString("id_subscription"),
+                                    rs.getString("jenis"),
+                                    rs.getDouble("diskon"),
                                     rs.getDouble("harga")),
                             rs.getString("password"));
                 }
@@ -120,9 +120,9 @@ public class DAOPengguna {
                                     rs.getString("kota"),
                                     rs.getString("provinsi")),
                             new Langganan(
-                                    rs.getString("id_langganan"),
-                                    rs.getString("jenis_langganan"),
-                                    rs.getDouble("potongan"),
+                                    rs.getString("id_subscription"),
+                                    rs.getString("jenis"),
+                                    rs.getDouble("diskon"),
                                     rs.getDouble("harga")),
                             rs.getString("password")));
                 }
