@@ -9,11 +9,13 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.Color;
 import javax.swing.UIManager;
 
 public class LoginFrame extends javax.swing.JFrame {
 
     DAOPengguna daouser = new DAOPengguna();
+    private DAOPemilik daopem = new DAOPemilik();
     private Pengguna penggunaSaatIni;
 
     /**
@@ -43,6 +45,8 @@ public class LoginFrame extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         Creatbtn = new javax.swing.JButton();
         pswdTField = new javax.swing.JPasswordField();
+        KonversiBtn = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,7 +58,9 @@ public class LoginFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 153, 102));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Login Page");
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -79,39 +85,62 @@ public class LoginFrame extends javax.swing.JFrame {
             }
         });
 
+        pswdTField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pswdTFieldActionPerformed(evt);
+            }
+        });
+
+        KonversiBtn.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        KonversiBtn.setForeground(new java.awt.Color(0, 153, 102));
+        KonversiBtn.setText("Pengguna");
+        KonversiBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                KonversiBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Login Sebagai");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 71, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 87, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(82, 82, 82)
-                                    .addComponent(Loginbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(usrTField)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(pswdTField, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel4))
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(Creatbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(usrTField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pswdTField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(63, 63, 63))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(Loginbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(149, 149, 149))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Creatbtn)))
-                .addContainerGap())
+                        .addComponent(KonversiBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addGap(51, 51, 51)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(usrTField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -121,11 +150,15 @@ public class LoginFrame extends javax.swing.JFrame {
                 .addComponent(pswdTField, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Loginbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(58, 58, 58)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(KonversiBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Creatbtn)
                     .addComponent(jLabel4))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -167,33 +200,62 @@ public class LoginFrame extends javax.swing.JFrame {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
             }
+            if(KonversiBtn.getText().equals("Pengguna")) {
+                penggunaSaatIni = daouser.LoadSome(username);
+                
 
-            penggunaSaatIni = daouser.LoadSome(username);
+                // Tutup loading dialog (harus di EDT juga)
+                SwingUtilities.invokeLater(() -> loading.dispose());
 
-            // Tutup loading dialog (harus di EDT juga)
-            SwingUtilities.invokeLater(() -> loading.dispose());
-
-            if (penggunaSaatIni != null) {
-                if (password.equals(penggunaSaatIni.getPassword())) {
-                    SwingUtilities.invokeLater(() -> {
-                        JOptionPane.showMessageDialog(null, "Login Berhasil.", "Info", JOptionPane.INFORMATION_MESSAGE);
-                        Dashboard dsb = new Dashboard(penggunaSaatIni);
-                        dsb.setVisible(true);
-                        this.dispose();
-                    });
+                if (penggunaSaatIni != null) {
+                    if (password.equals(penggunaSaatIni.getPassword())) {
+                        SwingUtilities.invokeLater(() -> {
+                            JOptionPane.showMessageDialog(null, "Login Berhasil.", "Info", JOptionPane.INFORMATION_MESSAGE);
+                            Dashboard dsb = new Dashboard(penggunaSaatIni);
+                            dsb.setVisible(true);
+                            this.dispose();
+                        });
+                    } else {
+                        SwingUtilities.invokeLater(() -> {
+                            JOptionPane.showMessageDialog(null, "Password salah.", "Info", JOptionPane.INFORMATION_MESSAGE);
+                            pswdTField.setText("");
+                        });
+                    }
                 } else {
                     SwingUtilities.invokeLater(() -> {
-                        JOptionPane.showMessageDialog(null, "Password salah.", "Info", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Username tidak ditemukan.", "Info", JOptionPane.INFORMATION_MESSAGE);
+                        usrTField.setText("");
                         pswdTField.setText("");
                     });
                 }
             } else {
-                SwingUtilities.invokeLater(() -> {
-                    JOptionPane.showMessageDialog(null, "Username tidak ditemukan.", "Info", JOptionPane.INFORMATION_MESSAGE);
-                    usrTField.setText("");
-                    pswdTField.setText("");
-                });
+                Pemilik pemilikSaatIni = daopem.LoadSomeByUsername(username);
+                SwingUtilities.invokeLater(() -> loading.dispose());
+                
+                if (pemilikSaatIni != null) {
+                    if (password.equals(pemilikSaatIni.getPassword())) {
+                        SwingUtilities.invokeLater(() -> {
+                            JOptionPane.showMessageDialog(null, "Login Berhasil.", "Info", JOptionPane.INFORMATION_MESSAGE);
+                            Dashboard_Pemilik dsb = new Dashboard_Pemilik(pemilikSaatIni);
+                            dsb.setVisible(true);
+                            this.dispose();
+                        });
+                    } else {
+                        SwingUtilities.invokeLater(() -> {
+                            JOptionPane.showMessageDialog(null, "Password salah.", "Info", JOptionPane.INFORMATION_MESSAGE);
+                            pswdTField.setText("");
+                        });
+                    }
+                } else {
+                    SwingUtilities.invokeLater(() -> {
+                        JOptionPane.showMessageDialog(null, "Username tidak ditemukan.", "Info", JOptionPane.INFORMATION_MESSAGE);
+                        usrTField.setText("");
+                        pswdTField.setText("");
+                    });
+                }
+                
             }
+            
         }).start();
     }//GEN-LAST:event_LoginbtnActionPerformed
 
@@ -202,6 +264,22 @@ public class LoginFrame extends javax.swing.JFrame {
         create.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_CreatbtnActionPerformed
+
+    private void pswdTFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pswdTFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pswdTFieldActionPerformed
+
+    private void KonversiBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KonversiBtnActionPerformed
+        if(KonversiBtn.getText().equals("Pengguna")) {
+            KonversiBtn.setText("Pemilik");
+            KonversiBtn.setForeground(Color.white);
+            KonversiBtn.setBackground(new Color(0, 153, 102));
+        } else {
+            KonversiBtn.setText("Pengguna");
+            KonversiBtn.setForeground(new Color(0, 153, 102));
+            KonversiBtn.setBackground(Color.white);
+        }
+    }//GEN-LAST:event_KonversiBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -242,11 +320,13 @@ public class LoginFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Creatbtn;
+    private javax.swing.JButton KonversiBtn;
     private javax.swing.JButton Loginbtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField pswdTField;
     private javax.swing.JTextField usrTField;
