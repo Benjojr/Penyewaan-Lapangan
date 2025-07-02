@@ -17,6 +17,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JOptionPane;
 public class DAOLapangan {
     public List<Lapangan> getLapanganByOlahraga(String idOlahraga) {
         List<Lapangan> list = new ArrayList<>();
@@ -69,6 +71,7 @@ public class DAOLapangan {
                             rs.getString("email"),
                             rs.getString("no_rek"),
                             rs.getString("contact_number"),
+                            rs.getString("username"),
                             alamat
                     );
 
@@ -153,6 +156,7 @@ public class DAOLapangan {
                         rs.getString("email"),
                         rs.getString("no_rek"),
                         rs.getString("contact_number"),
+                        rs.getString("username"),
                         alamat
                     );
                     Fasilitas fasilitas = new Fasilitas(
@@ -233,6 +237,7 @@ public class DAOLapangan {
                         rs.getString("email"),
                         rs.getString("no_rek"),
                         rs.getString("contact_number"),
+                        rs.getString("username"),
                         alamat
                     );
                     Fasilitas fasilitas = new Fasilitas(
@@ -295,7 +300,7 @@ public class DAOLapangan {
     public void insertLapangan(Lapangan lapangan) {
         String sql = """
                 INSERT INTO Lapangan(id_lapangan, nama_lapangan, harga_per_jam, luas, id_fasilitas, id_lokasi, id_pemilik,  id_olahraga) 
-                VALUES (?, ?, ?, ?, ?, ?, 'P001', ?)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                 """;
         try (Connection conn = DatabaseConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -305,8 +310,11 @@ public class DAOLapangan {
             stmt.setDouble(4, lapangan.getLuas());
             stmt.setString(5, lapangan.getFasilitas().getId_fasilitas());
             stmt.setString(6, lapangan.getLokasiLapangan().getId_lokasi());
-            stmt.setString(7, lapangan.getOlahraga().getId_olahraga());
+            stmt.setString(7, lapangan.getPemilik().getId_pemilik());
+            stmt.setString(8, lapangan.getOlahraga().getId_olahraga());
             stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Proses Pendaftaran Berhasil.", "Information",
+                    JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             System.out.println("Error inserting Lapangan: " + e.getMessage());
         }

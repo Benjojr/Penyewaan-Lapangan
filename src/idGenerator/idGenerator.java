@@ -23,7 +23,7 @@ public class idGenerator {
                 if (rs.next()) {
                     String lastID = rs.getString(1);
                     int lastNumber = Integer.parseInt(lastID.substring(preffix.length()));
-                    newID = preffix + String.format("%04d", lastNumber + 1);
+                    newID = preffix + String.format("%03d", lastNumber + 1);
                 }
             
         } catch (SQLException e) {
