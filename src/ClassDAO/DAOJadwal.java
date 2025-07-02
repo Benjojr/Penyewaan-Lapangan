@@ -20,7 +20,7 @@ public class DAOJadwal {
 
     public ArrayList<Jadwal> getJadwalByLapangan(String idLapangan, LocalDate today) {
         ArrayList<Jadwal> list = new ArrayList<>();
-        String sql = "SELECT * FROM Jadwal WHERE id_Lapangan = ? AND tanggal = ?";
+        String sql = "SELECT * FROM Jadwal WHERE id_lapangan = ? AND tanggal = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -30,11 +30,10 @@ public class DAOJadwal {
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     Jadwal jadwal = new Jadwal(
-                            rs.getString("id_Jadwal"),
+                            rs.getString("id_jadwal"),
                             rs.getDate("tanggal").toLocalDate(),
                             rs.getTime("jam_mulai").toLocalTime(),
                             rs.getTime("jam_selesai").toLocalTime(),
-                            null,
                             null
                     );
                     list.add(jadwal);
@@ -69,15 +68,14 @@ public class DAOJadwal {
     }
 
     public void RegistJadwal(Jadwal jadwal) {
-        String sql = "INSERT INTO Jadwal(id_Jadwal, tanggal, jam_mulai, jam_selesai, id_booking, id_lapangan) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO Jadwal(id_jadwal, tanggal, jam_mulai, jam_selesai, id_lapangan) VALUES (?,?,?,?,?)";
         try (Connection conn = DatabaseConnection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, jadwal.getIdJadwal());
             stmt.setString(2, jadwal.getTanggal().toString());
             stmt.setString(3, jadwal.getJam_Mulai().toString());
             stmt.setString(4, jadwal.getJam_Selesai().toString());
-            stmt.setString(5, jadwal.getBooking().getId_booking());
-            stmt.setString(6, jadwal.getLapangan().getId_lapangan());
+            stmt.setString(5, jadwal.getLapangan().getId_lapangan());
             stmt.executeUpdate();
 
         } catch (Exception e) {
