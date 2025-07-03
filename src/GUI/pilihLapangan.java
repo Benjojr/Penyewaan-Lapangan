@@ -48,7 +48,7 @@ import java.util.Comparator;
                     """.formatted(
                         lap.getNama_lapangan(),
                         lap.getHarga(),
-                        lap.getLokasi()
+                        lap.getLokasi().toStrings()
                     );
 
                 JButton button = new JButton(info);

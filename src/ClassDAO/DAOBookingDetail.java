@@ -99,11 +99,12 @@ public class DAOBookingDetail {
     }
 
     public void RegistBooking(Booking book) {
-        String sql = "INSERT INTO Booking(id_booking, id_pengguna) VALUES (?,?)";
+        String sql = "INSERT INTO Booking(id_booking, id_pengguna, id_pembayaran) VALUES (?,?,?)";
         try (Connection conn = DatabaseConnection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, book.getId_booking());
             stmt.setString(2, book.getPengguna().getId());
+            stmt.setString(3, book.getPembayaran().getId());
             stmt.executeUpdate();
 
         } catch (Exception e) {

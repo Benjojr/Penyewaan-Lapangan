@@ -2,6 +2,7 @@
 package GUI;
 
 import MainClass.Booking;
+import MainClass.Jadwal;
 import MainClass.Pengguna;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.UIManager;
@@ -15,6 +16,9 @@ public class Checkout extends javax.swing.JFrame {
     private Booking pemesanan;
     private Pengguna pengguna;
     DashboardLapangan parent;
+    private double totalHarga;
+    private double harga;
+    private String statusPembayaran = "";
 
 
     public Checkout(Booking pemesanan, DashboardLapangan parent) {
@@ -23,12 +27,22 @@ public class Checkout extends javax.swing.JFrame {
         this.pemesanan = pemesanan;
         this.pengguna = pemesanan.getPengguna();
         this.parent = parent;
+        this.totalHarga = this.pemesanan.getClassJadwal().getLapangan().getHarga() * getJumlahPesanan();
+        this.harga = totalHarga;
+        
         // Set label sesuai data booking
         labelNamaLapangan.setText(this.pemesanan.getClassJadwal().getLapangan().getNama_lapangan());
         labelLokasiLapangan.setText(this.pemesanan.getClassJadwal().getLapangan().getLokasi().toString());
         labelJenisOlahraga.setText(this.pemesanan.getClassJadwal().getLapangan().getOlahraga().getNama_olahraga());
-        labelTotalHarga.setText(String.format("Rp. %.2f",
-                (this.pemesanan.getClassJadwal().getLapangan().getHarga() * this.pemesanan.getJadwal().size())));
+        labelTotalHarga.setText(String.format("Rp. %.2f",harga));
+    }
+    
+    public int getJumlahPesanan() {
+        int jumlah=0;
+        for(Jadwal elem : this.pemesanan.getJadwal()) {
+            jumlah += elem.getJam_Selesai().getHour()-elem.getJam_Mulai().getHour();
+        }
+        return jumlah;
     }
 
     /**
@@ -56,6 +70,8 @@ public class Checkout extends javax.swing.JFrame {
         labelNamaLapangan = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         labelJenisOlahraga = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        tipePembayaran = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,9 +86,9 @@ public class Checkout extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("SELESAIKAN PEMBAYARAN");
+        jLabel1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
 
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -127,6 +143,15 @@ public class Checkout extends javax.swing.JFrame {
 
         labelJenisOlahraga.setText("Jenis Olahraga");
 
+        jLabel4.setText("Tipe Pembayaran :");
+
+        tipePembayaran.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lunas", "DP"}));
+        tipePembayaran.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tipePembayaranActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -136,20 +161,12 @@ public class Checkout extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(173, 173, 173)
+                .addComponent(btnCheckout, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(69, 69, 69)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGap(57, 57, 57)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(comboMetodePembayaran, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(97, 97, 97))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(labelTotalHarga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addContainerGap())))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -167,11 +184,23 @@ public class Checkout extends javax.swing.JFrame {
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(labelJenisOlahraga, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(173, 173, 173)
-                .addComponent(btnCheckout, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addGap(57, 57, 57)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(comboMetodePembayaran, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(97, 97, 97))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(labelTotalHarga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(tipePembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,7 +228,11 @@ public class Checkout extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboMetodePembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tipePembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(labelTotalHarga))
@@ -241,12 +274,25 @@ public class Checkout extends javax.swing.JFrame {
         PembayaranFrame pembayaran = new PembayaranFrame(
             pemesanan,
             comboMetodePembayaran.getSelectedItem().toString(),
-            this.pemesanan.getClassJadwal().getLapangan().getHarga() * this.pemesanan.getJadwal().size()
+            this.totalHarga,
+            this.statusPembayaran
         );
         pembayaran.setVisible(true);
         this.dispose();
         System.out.println("pengguna : " + this.pengguna.getNama());
     }//GEN-LAST:event_btnCheckoutActionPerformed
+
+    private void tipePembayaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipePembayaranActionPerformed
+        if(tipePembayaran.getSelectedItem().equals("DP")) {
+            harga = totalHarga * 0.5;
+            labelTotalHarga.setText(String.format("Rp. %.2f",harga));
+            this.statusPembayaran = "DP";
+        } else {
+            harga = totalHarga;
+            labelTotalHarga.setText(String.format("Rp. %.2f",harga));
+            this.statusPembayaran = "Lunas";
+        }
+    }//GEN-LAST:event_tipePembayaranActionPerformed
 
     /**
      * @param args the command line arguments
@@ -291,6 +337,7 @@ public class Checkout extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
@@ -300,5 +347,6 @@ public class Checkout extends javax.swing.JFrame {
     private javax.swing.JLabel labelLokasiLapangan;
     private javax.swing.JLabel labelNamaLapangan;
     private javax.swing.JLabel labelTotalHarga;
+    private javax.swing.JComboBox<String> tipePembayaran;
     // End of variables declaration//GEN-END:variables
 }

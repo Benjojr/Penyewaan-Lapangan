@@ -81,7 +81,7 @@ public class DashboardLapangan extends javax.swing.JFrame {
                 "<html><left>Lapangan: %s<br>Harga: %s/Jam<br>Lokasi: %s</left></html>",
                 lapangan.getNama_lapangan(),
                 lapangan.getHarga(),
-                lapangan.getLokasi()
+                lapangan.getLokasi().toStrings()
         ));
 
         // Tambahkan listener ke semua tombol jadwal (cukup satu loop)
@@ -652,7 +652,7 @@ public class DashboardLapangan extends javax.swing.JFrame {
                 maxId = getnumID(elem);
             }
         }
-        return String.format("%s%04d", init, (maxId + 1));
+        return String.format("%s%03d", init, (maxId + 1));
     }
 
     private String generateIDfromLast(String id, String init) {
@@ -669,7 +669,6 @@ public class DashboardLapangan extends javax.swing.JFrame {
         // Generate Booking baru
         LocalDate tanggal = tanggalPesan.getDate();
         if (tanggal == null) tanggal = LocalDate.now();
-        // Assuming you can pass null for Jadwal and Pembayaran at this stage
         
         // Buat ulang jadwals agar id_jadwal dan booking bisa diisi benar
         ArrayList<Jadwal> jadwalsWithBooking = new ArrayList<>();
