@@ -4,13 +4,15 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Pembayaran {
+    private String id_pembayaran;
     private LocalDate tanggal;
     private LocalTime jam;
     private String metode_pembayaran;
     private double jumlah;
     private boolean status_pembayaran;
     
-    public Pembayaran(LocalDate tanggal, LocalTime jam, String metode_pembayaran, double jumlah, boolean status_pembayaran) {
+    public Pembayaran(String id, LocalDate tanggal, LocalTime jam, String metode_pembayaran, double jumlah, boolean status_pembayaran) {
+        this.id_pembayaran = id;
         this.tanggal = tanggal;
         this.jam = jam;
         this.metode_pembayaran = metode_pembayaran;
@@ -59,5 +61,13 @@ public class Pembayaran {
 
     public void setJumlah(double jumlah) {
         this.jumlah = jumlah;
+    }
+    
+    public void setId(String id) {
+        this.id_pembayaran = id;
+    }
+    
+    public String getId() {
+        return this.id_pembayaran;
     }
 }

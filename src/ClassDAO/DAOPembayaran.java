@@ -19,16 +19,15 @@ import javax.swing.JOptionPane;
 public class DAOPembayaran {
     DAOBookingDetail daobook = new DAOBookingDetail();
     
-    public void Regist(String id, Pembayaran pembayaran)  {
+    public void Regist(Pembayaran pembayaran, String tipePembayaran)  {
         String sql = "INSERT INTO Pembayaran(id_pembayaran, tanggal, jam, metode_pembayaran, jumlah, status_pembayaran) VALUES (?,?,?,?,?,?)";
-        String status = (pembayaran.isStatusPembayaran())? "1":"0" ;
         try (Connection conn = DatabaseConnection.getConnection();PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, id);
+            stmt.setString(1, pembayaran.getId());
             stmt.setString(2, pembayaran.getTanggal().toString());
             stmt.setString(3, pembayaran.getJam().toString());
             stmt.setString(4, pembayaran.getMetodePembayaran());
             stmt.setDouble(5, pembayaran.getJumlah());
-            stmt.setString(6, status);
+            stmt.setString(6, tipePembayaran);
             stmt.executeUpdate();
             
         } catch (Exception e) {
@@ -46,6 +45,7 @@ public class DAOPembayaran {
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     pembayarans.add( new Pembayaran(
+                        rs.getString("id_pembayaran"),
                         rs.getDate("tanggal").toLocalDate(),
                         rs.getTime("jam").toLocalTime(),
                         rs.getString("metode_pembayaran"),

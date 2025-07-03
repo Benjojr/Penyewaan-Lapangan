@@ -23,6 +23,7 @@ public class PembayaranFrame extends javax.swing.JFrame {
     private LocalDate tanggal = LocalDate.of(waktuPembayaran.getYear(), waktuPembayaran.getMonth(), waktuPembayaran.getDayOfMonth());
     private LocalTime jam = LocalTime.now();
     private String statusPembayaran = "idle";
+    private String tipePembayaran;
     private boolean status;
     private Pembayaran hasil;
     private DAOPembayaran daopbyr = new DAOPembayaran();
@@ -30,13 +31,18 @@ public class PembayaranFrame extends javax.swing.JFrame {
     private DAOJadwal daojadwal = new DAOJadwal();
     private DAOLangganan langganandao = new DAOLangganan();
     
-    public PembayaranFrame(Booking pesanan, String bank, double hargaTotal) {
+    public PembayaranFrame(Booking pesanan, String bank, double hargaTotal, String tipePembayaran) {
         this.pesanan = pesanan;
         this.idPengguna = pesanan.getPengguna().getId();
         this.hargaAwal = hargaTotal;
         this.potongan = langganandao.LoadSomeById(this.pesanan.getPengguna().getSubscription().getIdLangganan()).getPotongan()*hargaAwal;
+        this.tipePembayaran = tipePembayaran;
+        if(this.tipePembayaran.equals("DP")) {
+            this.nominal = (hargaAwal-potongan)/2;
+        } else {
+            this.nominal = hargaAwal-potongan;
+        }
         
-        this.nominal = hargaAwal-potongan;
         this.Bank = bank;
         this.id = generateId(daopbyr.LoadAllId());
         initComponents();
@@ -48,11 +54,15 @@ public class PembayaranFrame extends javax.swing.JFrame {
     
     private void setFrame() {
         JudulPemesananLabel.setText("Pemesanan "+pesanan.getId_booking()+" : Lapangan "+pesanan.getLapangan().getNama_lapangan());
-        HargaAwalLabel.setText(String.format("Harga awal : Rp. %.2f",pesanan.getLapangan().getHarga()*pesanan.getJadwal().size()));
+        HargaAwalLabel.setText(String.format("Harga awal : Rp. %.2f",hargaAwal));
         BankLabel.setText("Via : "+Bank);
         KodePembayaranLabel.setText(String.format("Kode Pembayaran : %d",KodePembayaran));
         PotonganLabel.setText(String.format("Potongan : Rp. %.2f", potongan));
-        NominalLabel.setText(String.format("Nominal Pembayaran : Rp. %.2f", nominal));
+        if(this.tipePembayaran.equals("DP")) {
+            NominalLabel.setText(String.format("Nominal Pembayaran : Rp. %.2f (Rp. %.2f => cash)", nominal, nominal));
+        } else {
+            NominalLabel.setText(String.format("Nominal Pembayaran : Rp. %.2f", nominal));
+        }
         JadwalListCOBO.removeAllItems();
         for(Jadwal elem : this.pesanan.getJadwal()) {
             JadwalListCOBO.addItem(elem.getJam_Mulai().toString()+"-"+elem.getJam_Selesai().toString());
@@ -75,7 +85,7 @@ public class PembayaranFrame extends javax.swing.JFrame {
                 terbesar = Integer.parseInt(id);
             }
         }
-        return String.format("byr%03d", (terbesar+1));
+        return String.format("PMB%03d", (terbesar+1));
 
         
     }
@@ -96,6 +106,7 @@ public class PembayaranFrame extends javax.swing.JFrame {
         HargaAwalLabel = new javax.swing.JLabel();
         JadwalLabel = new javax.swing.JLabel();
         JadwalListCOBO = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -108,31 +119,31 @@ public class PembayaranFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        JudulPemesananLabel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         JudulPemesananLabel.setText("Pemesanan x : Lapangan X");
+        JudulPemesananLabel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        UsrnmLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         UsrnmLabel.setText("Username : xxxxxxxxx ( jenisLangganan )");
+        UsrnmLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        BankLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         BankLabel.setText("Bank : xxxxxx");
+        BankLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        TimeLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         TimeLabel.setText("Waktu : xx : xx : xx");
+        TimeLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        NominalLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         NominalLabel.setText("Nominal Pembayaran : Rp. xxx.xxx.xxx");
+        NominalLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        PotonganLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         PotonganLabel.setText("Potongan : Rp. xxx.xxx.xxx");
+        PotonganLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        HargaAwalLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         HargaAwalLabel.setText("Harga awal : Rp. xxx.xxx.xxx");
+        HargaAwalLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        JadwalLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         JadwalLabel.setText("Jadwal : ");
+        JadwalLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         JadwalListCOBO.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         JadwalListCOBO.addActionListener(new java.awt.event.ActionListener() {
@@ -141,6 +152,8 @@ public class PembayaranFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Tipe Pembayaran : ");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -148,17 +161,20 @@ public class PembayaranFrame extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(UsrnmLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BankLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(HargaAwalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PotonganLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(NominalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(JadwalLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JadwalListCOBO, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(TimeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(151, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(UsrnmLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
+                        .addComponent(BankLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(HargaAwalLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
+                        .addComponent(PotonganLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(TimeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(JadwalLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(JadwalListCOBO, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(NominalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,7 +189,9 @@ public class PembayaranFrame extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JadwalLabel)
                     .addComponent(JadwalListCOBO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(HargaAwalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PotonganLabel)
@@ -184,33 +202,33 @@ public class PembayaranFrame extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel6.setText("Langkah-langkah :");
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
 
-        jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel7.setText("1. Pergi ke ATM atau buka aplikasi mobile Banking anda");
-        jLabel7.setToolTipText("");
         jLabel7.setAutoscrolls(true);
+        jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel7.setToolTipText("");
 
-        jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel8.setText("3. Pergi ke ATM atau buka aplikasi mobile Banking anda");
-        jLabel8.setToolTipText("");
         jLabel8.setAutoscrolls(true);
+        jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel8.setToolTipText("");
 
-        jLabel9.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel9.setText("2. Pergi ke ATM atau buka aplikasi mobile Banking anda");
-        jLabel9.setToolTipText("");
         jLabel9.setAutoscrolls(true);
+        jLabel9.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel9.setToolTipText("");
 
-        jLabel10.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel10.setText("4. Pergi ke ATM atau buka aplikasi mobile Banking anda");
-        jLabel10.setToolTipText("");
         jLabel10.setAutoscrolls(true);
+        jLabel10.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel10.setToolTipText("");
 
-        jLabel11.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel11.setText("5. Pergi ke ATM atau buka aplikasi mobile Banking anda");
-        jLabel11.setToolTipText("");
         jLabel11.setAutoscrolls(true);
+        jLabel11.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel11.setToolTipText("");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -245,8 +263,8 @@ public class PembayaranFrame extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        KodePembayaranLabel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         KodePembayaranLabel.setText("Kode Pembayaran : xxxxx");
+        KodePembayaranLabel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         jButton1.setText("Bayar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -286,9 +304,9 @@ public class PembayaranFrame extends javax.swing.JFrame {
                 .addComponent(JudulPemesananLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(KodePembayaranLabel)
-                .addGap(12, 12, 12)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -303,7 +321,7 @@ public class PembayaranFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -333,12 +351,13 @@ public class PembayaranFrame extends javax.swing.JFrame {
                     "Information",
                     JOptionPane.INFORMATION_MESSAGE);
                     status = tempStatus.equals("sukses");
-                    hasil = new Pembayaran(tanggal, jam, Bank, nominal, status);  
+                    hasil = new Pembayaran(id, tanggal, jam, Bank, nominal, status); 
+                    pesanan.setPembayaran(hasil);
+                    daopbyr.Regist(hasil, this.tipePembayaran);
                     daobook.RegistBooking(pesanan);
                     for(Jadwal elem : pesanan.getJadwal()) {
-                        daojadwal.RegistJadwal(elem);
+                        daojadwal.RegistJadwal(elem, pesanan.getId_booking());
                     }
-                    daopbyr.Regist(id, hasil);
                     Invoice invoice = new Invoice(pesanan);
                     invoice.setVisible(true);
                     this.dispose();
@@ -410,6 +429,7 @@ public class PembayaranFrame extends javax.swing.JFrame {
     private javax.swing.JLabel TimeLabel;
     private javax.swing.JLabel UsrnmLabel;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel6;

@@ -67,7 +67,7 @@ public class DAOJadwal {
         return list;
     }
 
-    public void RegistJadwal(Jadwal jadwal) {
+    public void RegistJadwal(Jadwal jadwal, String id_Booking) {
         String sql = "INSERT INTO Jadwal(id_Jadwal, tanggal, jam_mulai, jam_selesai, id_booking, id_lapangan) VALUES (?,?,?,?,?,?)";
         try (Connection conn = DatabaseConnection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -75,6 +75,7 @@ public class DAOJadwal {
             stmt.setString(2, jadwal.getTanggal().toString());
             stmt.setString(3, jadwal.getJam_Mulai().toString());
             stmt.setString(4, jadwal.getJam_Selesai().toString());
+            stmt.setString(5, id_Booking);
             stmt.setString(6, jadwal.getLapangan().getId_lapangan());
             stmt.executeUpdate();
 
