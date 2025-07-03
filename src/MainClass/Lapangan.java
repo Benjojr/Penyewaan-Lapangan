@@ -20,9 +20,10 @@ public class Lapangan {
     private Pemilik pemilik;
     private Olahraga olahraga;
     private Jadwal jadwal;
+    private String status;
     private final ArrayList<Jadwal> jadwals = new ArrayList<>();
 
-    public Lapangan(String id_lapangan, String nama_lapangan, double harga, double luas, Olahraga olahraga, LokasiLapangan lokasiLapangan, Pemilik pemilik, Fasilitas fasilitas) {
+    public Lapangan(String id_lapangan, String nama_lapangan, double harga, double luas, Olahraga olahraga, LokasiLapangan lokasiLapangan, Pemilik pemilik, Fasilitas fasilitas, String status) {
         this.id_lapangan = id_lapangan;
         this.harga = harga;
         this.luas = luas;
@@ -31,6 +32,7 @@ public class Lapangan {
         this.lokasiLapangan = lokasiLapangan;
         this.pemilik = pemilik;
         this.fasilitas = fasilitas;
+        this.status = status;
     }
     
 
@@ -125,5 +127,9 @@ public class Lapangan {
 
     public void addJadwal(Jadwal jadwal) {
         this.jadwals.add(jadwal);
+    }
+    
+    public String getStatus(){
+        return status;
     }
 }

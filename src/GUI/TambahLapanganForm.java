@@ -34,6 +34,7 @@ public class TambahLapanganForm extends javax.swing.JFrame {
      * Creates new form TambahLapanganForm
      */
     private final Pemilik pemilik;
+
     public TambahLapanganForm(Pemilik pemilik) {
         initComponents();
         isiDropDownJenisOlahraga();
@@ -620,12 +621,12 @@ public class TambahLapanganForm extends javax.swing.JFrame {
     private void provinsi_InputActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here if needed
     }
-    
+
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
         try {
             String namaLapangan = namaLapangan_Input.getText();
             String jenisLapangan = (String) dropDownJenisLapangan.getSelectedItem();
-            
+
             double hargaPerJam = Double.parseDouble(hargaPerJam_Input.getText());
             double luasLapangan = Double.parseDouble(luasLapangan_Input.getText());
             String toilet = toilet_Input.getText();
@@ -644,51 +645,54 @@ public class TambahLapanganForm extends javax.swing.JFrame {
             String provinsi = provinsi_Input.getText();
 
             DAOFasilitasLapangan daoFasilitasLapangan = new DAOFasilitasLapangan();
-            Fasilitas fasilitas =daoFasilitasLapangan.insertFasilitas(
-                new Fasilitas(
-                    idGenerator.getNextID("Fasilitas", "F", "id_fasilitas"),
-                    toilet, 
-                    jenisLapangan, 
-                    areaParkir, 
-                    wifi, 
-                    perlengkapan, 
-                    aksesListrik, 
-                    pencahayaan, 
-                    p3k, 
-                    lainnya
-                )
+            Fasilitas fasilitas = daoFasilitasLapangan.insertFasilitas(
+                    new Fasilitas(
+                            idGenerator.getNextID("Fasilitas", "F", "id_fasilitas"),
+                            toilet,
+                            jenisLapangan,
+                            areaParkir,
+                            wifi,
+                            perlengkapan,
+                            aksesListrik,
+                            pencahayaan,
+                            p3k,
+                            lainnya
+                    )
             );
             DAOLokasiLapangan daoLokasiLapangan = new DAOLokasiLapangan();
             LokasiLapangan lokasiLapangan = daoLokasiLapangan.insertLokasiLapangan(
-                new LokasiLapangan(
-                    idGenerator.getNextID("LokasiLapangan", "L", "id_lokasi"),
-                    jalan, 
-                    rtRw, 
-                    kelurahan, 
-                    kecamatan, 
-                    kota, 
-                    provinsi // tambahkan parameter ketujuh, misal kosong jika belum ada data
-                )
+                    new LokasiLapangan(
+                            idGenerator.getNextID("LokasiLapangan", "L", "id_lokasi"),
+                            jalan,
+                            rtRw,
+                            kelurahan,
+                            kecamatan,
+                            kota,
+                            provinsi // tambahkan parameter ketujuh, misal kosong jika belum ada data
+                    )
             );
             DAOLapangan daoLapangan = new DAOLapangan();
 
             Object selected = DropDownJenisOlahraga.getSelectedItem();
             Olahraga jenisOlahraga = null;
-            if (selected instanceof Olahraga o) jenisOlahraga = o;
+            if (selected instanceof Olahraga o) {
+                jenisOlahraga = o;
+            }
 
             Lapangan lapangan = new Lapangan(
-                idGenerator.getNextID("Lapangan", "LP", "id_lapangan"),
-                namaLapangan, 
-                hargaPerJam,
-                luasLapangan,
-                jenisOlahraga,
-                lokasiLapangan,
-                this.pemilik,
-                fasilitas
+                    idGenerator.getNextID("Lapangan", "LP", "id_lapangan"),
+                    namaLapangan,
+                    hargaPerJam,
+                    luasLapangan,
+                    jenisOlahraga,
+                    lokasiLapangan,
+                    this.pemilik,
+                    fasilitas,
+                    "buka"
             );
 
             daoLapangan.insertLapangan(
-                lapangan
+                    lapangan
             );
 
             Dashboard_Pemilik dashboardPemilikLapangan = new Dashboard_Pemilik(this.pemilik);

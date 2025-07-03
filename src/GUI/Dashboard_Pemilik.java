@@ -49,7 +49,7 @@ public class Dashboard_Pemilik extends javax.swing.JFrame {
     private void LoadLapangan() {
         Lapangans = daolap.LoadSomeByPemilik(this.pemilik.getId_pemilik());
         for(Lapangan elem : Lapangans) {
-            TemplateLap tl = new TemplateLap(elem, this);
+            TemplateLap tl = new TemplateLap(elem, this, pemilik);
             containerLap.add(tl);
         }
     }
