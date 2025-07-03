@@ -22,6 +22,7 @@ import MainClass.Olahraga;
 import MainClass.Pemilik;
 import idGenerator.idGenerator;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -621,78 +622,86 @@ public class TambahLapanganForm extends javax.swing.JFrame {
     }
     
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
-        String namaLapangan = namaLapangan_Input.getText();
-        String jenisLapangan = (String) dropDownJenisLapangan.getSelectedItem();
-        
-        double hargaPerJam = Double.parseDouble(hargaPerJam_Input.getText());
-        double luasLapangan = Double.parseDouble(luasLapangan_Input.getText());
-        String toilet = toilet_Input.getText();
-        String areaParkir = areaParkir_Input.getText();
-        String wifi = wifi_Input.getText();
-        String perlengkapan = perlengkapan_Input.getText();
-        String aksesListrik = aksesListrik_Input.getText();
-        String pencahayaan = pencahayaan_Input.getText();
-        String p3k = p3k_Input.getText();
-        String lainnya = lainnya_Input.getText();
-        String jalan = jalan_Input.getText();
-        String rtRw = rt_rw_Input.getText();
-        String kelurahan = kelurahan_Input.getText();
-        String kecamatan = kecamatan_Input.getText();
-        String kota = kota_Input.getText();
-        String provinsi = provinsi_Input.getText();
+        try {
+            String namaLapangan = namaLapangan_Input.getText();
+            String jenisLapangan = (String) dropDownJenisLapangan.getSelectedItem();
+            
+            double hargaPerJam = Double.parseDouble(hargaPerJam_Input.getText());
+            double luasLapangan = Double.parseDouble(luasLapangan_Input.getText());
+            String toilet = toilet_Input.getText();
+            String areaParkir = areaParkir_Input.getText();
+            String wifi = wifi_Input.getText();
+            String perlengkapan = perlengkapan_Input.getText();
+            String aksesListrik = aksesListrik_Input.getText();
+            String pencahayaan = pencahayaan_Input.getText();
+            String p3k = p3k_Input.getText();
+            String lainnya = lainnya_Input.getText();
+            String jalan = jalan_Input.getText();
+            String rtRw = rt_rw_Input.getText();
+            String kelurahan = kelurahan_Input.getText();
+            String kecamatan = kecamatan_Input.getText();
+            String kota = kota_Input.getText();
+            String provinsi = provinsi_Input.getText();
 
-        DAOFasilitasLapangan daoFasilitasLapangan = new DAOFasilitasLapangan();
-        Fasilitas fasilitas =daoFasilitasLapangan.insertFasilitas(
-            new Fasilitas(
-                idGenerator.getNextID("Fasilitas", "F", "id_fasilitas"),
-                toilet, 
-                jenisLapangan, 
-                areaParkir, 
-                wifi, 
-                perlengkapan, 
-                aksesListrik, 
-                pencahayaan, 
-                p3k, 
-                lainnya
-            )
-        );
-        DAOLokasiLapangan daoLokasiLapangan = new DAOLokasiLapangan();
-        LokasiLapangan lokasiLapangan = daoLokasiLapangan.insertLokasiLapangan(
-            new LokasiLapangan(
-                idGenerator.getNextID("LokasiLapangan", "L", "id_lokasi"),
-                jalan, 
-                rtRw, 
-                kelurahan, 
-                kecamatan, 
-                kota, 
-                provinsi // tambahkan parameter ketujuh, misal kosong jika belum ada data
-            )
-        );
-        DAOLapangan daoLapangan = new DAOLapangan();
+            DAOFasilitasLapangan daoFasilitasLapangan = new DAOFasilitasLapangan();
+            Fasilitas fasilitas =daoFasilitasLapangan.insertFasilitas(
+                new Fasilitas(
+                    idGenerator.getNextID("Fasilitas", "F", "id_fasilitas"),
+                    toilet, 
+                    jenisLapangan, 
+                    areaParkir, 
+                    wifi, 
+                    perlengkapan, 
+                    aksesListrik, 
+                    pencahayaan, 
+                    p3k, 
+                    lainnya
+                )
+            );
+            DAOLokasiLapangan daoLokasiLapangan = new DAOLokasiLapangan();
+            LokasiLapangan lokasiLapangan = daoLokasiLapangan.insertLokasiLapangan(
+                new LokasiLapangan(
+                    idGenerator.getNextID("LokasiLapangan", "L", "id_lokasi"),
+                    jalan, 
+                    rtRw, 
+                    kelurahan, 
+                    kecamatan, 
+                    kota, 
+                    provinsi // tambahkan parameter ketujuh, misal kosong jika belum ada data
+                )
+            );
+            DAOLapangan daoLapangan = new DAOLapangan();
 
-        Object selected = DropDownJenisOlahraga.getSelectedItem();
-        Olahraga jenisOlahraga = null;
-        if (selected instanceof Olahraga o) jenisOlahraga = o;
+            Object selected = DropDownJenisOlahraga.getSelectedItem();
+            Olahraga jenisOlahraga = null;
+            if (selected instanceof Olahraga o) jenisOlahraga = o;
 
-        Lapangan lapangan = new Lapangan(
-            idGenerator.getNextID("Lapangan", "LP", "id_lapangan"),
-            namaLapangan, 
-            hargaPerJam,
-            luasLapangan,
-            jenisOlahraga,
-            lokasiLapangan,
-            this.pemilik,
-            fasilitas
-        );
+            Lapangan lapangan = new Lapangan(
+                idGenerator.getNextID("Lapangan", "LP", "id_lapangan"),
+                namaLapangan, 
+                hargaPerJam,
+                luasLapangan,
+                jenisOlahraga,
+                lokasiLapangan,
+                this.pemilik,
+                fasilitas
+            );
 
-        daoLapangan.insertLapangan(
-            lapangan
-        );
+            daoLapangan.insertLapangan(
+                lapangan
+            );
 
-        Dashboard_Pemilik dashboardPemilikLapangan = new Dashboard_Pemilik();
-        dashboardPemilikLapangan.setVisible(true);
-        dashboardPemilikLapangan.setLocationRelativeTo(null);
-        this.dispose();
+            Dashboard_Pemilik dashboardPemilikLapangan = new Dashboard_Pemilik(this.pemilik);
+            dashboardPemilikLapangan.setVisible(true);
+            dashboardPemilikLapangan.setLocationRelativeTo(null);
+            this.dispose();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Harga per jam dan luas lapangan harus berupa angka.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(this, "Pastikan semua field telah diisi dengan benar.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat menambahkan lapangan: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_submitBtnActionPerformed
 
     /**
