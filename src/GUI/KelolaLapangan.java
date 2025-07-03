@@ -626,6 +626,8 @@ public class KelolaLapangan extends javax.swing.JFrame {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         Dashboard_Pemilik dpl = new Dashboard_Pemilik(pemilik);
+        dpl.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnNonaktifkanJadwalActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnNonaktifkanJadwalActionPerformed
