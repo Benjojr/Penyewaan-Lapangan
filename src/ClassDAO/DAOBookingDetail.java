@@ -67,7 +67,7 @@ public class DAOBookingDetail {
 
                 // Gabungkan ke jadwal
                 jadwal.setLapangan(lapangan);
-                detail.setJadwal(jadwal);
+                detail.addJadwal(jadwal);
 
                 // Tambahkan ke daftar booking
                 bookings.add(detail);
@@ -177,7 +177,7 @@ public class DAOBookingDetail {
 
                 // Gabungkan ke jadwal
                 jadwal.setLapangan(lapangan);
-                detail.setJadwal(jadwal);
+                detail.addJadwal(jadwal);
 
             }
         } catch (SQLException e) {

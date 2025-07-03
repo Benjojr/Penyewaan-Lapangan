@@ -568,7 +568,12 @@ public class DashboardLapangan extends javax.swing.JFrame {
             i++;
         }
         labelJadwalYangDipilih.setText("Jadwal dipilih: " + sb.toString());
+        System.out.println(jadwals.size());
+        for(Jadwal elem : jadwals){
+            System.out.println("\n\n====="+elem.getJam_Mulai() + "-"+ elem.getJam_Selesai());
+        }
         return true;
+        
     }
 
 
@@ -683,9 +688,10 @@ public class DashboardLapangan extends javax.swing.JFrame {
                 this.pengguna,
                 null // Pembayaran will be set later
             );
-            this.pemesanan.setJadwal(newJadwal);
+            
         }
-        jadwals = jadwalsWithBooking; // replace jika perlu menyimpan yang baru
+        jadwals = jadwalsWithBooking;
+        this.pemesanan.setJadwal(jadwals);
 
         // Lanjut ke proses booking/checkout
         Checkout co = new Checkout(pemesanan, this);

@@ -5,6 +5,7 @@ import MainClass.Booking;
 import MainClass.Jadwal;
 import MainClass.Pengguna;
 import com.formdev.flatlaf.FlatLightLaf;
+import java.util.ArrayList;
 import javax.swing.UIManager;
 
 
@@ -39,8 +40,11 @@ public class Checkout extends javax.swing.JFrame {
     
     public int getJumlahPesanan() {
         int jumlah=0;
-        for(Jadwal elem : this.pemesanan.getJadwal()) {
+        ArrayList<Jadwal> jadwals =this.pemesanan.getJadwal();
+        System.out.println("ukuran : "+jadwals.size());
+        for(Jadwal elem : jadwals) {
             jumlah += elem.getJam_Selesai().getHour()-elem.getJam_Mulai().getHour();
+            System.out.println("jumlah jadwal ; "+elem.getJam_Selesai().getHour()+" - "+elem.getJam_Mulai().getHour()+" = "+jumlah);
         }
         return jumlah;
     }
