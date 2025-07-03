@@ -25,6 +25,7 @@ public class EditInfoLapangan extends javax.swing.JFrame {
         initComponents();
         isiFormData();
         isiComboBoxJenisOlahraga();
+        isiComboBoxJenisLapangan();
         setLocationRelativeTo(null);
     }
 
@@ -69,6 +70,13 @@ public class EditInfoLapangan extends javax.swing.JFrame {
         InputPencahayaan.setText(fasilitas.getPencahayaan());
         InputP3K.setText(fasilitas.getP3k());
         InputLainnya.setText(fasilitas.getLainnya());
+    }
+    
+    private void isiComboBoxJenisLapangan() {
+    ComboBoxJenisLapangan.removeAllItems();
+        ComboBoxJenisLapangan.addItem("-- Pilih Jenis Lapangan --");
+        ComboBoxJenisLapangan.addItem("Indoor");
+        ComboBoxJenisLapangan.addItem("Outdoor");
     }
 
     /**
