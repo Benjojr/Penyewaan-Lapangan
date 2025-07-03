@@ -57,7 +57,7 @@ public class DashboardLapangan extends javax.swing.JFrame {
         DatePickerSettings settings = tanggalPesan.getSettings();
         settings.setVetoPolicy(date -> !date.isBefore(LocalDate.now()));
 
-        //setGambar();
+//        setGambar();
 
         jadwalButtons = new ArrayList<>(Arrays.asList(
                 btnJadwalTujuh, btnJadwalDelapan, btnJadwalSembilan, btnJadwalSepuluh,
@@ -477,10 +477,10 @@ public class DashboardLapangan extends javax.swing.JFrame {
         ulsFrame.setVisible(true);
     }// GEN-LAST:event_showUlasanBtnActionPerformed
 
-    private void setGambar() {
-        labelGambar.setIcon(
-                new javax.swing.ImageIcon(getClass().getResource("/assets/" + lapangan.getId_lapangan() + ".png"))); // NOI18N
-    }
+//    private void setGambar() {
+//        labelGambar.setIcon(
+//                new javax.swing.ImageIcon(getClass().getResource("/assets/" + lapangan.getId_lapangan() + ".png"))); // NOI18N
+//    }
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton2ActionPerformed
         parent.setVisible(true);
@@ -670,13 +670,7 @@ public class DashboardLapangan extends javax.swing.JFrame {
         LocalDate tanggal = tanggalPesan.getDate();
         if (tanggal == null) tanggal = LocalDate.now();
         // Assuming you can pass null for Jadwal and Pembayaran at this stage
-        this.pemesanan = new Booking(
-            generateID(this.daoBook.getIdAllBooking(), "B"),
-            null, // Jadwal will be set later
-            this.pengguna,
-            null // Pembayaran will be set later
-        );
-
+        
         // Buat ulang jadwals agar id_jadwal dan booking bisa diisi benar
         ArrayList<Jadwal> jadwalsWithBooking = new ArrayList<>();
         for (Jadwal j : jadwals) {
@@ -684,6 +678,12 @@ public class DashboardLapangan extends javax.swing.JFrame {
             Jadwal newJadwal = new Jadwal(idJadwal, tanggal, j.getJam_Mulai(), j.getJam_Selesai(), lapangan);
             jadwalsWithBooking.add(newJadwal);
             // Jika Booking support multi-jadwal, tambahkan ke Booking
+            this.pemesanan = new Booking(
+                generateID(this.daoBook.getIdAllBooking(), "B"),
+                newJadwal, // Jadwal will be set later
+                this.pengguna,
+                null // Pembayaran will be set later
+            );
             this.pemesanan.setJadwal(newJadwal);
         }
         jadwals = jadwalsWithBooking; // replace jika perlu menyimpan yang baru

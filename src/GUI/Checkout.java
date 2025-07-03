@@ -16,10 +16,6 @@ public class Checkout extends javax.swing.JFrame {
     private Pengguna pengguna;
     DashboardLapangan parent;
 
-    
-    public Checkout(){
-        initComponents();
-    }
 
     public Checkout(Booking pemesanan, DashboardLapangan parent) {
         initComponents();
@@ -285,11 +281,6 @@ public class Checkout extends javax.swing.JFrame {
             System.err.println("Failed to initialize FlatLaf");
         }
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Checkout().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
