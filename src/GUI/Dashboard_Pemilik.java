@@ -344,7 +344,10 @@ public class Dashboard_Pemilik extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void ButtonEditLapanganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEditLapanganActionPerformed
-        //Masuk Menu Edit Lapangan
+        PilihEditInfoLapangan pedil = new PilihEditInfoLapangan(this.pemilik);
+        pedil.setVisible(true);
+        pedil.setLocationRelativeTo(null);
+        this.dispose();
     }//GEN-LAST:event_ButtonEditLapanganActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
