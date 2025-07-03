@@ -689,10 +689,10 @@ public class TambahLapanganForm extends javax.swing.JFrame {
             lapangan
         );
 
-        Dashboard_Pemilik dashboardPemilikLapangan = new Dashboard_Pemilik();
-        dashboardPemilikLapangan.setVisible(true);
-        dashboardPemilikLapangan.setLocationRelativeTo(null);
-        this.dispose();
+        //Dashboard_Pemilik dashboardPemilikLapangan = new Dashboard_Pemilik();
+        //dashboardPemilikLapangan.setVisible(true);
+        //dashboardPemilikLapangan.setLocationRelativeTo(null);
+        //this.dispose();
     }//GEN-LAST:event_submitBtnActionPerformed
 
     /**

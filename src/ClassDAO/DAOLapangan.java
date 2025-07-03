@@ -319,4 +319,23 @@ public class DAOLapangan {
             System.out.println("Error inserting Lapangan: " + e.getMessage());
         }
     }
+    
+    public void updateLapangan(Lapangan lapangan) {
+        String sql = "UPDATE Lapangan SET nama_lapangan = ?, harga_per_jam = ?, luas = ?, id_fasilitas = ?, id_lokasi = ?, id_pemilik = ?, id_olahraga = ? WHERE id_lapangan = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, lapangan.getNama_lapangan());
+            stmt.setDouble(2, lapangan.getHarga());
+            stmt.setDouble(3, lapangan.getLuas());
+            stmt.setString(4, lapangan.getFasilitas().getId_fasilitas());
+            stmt.setString(5, lapangan.getLokasi().getId_lokasi());
+            stmt.setString(6, lapangan.getPemilik().getId_pemilik());
+            stmt.setString(7, lapangan.getOlahraga().getId_olahraga());
+            stmt.setString(8, lapangan.getId_lapangan());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error updating lapangan: " + e.getMessage());
+        }
+    }
 }
