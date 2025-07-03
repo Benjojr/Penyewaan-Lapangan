@@ -69,7 +69,7 @@ public class Dashboard_Pemilik extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         containerLap = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        ButtonEditLapangan = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -113,16 +113,16 @@ public class Dashboard_Pemilik extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(186, 186, 186))
+                .addGap(156, 156, 156))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(28, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addGap(27, 27, 27))
         );
 
         containerLap.setLayout(new javax.swing.BoxLayout(containerLap, javax.swing.BoxLayout.Y_AXIS));
@@ -135,10 +135,10 @@ public class Dashboard_Pemilik extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Edit Lapangan");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        ButtonEditLapangan.setText("Edit Lapangan");
+        ButtonEditLapangan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                ButtonEditLapanganActionPerformed(evt);
             }
         });
 
@@ -152,8 +152,6 @@ public class Dashboard_Pemilik extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 102, 51));
         jLabel3.setText("Selamat Datang [NamaPemilik]!");
-
-        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\Axioo Pongo\\Downloads\\profile-user.png")); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 102, 51));
@@ -255,7 +253,7 @@ public class Dashboard_Pemilik extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ButtonEditLapangan, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1))
@@ -309,7 +307,7 @@ public class Dashboard_Pemilik extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ButtonEditLapangan, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(24, Short.MAX_VALUE))
@@ -345,9 +343,9 @@ public class Dashboard_Pemilik extends javax.swing.JFrame {
        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void ButtonEditLapanganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEditLapanganActionPerformed
         //Masuk Menu Edit Lapangan
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_ButtonEditLapanganActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         LoginFrame lf = new LoginFrame();
@@ -392,13 +390,13 @@ public class Dashboard_Pemilik extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ButtonEditLapangan;
     private javax.swing.JButton SimpanProfilbtn;
     private javax.swing.JLabel alamatlbl;
     private javax.swing.JPanel containerLap;
     private javax.swing.JTextField emailtf;
     private javax.swing.JLabel idtf;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
