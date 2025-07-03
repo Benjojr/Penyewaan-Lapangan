@@ -57,7 +57,7 @@ public class DashboardLapangan extends javax.swing.JFrame {
         DatePickerSettings settings = tanggalPesan.getSettings();
         settings.setVetoPolicy(date -> !date.isBefore(LocalDate.now()));
 
-        setGambar();
+        //setGambar();
 
         jadwalButtons = new ArrayList<>(Arrays.asList(
                 btnJadwalTujuh, btnJadwalDelapan, btnJadwalSembilan, btnJadwalSepuluh,

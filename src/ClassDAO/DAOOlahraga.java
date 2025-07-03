@@ -33,4 +33,26 @@ public class DAOOlahraga {
         }
         return olahragaList;
     }
+    
+    public Olahraga getOlahragaByName(String namaOlahraga) {
+        String sql = "SELECT * FROM JenisOlahraga WHERE nama_olahraga = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             java.sql.PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, namaOlahraga);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new Olahraga(
+                        rs.getString("id_olahraga"),
+                        rs.getString("nama_olahraga")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error get olahraga by name: " + e.getMessage());
+        }
+        return null;
+    }
 }
+
+

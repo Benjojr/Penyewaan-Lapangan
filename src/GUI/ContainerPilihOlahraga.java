@@ -269,19 +269,19 @@ public class ContainerPilihOlahraga extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLapFutsalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLapFutsalActionPerformed
-        setIDLapangan("o0001");
+        setIDLapangan("O001");
     }//GEN-LAST:event_btnLapFutsalActionPerformed
 
     private void btnLapBasketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLapBasketActionPerformed
-        setIDLapangan("o0004");
+        setIDLapangan("O004");
     }//GEN-LAST:event_btnLapBasketActionPerformed
 
     private void btnLapVoliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLapVoliActionPerformed
-        setIDLapangan("o0002");
+        setIDLapangan("O002");
     }//GEN-LAST:event_btnLapVoliActionPerformed
 
     private void btnLapBuluTangkisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLapBuluTangkisActionPerformed
-        setIDLapangan("o0003");
+        setIDLapangan("O003");
     }//GEN-LAST:event_btnLapBuluTangkisActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed

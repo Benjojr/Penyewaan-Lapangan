@@ -164,10 +164,10 @@
           <SubComponents>
             <Component class="javax.swing.JButton" name="btnLapFutsal">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Futsal"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="cc" red="99" type="rgb"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="Futsal"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLapFutsalActionPerformed"/>
