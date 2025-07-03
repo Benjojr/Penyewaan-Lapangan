@@ -732,7 +732,9 @@ public class KelolaLapangan extends javax.swing.JFrame {
     }// GEN-LAST:event_btnUbahStatusActionPerformed
 
     private void btnLaporanActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnLaporanActionPerformed
-        pindahCard("cardLaporan");
+        LaporanPemesananJadwal lp = new LaporanPemesananJadwal(lapangan);
+        lp.setVisible(true);
+        this.setVisible(false);
     }// GEN-LAST:event_btnLaporanActionPerformed
 
     private void btnJadwalTujuhActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnJadwalTujuhActionPerformed
