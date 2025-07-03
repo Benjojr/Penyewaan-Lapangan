@@ -5,6 +5,8 @@
 package template;
 
 import MainClass.Lapangan;
+import GUI.KelolaLapangan;
+import GUI.Dashboard_Pemilik;
 
 /**
  *
@@ -13,9 +15,11 @@ import MainClass.Lapangan;
 public class TemplateLap extends javax.swing.JPanel {
 
     private Lapangan lapangan;
-    public TemplateLap(Lapangan lapangan) {
+    private Dashboard_Pemilik parent;
+    public TemplateLap(Lapangan lapangan, Dashboard_Pemilik parent) {
         initComponents();
         this.lapangan = lapangan;
+        this.parent = parent;
         LoadInfo();
         
     }
@@ -113,7 +117,9 @@ public class TemplateLap extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void kelolaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kelolaBtnActionPerformed
-        // Masuk Ke Menu kelola Lapangan dengan Parameter Lapangan dari panel ini
+        KelolaLapangan kl = new KelolaLapangan(lapangan, parent);
+        kl.setVisible(true);
+        parent.setVisible(false);
     }//GEN-LAST:event_kelolaBtnActionPerformed
 
 
