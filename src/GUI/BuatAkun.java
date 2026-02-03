@@ -10,6 +10,7 @@ import com.github.lgooddatepicker.components.DatePicker;
 import idGenerator.idGenerator;
 import java.awt.Color;
 import java.time.LocalDate;
+import org.mindrot.jbcrypt.BCrypt;
 
 
 public class BuatAkun extends javax.swing.JFrame {
@@ -452,6 +453,7 @@ public class BuatAkun extends javax.swing.JFrame {
             if(KonversiBtn.getText().equals("Pengguna")) {
                 if(cekUsernamePengguna(username)){
                     if (password.equals(confirmPass)){
+                        String passwordhash = BCrypt.hashpw(password, BCrypt.gensalt());
                         daopgn.Regist(
                             idGenerator.getNextID("Pengguna", "P", "id_pengguna"),
                             nama,
@@ -460,7 +462,7 @@ public class BuatAkun extends javax.swing.JFrame {
                             selectedDateOfBirth,
                             alamat.getId_alamat(),
                             username,
-                            password);
+                            passwordhash);
                         LoginFrame newLogin = new LoginFrame();
                         newLogin.setVisible(true);
                         this.dispose();

@@ -145,7 +145,7 @@ public class DAOPengguna {
 
     public void Regist(String id, String nama, String email, String no_hp, LocalDate tanggal_lahir, String id_alamat,
             String username, String password) {
-        String sql = "INSERT INTO Pengguna(id_pengguna, nama, email, no_hp, tanggal_lahir, id_alamat, id_subscription, password, username) VALUES (?,?,?,?,?,?,'SUB001',?,?)";
+        String sql = "INSERT INTO Pengguna(id_pengguna, nama, email, no_hp, tanggal_lahir, id_alamat, id_subscription, password, username) VALUES (?,?,?,?,?,?,'S001',?,?)";
         try (Connection conn = DatabaseConnection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setString(1, id);

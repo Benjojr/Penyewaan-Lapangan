@@ -11,6 +11,7 @@ import javax.swing.SwingUtilities;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import javax.swing.UIManager;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class LoginFrame extends javax.swing.JFrame {
 
@@ -208,7 +209,7 @@ public class LoginFrame extends javax.swing.JFrame {
                 SwingUtilities.invokeLater(() -> loading.dispose());
 
                 if (penggunaSaatIni != null) {
-                    if (password.equals(penggunaSaatIni.getPassword())) {
+                    if (BCrypt.checkpw(password,penggunaSaatIni.getPassword())) {
                         SwingUtilities.invokeLater(() -> {
                             JOptionPane.showMessageDialog(null, "Login Berhasil.", "Info", JOptionPane.INFORMATION_MESSAGE);
                             Dashboard dsb = new Dashboard(penggunaSaatIni);
